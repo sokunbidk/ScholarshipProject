@@ -1,0 +1,31 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio Version 16
+VisualStudioVersion = 16.0.31410.357
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ScholarshipManagement.Data", "ScholarshipManagement.Data\ScholarshipManagement.Data.csproj", "{D9C47A02-926C-4A11-A6F0-DD2FA6402B18}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ScholarshipManagement.Web.UI", "ScholarshipManagement.Web.UI\ScholarshipManagement.Web.UI.csproj", "{52170682-53B7-4C3B-82C7-DACF3A38262A}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{D9C47A02-926C-4A11-A6F0-DD2FA6402B18}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{D9C47A02-926C-4A11-A6F0-DD2FA6402B18}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{D9C47A02-926C-4A11-A6F0-DD2FA6402B18}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{D9C47A02-926C-4A11-A6F0-DD2FA6402B18}.Release|Any CPU.Build.0 = Release|Any CPU
+		{52170682-53B7-4C3B-82C7-DACF3A38262A}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{52170682-53B7-4C3B-82C7-DACF3A38262A}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{52170682-53B7-4C3B-82C7-DACF3A38262A}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{52170682-53B7-4C3B-82C7-DACF3A38262A}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {4F58065A-2473-43B3-9966-5DE38F50B16C}
+	EndGlobalSection
+EndGlobal

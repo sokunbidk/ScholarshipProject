@@ -1,0 +1,63 @@
+﻿@model ScholarshipManagement.Data.CreateUserRequestModel 
+@{
+    ViewData["Title"] = "Sign Up";
+}
+
+<div class="row">
+
+    <div class="col-md-7">
+        <div class="card">
+            <div class="card-header">
+                <h4>@ViewData["Title"]</h4>
+            </div>
+
+            <div class="card card-body">
+                <form method="POST">
+
+                    <div class="form-group">
+                        <label asp-for="UserName"></label>
+                        <input type="text" class="form-control" asp-for="UserName" />
+                        <span asp-validation-for="UserName"></span>
+                    </div>
+
+                    <div class="form-row">
+                        <div class="form-group col-lg-4">
+                            <label asp-for="Email"></label>
+                            <input type="text" asp-for="Email" class="form-control" />
+                            <span asp-validation-for="Email"></span>
+                        </div>
+
+                        <div class="form-group col-lg-4">
+                            <label asp-for="PhoneNumber"></label>
+                            <input type="text" asp-for="PhoneNumber" class="form-control" />
+                            <span asp-validation-for="PhoneNumber"></span>
+                        </div>
+
+                        <div class="form-group col-lg-4">
+                            <label asp-for="MemberCode"></label>
+                            <input class="form-control" type="text" asp-for="MemberCode" />
+                            <span asp-validation-for="MemberCode"></span>
+                        </div>
+                    </div>
+
+                    <div class="form-group">
+                        <label asp-for="Password"></label>
+                        <input class="form-control" type="text" asp-for="Password" />
+                        <span asp-validation-for="Password"></span>
+                    </div>
+
+                    <div class="form-row">
+                        <div class="form-group">
+                            <label asp-for="ConfirmPassword"></label>
+                            <input class="form-control" type="text" asp-for="ConfirmPassword" />
+                            <span asp-validation-for="ConfirmPassword"></span>
+                        </div>
+
+                        <input type="submit" class="btn btn-success" value="Save" />
+                        </div>
+                </form>
+            </div>
+        </div>
+    </div>
+
+</div>

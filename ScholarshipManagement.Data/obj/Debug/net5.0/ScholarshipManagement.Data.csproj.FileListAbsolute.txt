@@ -1,0 +1,15 @@
+C:\Users\ADD. SEC. MA'AL\Desktop\FullStackTraining\CsharpTraining\ScholarshipManagement\ScholarshipManagement.Data\bin\Debug\net5.0\ScholarshipManagement.Data.deps.json
+C:\Users\ADD. SEC. MA'AL\Desktop\FullStackTraining\CsharpTraining\ScholarshipManagement\ScholarshipManagement.Data\bin\Debug\net5.0\ScholarshipManagement.Data.runtimeconfig.json
+C:\Users\ADD. SEC. MA'AL\Desktop\FullStackTraining\CsharpTraining\ScholarshipManagement\ScholarshipManagement.Data\bin\Debug\net5.0\ScholarshipManagement.Data.runtimeconfig.dev.json
+C:\Users\ADD. SEC. MA'AL\Desktop\FullStackTraining\CsharpTraining\ScholarshipManagement\ScholarshipManagement.Data\bin\Debug\net5.0\ScholarshipManagement.Data.dll
+C:\Users\ADD. SEC. MA'AL\Desktop\FullStackTraining\CsharpTraining\ScholarshipManagement\ScholarshipManagement.Data\bin\Debug\net5.0\ref\ScholarshipManagement.Data.dll
+C:\Users\ADD. SEC. MA'AL\Desktop\FullStackTraining\CsharpTraining\ScholarshipManagement\ScholarshipManagement.Data\bin\Debug\net5.0\ScholarshipManagement.Data.pdb
+C:\Users\ADD. SEC. MA'AL\Desktop\FullStackTraining\CsharpTraining\ScholarshipManagement\ScholarshipManagement.Data\obj\Debug\net5.0\ScholarshipManagement.Data.csproj.AssemblyReference.cache
+C:\Users\ADD. SEC. MA'AL\Desktop\FullStackTraining\CsharpTraining\ScholarshipManagement\ScholarshipManagement.Data\obj\Debug\net5.0\ScholarshipManagement.Data.GeneratedMSBuildEditorConfig.editorconfig
+C:\Users\ADD. SEC. MA'AL\Desktop\FullStackTraining\CsharpTraining\ScholarshipManagement\ScholarshipManagement.Data\obj\Debug\net5.0\ScholarshipManagement.Data.AssemblyInfoInputs.cache
+C:\Users\ADD. SEC. MA'AL\Desktop\FullStackTraining\CsharpTraining\ScholarshipManagement\ScholarshipManagement.Data\obj\Debug\net5.0\ScholarshipManagement.Data.AssemblyInfo.cs
+C:\Users\ADD. SEC. MA'AL\Desktop\FullStackTraining\CsharpTraining\ScholarshipManagement\ScholarshipManagement.Data\obj\Debug\net5.0\ScholarshipManagement.Data.csproj.CoreCompileInputs.cache
+C:\Users\ADD. SEC. MA'AL\Desktop\FullStackTraining\CsharpTraining\ScholarshipManagement\ScholarshipManagement.Data\obj\Debug\net5.0\ScholarshipManagement.Data.dll
+C:\Users\ADD. SEC. MA'AL\Desktop\FullStackTraining\CsharpTraining\ScholarshipManagement\ScholarshipManagement.Data\obj\Debug\net5.0\ref\ScholarshipManagement.Data.dll
+C:\Users\ADD. SEC. MA'AL\Desktop\FullStackTraining\CsharpTraining\ScholarshipManagement\ScholarshipManagement.Data\obj\Debug\net5.0\ScholarshipManagement.Data.pdb
+C:\Users\ADD. SEC. MA'AL\Desktop\FullStackTraining\CsharpTraining\ScholarshipManagement\ScholarshipManagement.Data\obj\Debug\net5.0\ScholarshipManagement.Data.genruntimeconfig.cache

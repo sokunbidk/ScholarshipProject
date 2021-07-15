@@ -1,0 +1,98 @@
+﻿@model ScholarshipManagement.Data.CreateApplicationFormRequestModel
+@{
+    ViewData["Title"] = "Application Form";
+}
+
+<div class="row">
+
+    <div class="col-md-7">
+        <div class="card">
+            <div class="card-header">
+                <h4>Apply For Scholarship</h4>
+            </div>
+
+            <div class="card card-body">
+                <form method="POST">
+
+                    <div class="form-group">
+                        <label asp-for="InstitutionType"></label>
+                        <input type="text" class="form-control" asp-for="InstitutionType" />
+                        <span asp-validation-for="InstitutionType"></span>
+                    </div>
+                    <div>
+                        <label asp-for="NameOfSchool"></label>
+                        <input id="Text1" type="text" asp-for="NameOfSchool" />
+                        <span asp-validation-for="NameOfSchool"></span>
+                    </div>
+                    <div>
+                        <label asp-for="AcademicLevel"></label>
+                        <input id="Text2" type="text" asp-for="AcademicLevel" />
+                        <span asp-validation-for="AcademicLevel"></span>
+                    </div>
+                    <div>
+                        <label asp-for="SchoolSession"></label>
+                        <input id="Text2" type="text" asp-for="SchoolSession" />
+                        <span asp-validation-for="SchoolSession"></span>
+                    </div>
+                    <div>
+                        <label asp-for="Discipline"></label>
+                        <input id="Text1" type="text" asp-for="Discipline" />
+                        <span asp-validation-for="Discipline"></span>
+                    </div>
+                    <div>
+                        <label asp-for="Duration"></label>
+                        <input id="Text2" type="text" asp-for="Duration" />
+                        <span asp-validation-for="Duration"></span>
+                    </div>
+                    <div>
+                        <label asp-for="DegreeInView"></label>
+                        <input id="Text2" type="text" asp-for="DegreeInView" />
+                        <span asp-validation-for="DegreeInView"></span>
+                    </div>
+                    <div>
+                        <label asp-for="YearToGraduate"></label>
+                        <input id="Text1" type="text" asp-for="YearToGraduate" />
+                        <span asp-validation-for="YearToGraduate"></span>
+                    </div>
+                    <div>
+                        <label asp-for="LetterOfAdmission"></label>
+                        <input id="Text2" type="text" asp-for="LetterOfAdmission" />
+                        <span asp-validation-for="LetterOfAdmission"></span>
+                    </div>
+                    <div>
+                        <label asp-for="SchoolBill"></label>
+                        <input id="Text2" type="text" asp-for="SchoolBill" />
+                        <span asp-validation-for="SchoolBill"></span>
+                    </div>
+                    <div>
+                        <label asp-for="LastSchoolResult"></label>
+                        <input id="Text2" type="text" asp-for="LastSchoolResult" />
+                        <span asp-validation-for="LastSchoolResult"></span>
+                    </div>
+                    <div>
+                        <label asp-for="AmountRequested"></label>
+                        <input id="Text2" type="text" asp-for="AmountRequested" />
+                        <span asp-validation-for="AmountRequested"></span>
+                    </div>
+                    <div>
+                        <label asp-for="BankName"></label>
+                        <input id="Text2" type="text" asp-for="BankName" />
+                        <span asp-validation-for="BankName"></span>
+                    </div>
+                    <div>
+                        <label asp-for="BankAccountName"></label>
+                        <input id="Text2" type="text" asp-for="BankAccountName" />
+                        <span asp-validation-for="BankAccountName"></span>
+                    </div>
+                    <div>
+                        <label asp-for="BankAccountNumber"></label>
+                        <input id="Text2" type="text" asp-for="BankAccountNumber" />
+                        <span asp-validation-for="BankAccountNumber"></span>
+                    </div>
+                    <input id="Button1" type="button" value=btn btn-success />
+                </form>
+            </div>
+        </div>
+    </div>
+
+</div>
