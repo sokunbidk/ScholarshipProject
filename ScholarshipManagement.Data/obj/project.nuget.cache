@@ -1,6 +1,6 @@
 {
   "version": 2,
-  "dgSpecHash": "5xCEdgxi7kCNnsq2xLhyVmEuY00+Y0NczFZF0feh4n472pQJfeorkDI5zBJZBxQL1aQw89mJNFBSA7wz+UOkCw==",
+  "dgSpecHash": "12Pt3BDrfIUT4+eUvB/76915/TFuM6kDfNDvBCv1StMKGdwusSvCO0scjxi0Z+IOc8ROLxStcIeuWoti99W2vw==",
   "success": true,
   "projectFilePath": "C:\\Users\\ADD. SEC. MA'AL\\Desktop\\FullStackTraining\\CsharpTraining\\ScholarshipManagement\\ScholarshipManagement.Data\\ScholarshipManagement.Data.csproj",
   "expectedPackageFiles": [
@@ -10,6 +10,8 @@
     "C:\\Users\\ADD. SEC. MA'AL\\.nuget\\packages\\k4os.compression.lz4\\1.1.11\\k4os.compression.lz4.1.1.11.nupkg.sha512",
     "C:\\Users\\ADD. SEC. MA'AL\\.nuget\\packages\\k4os.compression.lz4.streams\\1.1.11\\k4os.compression.lz4.streams.1.1.11.nupkg.sha512",
     "C:\\Users\\ADD. SEC. MA'AL\\.nuget\\packages\\k4os.hash.xxhash\\1.0.6\\k4os.hash.xxhash.1.0.6.nupkg.sha512",
+    "C:\\Users\\ADD. SEC. MA'AL\\.nuget\\packages\\microsoft.aspnetcore.cryptography.internal\\5.0.7\\microsoft.aspnetcore.cryptography.internal.5.0.7.nupkg.sha512",
+    "C:\\Users\\ADD. SEC. MA'AL\\.nuget\\packages\\microsoft.aspnetcore.cryptography.keyderivation\\5.0.7\\microsoft.aspnetcore.cryptography.keyderivation.5.0.7.nupkg.sha512",
     "C:\\Users\\ADD. SEC. MA'AL\\.nuget\\packages\\microsoft.csharp\\4.7.0\\microsoft.csharp.4.7.0.nupkg.sha512",
     "C:\\Users\\ADD. SEC. MA'AL\\.nuget\\packages\\microsoft.entityframeworkcore\\5.0.7\\microsoft.entityframeworkcore.5.0.7.nupkg.sha512",
     "C:\\Users\\ADD. SEC. MA'AL\\.nuget\\packages\\microsoft.entityframeworkcore.abstractions\\5.0.7\\microsoft.entityframeworkcore.abstractions.5.0.7.nupkg.sha512",

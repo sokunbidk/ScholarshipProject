@@ -23,8 +23,6 @@ C:\Users\ADD. SEC. MA'AL\Desktop\FullStackTraining\CsharpTraining\ScholarshipMan
 C:\Users\ADD. SEC. MA'AL\Desktop\FullStackTraining\CsharpTraining\ScholarshipManagement\ScholarshipManagement.Web.UI\bin\Debug\net5.0\refs\Microsoft.AspNetCore.Connections.Abstractions.dll
 C:\Users\ADD. SEC. MA'AL\Desktop\FullStackTraining\CsharpTraining\ScholarshipManagement\ScholarshipManagement.Web.UI\bin\Debug\net5.0\refs\Microsoft.AspNetCore.CookiePolicy.dll
 C:\Users\ADD. SEC. MA'AL\Desktop\FullStackTraining\CsharpTraining\ScholarshipManagement\ScholarshipManagement.Web.UI\bin\Debug\net5.0\refs\Microsoft.AspNetCore.Cors.dll
-C:\Users\ADD. SEC. MA'AL\Desktop\FullStackTraining\CsharpTraining\ScholarshipManagement\ScholarshipManagement.Web.UI\bin\Debug\net5.0\refs\Microsoft.AspNetCore.Cryptography.Internal.dll
-C:\Users\ADD. SEC. MA'AL\Desktop\FullStackTraining\CsharpTraining\ScholarshipManagement\ScholarshipManagement.Web.UI\bin\Debug\net5.0\refs\Microsoft.AspNetCore.Cryptography.KeyDerivation.dll
 C:\Users\ADD. SEC. MA'AL\Desktop\FullStackTraining\CsharpTraining\ScholarshipManagement\ScholarshipManagement.Web.UI\bin\Debug\net5.0\refs\Microsoft.AspNetCore.DataProtection.Abstractions.dll
 C:\Users\ADD. SEC. MA'AL\Desktop\FullStackTraining\CsharpTraining\ScholarshipManagement\ScholarshipManagement.Web.UI\bin\Debug\net5.0\refs\Microsoft.AspNetCore.DataProtection.dll
 C:\Users\ADD. SEC. MA'AL\Desktop\FullStackTraining\CsharpTraining\ScholarshipManagement\ScholarshipManagement.Web.UI\bin\Debug\net5.0\refs\Microsoft.AspNetCore.DataProtection.Extensions.dll
@@ -296,6 +294,8 @@ C:\Users\ADD. SEC. MA'AL\Desktop\FullStackTraining\CsharpTraining\ScholarshipMan
 C:\Users\ADD. SEC. MA'AL\Desktop\FullStackTraining\CsharpTraining\ScholarshipManagement\ScholarshipManagement.Web.UI\bin\Debug\net5.0\K4os.Compression.LZ4.dll
 C:\Users\ADD. SEC. MA'AL\Desktop\FullStackTraining\CsharpTraining\ScholarshipManagement\ScholarshipManagement.Web.UI\bin\Debug\net5.0\K4os.Compression.LZ4.Streams.dll
 C:\Users\ADD. SEC. MA'AL\Desktop\FullStackTraining\CsharpTraining\ScholarshipManagement\ScholarshipManagement.Web.UI\bin\Debug\net5.0\K4os.Hash.xxHash.dll
+C:\Users\ADD. SEC. MA'AL\Desktop\FullStackTraining\CsharpTraining\ScholarshipManagement\ScholarshipManagement.Web.UI\bin\Debug\net5.0\Microsoft.AspNetCore.Cryptography.Internal.dll
+C:\Users\ADD. SEC. MA'AL\Desktop\FullStackTraining\CsharpTraining\ScholarshipManagement\ScholarshipManagement.Web.UI\bin\Debug\net5.0\Microsoft.AspNetCore.Cryptography.KeyDerivation.dll
 C:\Users\ADD. SEC. MA'AL\Desktop\FullStackTraining\CsharpTraining\ScholarshipManagement\ScholarshipManagement.Web.UI\bin\Debug\net5.0\Microsoft.AspNetCore.Mvc.Razor.Extensions.dll
 C:\Users\ADD. SEC. MA'AL\Desktop\FullStackTraining\CsharpTraining\ScholarshipManagement\ScholarshipManagement.Web.UI\bin\Debug\net5.0\Microsoft.AspNetCore.Mvc.Razor.RuntimeCompilation.dll
 C:\Users\ADD. SEC. MA'AL\Desktop\FullStackTraining\CsharpTraining\ScholarshipManagement\ScholarshipManagement.Web.UI\bin\Debug\net5.0\Microsoft.AspNetCore.Razor.Language.dll
@@ -359,7 +359,8 @@ C:\Users\ADD. SEC. MA'AL\Desktop\FullStackTraining\CsharpTraining\ScholarshipMan
 C:\Users\ADD. SEC. MA'AL\Desktop\FullStackTraining\CsharpTraining\ScholarshipManagement\ScholarshipManagement.Web.UI\obj\Debug\net5.0\ScholarshipManagement.Web.UI.TagHelpers.input.cache
 C:\Users\ADD. SEC. MA'AL\Desktop\FullStackTraining\CsharpTraining\ScholarshipManagement\ScholarshipManagement.Web.UI\obj\Debug\net5.0\ScholarshipManagement.Web.UI.TagHelpers.output.cache
 C:\Users\ADD. SEC. MA'AL\Desktop\FullStackTraining\CsharpTraining\ScholarshipManagement\ScholarshipManagement.Web.UI\obj\Debug\net5.0\ScholarshipManagement.Web.UI.RazorCoreGenerate.cache
-C:\Users\ADD. SEC. MA'AL\Desktop\FullStackTraining\CsharpTraining\ScholarshipManagement\ScholarshipManagement.Web.UI\obj\Debug\net5.0\Razor\Views\Applications\ApplicationForm.cshtml.g.cs
+C:\Users\ADD. SEC. MA'AL\Desktop\FullStackTraining\CsharpTraining\ScholarshipManagement\ScholarshipManagement.Web.UI\obj\Debug\net5.0\Razor\Views\ApplicationForm\ReturningCandidate.cshtml.g.cs
+C:\Users\ADD. SEC. MA'AL\Desktop\FullStackTraining\CsharpTraining\ScholarshipManagement\ScholarshipManagement.Web.UI\obj\Debug\net5.0\Razor\Views\ApplicationForm\UpdateProgress.cshtml.g.cs
 C:\Users\ADD. SEC. MA'AL\Desktop\FullStackTraining\CsharpTraining\ScholarshipManagement\ScholarshipManagement.Web.UI\obj\Debug\net5.0\Razor\Views\Banks\BankForm.cshtml.g.cs
 C:\Users\ADD. SEC. MA'AL\Desktop\FullStackTraining\CsharpTraining\ScholarshipManagement\ScholarshipManagement.Web.UI\obj\Debug\net5.0\Razor\Views\Home\Index.cshtml.g.cs
 C:\Users\ADD. SEC. MA'AL\Desktop\FullStackTraining\CsharpTraining\ScholarshipManagement\ScholarshipManagement.Web.UI\obj\Debug\net5.0\Razor\Views\Home\Privacy.cshtml.g.cs
@@ -368,8 +369,11 @@ C:\Users\ADD. SEC. MA'AL\Desktop\FullStackTraining\CsharpTraining\ScholarshipMan
 C:\Users\ADD. SEC. MA'AL\Desktop\FullStackTraining\CsharpTraining\ScholarshipManagement\ScholarshipManagement.Web.UI\obj\Debug\net5.0\Razor\Views\Shared\Error.cshtml.g.cs
 C:\Users\ADD. SEC. MA'AL\Desktop\FullStackTraining\CsharpTraining\ScholarshipManagement\ScholarshipManagement.Web.UI\obj\Debug\net5.0\Razor\Views\Shared\_Layout.cshtml.g.cs
 C:\Users\ADD. SEC. MA'AL\Desktop\FullStackTraining\CsharpTraining\ScholarshipManagement\ScholarshipManagement.Web.UI\obj\Debug\net5.0\Razor\Views\Shared\_ValidationScriptsPartial.cshtml.g.cs
-C:\Users\ADD. SEC. MA'AL\Desktop\FullStackTraining\CsharpTraining\ScholarshipManagement\ScholarshipManagement.Web.UI\obj\Debug\net5.0\Razor\Views\StudentBioData\Index.cshtml.g.cs
-C:\Users\ADD. SEC. MA'AL\Desktop\FullStackTraining\CsharpTraining\ScholarshipManagement\ScholarshipManagement.Web.UI\obj\Debug\net5.0\Razor\Views\User\Index.cshtml.g.cs
+C:\Users\ADD. SEC. MA'AL\Desktop\FullStackTraining\CsharpTraining\ScholarshipManagement\ScholarshipManagement.Web.UI\obj\Debug\net5.0\Razor\Views\Student\AdminDashboard.cshtml.g.cs
+C:\Users\ADD. SEC. MA'AL\Desktop\FullStackTraining\CsharpTraining\ScholarshipManagement\ScholarshipManagement.Web.UI\obj\Debug\net5.0\Razor\Views\Student\Dashboard.cshtml.g.cs
+C:\Users\ADD. SEC. MA'AL\Desktop\FullStackTraining\CsharpTraining\ScholarshipManagement\ScholarshipManagement.Web.UI\obj\Debug\net5.0\Razor\Views\Student\NewCandidate.cshtml.g.cs
+C:\Users\ADD. SEC. MA'AL\Desktop\FullStackTraining\CsharpTraining\ScholarshipManagement\ScholarshipManagement.Web.UI\obj\Debug\net5.0\Razor\Views\User\Create.cshtml.g.cs
+C:\Users\ADD. SEC. MA'AL\Desktop\FullStackTraining\CsharpTraining\ScholarshipManagement\ScholarshipManagement.Web.UI\obj\Debug\net5.0\Razor\Views\User\Login.cshtml.g.cs
 C:\Users\ADD. SEC. MA'AL\Desktop\FullStackTraining\CsharpTraining\ScholarshipManagement\ScholarshipManagement.Web.UI\obj\Debug\net5.0\Razor\Views\_ViewImports.cshtml.g.cs
 C:\Users\ADD. SEC. MA'AL\Desktop\FullStackTraining\CsharpTraining\ScholarshipManagement\ScholarshipManagement.Web.UI\obj\Debug\net5.0\Razor\Views\_ViewStart.cshtml.g.cs
 C:\Users\ADD. SEC. MA'AL\Desktop\FullStackTraining\CsharpTraining\ScholarshipManagement\ScholarshipManagement.Web.UI\obj\Debug\net5.0\ScholarshipManagement.Web.UI.RazorTargetAssemblyInfo.cache
@@ -380,3 +384,5 @@ C:\Users\ADD. SEC. MA'AL\Desktop\FullStackTraining\CsharpTraining\ScholarshipMan
 C:\Users\ADD. SEC. MA'AL\Desktop\FullStackTraining\CsharpTraining\ScholarshipManagement\ScholarshipManagement.Web.UI\obj\Debug\net5.0\ref\ScholarshipManagement.Web.UI.dll
 C:\Users\ADD. SEC. MA'AL\Desktop\FullStackTraining\CsharpTraining\ScholarshipManagement\ScholarshipManagement.Web.UI\obj\Debug\net5.0\ScholarshipManagement.Web.UI.pdb
 C:\Users\ADD. SEC. MA'AL\Desktop\FullStackTraining\CsharpTraining\ScholarshipManagement\ScholarshipManagement.Web.UI\obj\Debug\net5.0\ScholarshipManagement.Web.UI.genruntimeconfig.cache
+C:\Users\ADD. SEC. MA'AL\Desktop\FullStackTraining\CsharpTraining\ScholarshipManagement\ScholarshipManagement.Web.UI\obj\Debug\net5.0\Razor\Views\ApplicationForm\EditApplication.cshtml.g.cs
+C:\Users\ADD. SEC. MA'AL\Desktop\FullStackTraining\CsharpTraining\ScholarshipManagement\ScholarshipManagement.Web.UI\obj\Debug\net5.0\Razor\Views\Student\EditProfile.cshtml.g.cs

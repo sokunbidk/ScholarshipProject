@@ -8,11 +8,11 @@ namespace ScholarshipManagement.Data.DTOs
 {
     public class PaymentDto
     {
-        public Guid Id { get; set; }
+        public int Id { get; set; }
 
-        public Guid ApplicationFormId { get; set; }
+        public int ApplicationFormId { get; set; }
 
-        public Guid ApplicationFormNumber { get; set; }
+        public int ApplicationFormNumber { get; set; }
 
         public string memberCode { get; set; }
 

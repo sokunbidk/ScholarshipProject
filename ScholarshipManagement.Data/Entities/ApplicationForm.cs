@@ -1,20 +1,15 @@
-﻿using ScholarshipManagement.Data.Entities;
-using ScholarshipManagement.Data.Enums;
+﻿using ScholarshipManagement.Data.Enums;
 using System;
-using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace ScholarshipManagement.Data.Entities
 {
     public class ApplicationForm : BaseEntity
     {
-        public Guid ApplicationFormNumber { get; set; }
+        public int ApplicationFormNumber { get; set; }
 
-        public Guid StudentId { get; set; }
+        public int StudentId { get; set; }
 
         public Student Student { get; set; }
 
@@ -33,6 +28,7 @@ namespace ScholarshipManagement.Data.Entities
         [Required, MaxLength(50)]
         public int Duration { get; set; }
 
+        [Required]
         public string DegreeInView { get; set; }
 
         [Required, MaxLength(50)]
@@ -40,7 +36,7 @@ namespace ScholarshipManagement.Data.Entities
 
         public DateTime YearToGraduate { get; set; }
 
-        [StringLength(5000)]
+        [StringLength(200)]
         public string LetterOfAdmission { get; set; }
 
         [Required, MaxLength(50)]
@@ -61,15 +57,9 @@ namespace ScholarshipManagement.Data.Entities
         [Required, MaxLength(90)]
         public string BankAccountName { get; set; }
 
-        [Required, StringLength(5000)]
+        [Required, StringLength(200)]
         public string LastSchoolResult { get; set; }
-
-    
-
-
-
-
-
-
+        public string Remarks { get; set; }
+        public int Approvals { get; set; }
     }
 }

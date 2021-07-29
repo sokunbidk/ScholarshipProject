@@ -9,9 +9,9 @@ namespace ScholarshipManagement.Data.Services
     public interface IRoleService
     {
         public Task<BaseResponse> CreateRoleAsync(CreateRoleRequestModel model);
-        public Task<BaseResponse> UpdateRoleAsync(Guid id, UpdateRoleRequestModel model);
+        public Task<BaseResponse> UpdateRoleAsync(int id, UpdateRoleRequestModel model);
 
         Task<RolesResponseModel> GetRoles();
-        Task<RoleResponseModel> GetRole(Guid id);
+        Task<RoleResponseModel> GetRole(int id);
     }
 }

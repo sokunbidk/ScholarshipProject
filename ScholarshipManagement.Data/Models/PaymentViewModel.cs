@@ -9,7 +9,7 @@ namespace ScholarshipManagement.Data
 {
     public class PaymentViewModel
     {
-        public Guid ApplicationFormId { get; set; }
+        public int ApplicationFormId { get; set; }
         public double AmountRequested { get; set; }
         public double AmountRecommended { get; set; }
         public double AmountApprovedAndGranted { get; set; }
@@ -27,7 +27,7 @@ namespace ScholarshipManagement.Data
 
     public class CreatePaymentRequestModel
     {
-        public Guid ApplicationFormId { get; set; }
+        public int ApplicationFormId { get; set; }
 
         [Display(Name = "StudentId")]
         public StudentViewModel StudentId { get; set; }
@@ -68,7 +68,7 @@ namespace ScholarshipManagement.Data
     }
     public class UpdatePaymentRequestModel
     {
-        public Guid ApplicationFormId { get; set; }
+        public int ApplicationFormId { get; set; }
 
         [Required(ErrorMessage = "AmountRequested")]
         [Display(Name = "AmountRequested")]

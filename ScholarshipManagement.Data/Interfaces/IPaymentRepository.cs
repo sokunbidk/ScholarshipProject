@@ -1,20 +1,16 @@
 ﻿using ScholarshipManagement.Data.Entities;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
 using System.Threading.Tasks;
 
 namespace ScholarshipManagement.Data.Interfaces
 {
-        public interface IPaymentRepository : IRepository<Payment>
-        {
-            Task<Payment> GetPayment(Guid id);
+    public interface IPaymentRepository : IRepository<Payment>
+    {
+        Task<Payment> GetPayment(int id);
 
-            Task<Payment> GetPaymentAsync(Guid applicationFormNumber);
+        Task<Payment> GetPaymentAsync(int applicationFormNumber);
 
-            Task<Payment> GetPaymentByMemberCodeAsync(string memberCode);
+        Task<Payment> GetPaymentByMemberCodeAsync(string memberCode);
 
-        }
-    
+    }
+
 }

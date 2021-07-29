@@ -28,7 +28,7 @@ namespace ScholarshipManagement.Data.Services
             }
             var role = new Role
             {
-                Id = Guid.NewGuid(),
+               
                 RoleName = model.RoleName,
                 Description = model.Description
             };
@@ -43,7 +43,7 @@ namespace ScholarshipManagement.Data.Services
             };
         }
 
-        public async Task<BaseResponse> UpdateRoleAsync(Guid id, UpdateRoleRequestModel model)
+        public async Task<BaseResponse> UpdateRoleAsync(int id, UpdateRoleRequestModel model)
         {
             var roleExists = await _roleRepository.ExistsAsync(u => u.Id != id && u.RoleName == model.RoleName);
             if (roleExists)
@@ -89,7 +89,7 @@ namespace ScholarshipManagement.Data.Services
             
         }
 
-        public async Task<RoleResponseModel> GetRole(Guid id)
+        public async Task<RoleResponseModel> GetRole(int id)
         {
             var role = await _roleRepository.GetAsync(id);
             if (role == null)

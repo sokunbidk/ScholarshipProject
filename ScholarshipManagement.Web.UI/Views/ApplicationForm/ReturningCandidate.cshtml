@@ -1,0 +1,120 @@
+﻿@model ScholarshipManagement.Data.CreateApplicationFormRequestModel
+@{
+    ViewData["Title"] = "Scholarship Application Form";
+}
+
+<div class="row">
+
+    <div class="col-md-7">
+        <div class="card">
+            <div class="card-header">
+                <h4>@ViewData["Title"]</h4>
+            </div>
+            <div class="card card-body">
+                <form method="POST">
+                    <div class="form-group">
+                        <label asp-for="InstitutionType"></label>
+                        <input type="text" class="form-control" asp-for="InstitutionType" />
+                        <span asp-validation-for="InstitutionType"></span>
+                    </div>
+
+                    <div class="form-row">
+                        <div class="form-group col-lg-4">
+                            <label asp-for="NameOfSchool"></label>
+                            <input type="text" asp-for="NameOfSchool" class="form-control" />
+                            <span asp-validation-for="NameOfSchool"></span>
+                        </div>
+
+                        <div class="form-group col-lg-4">
+                            <label asp-for="AcademicLevel"></label>
+                            <input type="text" asp-for="AcademicLevel" class="form-control" />
+                            <span asp-validation-for="AcademicLevel"></span>
+                        </div>
+
+                        <div class="form-group col-lg-4">
+                            <label asp-for="SchoolSession"></label>
+                            <input class="form-control" type="text" asp-for="SchoolSession" />
+                            <span asp-validation-for="SchoolSession"></span>
+                        </div>
+                    </div>
+
+                    <div class="form-group">
+                        <label asp-for="Discipline"></label>
+                        <input class="form-control" type="text" asp-for="Discipline" />
+                        <span asp-validation-for="Discipline"></span>
+                    </div>
+
+                    <div class="form-row">
+                        <div class="form-group col-lg-4">
+                            <label asp-for="Duration"></label>
+                            <input class="form-control" type="text" asp-for="Duration" />
+                            <span asp-validation-for="Duration"></span>
+                        </div>
+
+                        <div class="form-group col-lg-4">
+                            <label asp-for="DegreeInView"></label>
+                            <input class="form-control" type="text" asp-for="DegreeInView" />
+                            <span asp-validation-for="DegreeInView"></span>
+                        </div>
+
+                        <div class="form-group col-lg-4">
+                            <label asp-for="YearToGraduate"></label>
+                            <input class="form-control" type="text" asp-for="YearToGraduate" />
+                            <span asp-validation-for="YearToGraduate"></span>
+                        </div>
+                    </div>
+
+                    <div class="form-row">
+                        <div class="form-group col-lg-6">
+                            <label asp-for="LetterOfAdmission"></label>
+                            <input class="form-control" type="text" asp-for="LetterOfAdmission" />
+                            <span asp-validation-for="LetterOfAdmission"></span>
+                        </div>
+
+                        <div class="form-group col-lg-6">
+                            <label asp-for="SchoolBill"></label>
+                            <input class="form-control" type="text" asp-for="SchoolBill" />
+                            <span asp-validation-for="SchoolBill"></span>
+                        </div>
+                    </div>
+                    
+                    <div class="form-row">
+                        <div class="form-group col-lg-6">
+                            <label asp-for="AmountRequested"></label>
+                            <input class="form-control" type="text" asp-for="AmountRequested" />
+                            <span asp-validation-for="AmountRequested"></span>
+                        </div>
+
+                        <div class="form-group col-lg-6">
+                            <label asp-for="BankName"></label>
+                            <input class="form-control" type="text" asp-for="BankName" />
+                            <span asp-validation-for="BankName"></span>
+                        </div>
+                    </div>
+                    
+                    <div class="form-row">
+                        <div class="form-group col-lg-6">
+                            <label asp-for="BankAccountNumber"></label>
+                            <input class="form-control" type="text" asp-for="BankAccountNumber" />
+                            <span asp-validation-for="BankAccountNumber"></span>
+                        </div>
+
+                        <div class="form-group col-lg-6">
+                            <label asp-for="BankAccountName"></label>
+                            <input class="form-control" type="text" asp-for="BankAccountName" />
+                            <span asp-validation-for="BankAccountName"></span>
+                        </div>
+                    </div>
+                    
+                    <div class="form-group">
+                        <label asp-for="LastSchoolResult"></label>
+                        <input class="form-control" type="file" asp-for="LastSchoolResult" />
+                        <span asp-validation-for="LastSchoolResult"></span>
+                    </div>
+                    <input type="submit" class="btn btn-success" value="Save" />
+                </form>
+            </div>
+        </div>
+    </div>
+
+</div>

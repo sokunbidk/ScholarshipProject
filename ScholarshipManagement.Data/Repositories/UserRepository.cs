@@ -18,12 +18,12 @@ namespace ScholarshipManagement.Data.Repositories
             DbContext = context;
         }
 
-        public async Task<User> GetUserAsync(string userName)
+        public async Task<User> GetUserAsync(string email)
         {
-            return await Query().SingleOrDefaultAsync(u => u.UserName == userName);
+            return await Query().SingleOrDefaultAsync(u => u.Email.Equals(email));
         }
 
-        public async Task<User> GetUser(Guid id)
+        public async Task<User> GetUser(int id)
         {
             return await Query().SingleOrDefaultAsync(u => u.Id == id);
         }

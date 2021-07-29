@@ -14,19 +14,19 @@ namespace ScholarshipManagement.Data.Repositories
             DbContext = context;
         }
 
-        public async Task<Payment> GetPayment(Guid id)
+        public async Task<Payment> GetPayment(int id)
         {
             return await Query().SingleOrDefaultAsync(u => u.Id == id);
         }
 
-        public async Task<Payment> GetPaymentAsync(Guid applicationFormId)
+        public async Task<Payment> GetPaymentAsync(int applicationFormId)
         {
             return await Query().SingleOrDefaultAsync(u => u.ApplicationFormId == applicationFormId);
         }
 
         public async Task<Payment> GetPaymentByMemberCodeAsync(string memberCode)
         {
-            return await Query().SingleOrDefaultAsync(u => u.ApplicationForm.Student.MemberCode == memberCode);
+            return await Query().SingleOrDefaultAsync(u => u.ApplicationForm.Student.User.MemberCode == memberCode);
         }
     }
 }

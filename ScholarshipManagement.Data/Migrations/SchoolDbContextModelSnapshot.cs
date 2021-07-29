@@ -5,7 +5,6 @@ using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using ScholarshipManagement.Data.ApplicationContext;
 
-
 namespace ScholarshipManagement.Data.Migrations
 {
     [DbContext(typeof(SchoolDbContext))]
@@ -18,13 +17,13 @@ namespace ScholarshipManagement.Data.Migrations
                 .HasAnnotation("Relational:MaxIdentifierLength", 64)
                 .HasAnnotation("ProductVersion", "5.0.7");
 
-            modelBuilder.Entity("ScholarshipManagement.Data.Models.ApplicationForm", b =>
+            modelBuilder.Entity("ScholarshipManagement.Data.Entities.ApplicationForm", b =>
                 {
                     b.Property<int>("Id")
                         .ValueGeneratedOnAdd()
                         .HasColumnType("int");
 
-                    b.Property<string>("AcademenicLevel")
+                    b.Property<string>("AcademicLevel")
                         .IsRequired()
                         .HasMaxLength(50)
                         .HasColumnType("varchar(50)");
@@ -32,19 +31,36 @@ namespace ScholarshipManagement.Data.Migrations
                     b.Property<decimal>("AmountRequested")
                         .HasColumnType("decimal(18, 2)");
 
-                    b.Property<int>("BankAccount")
-                        .HasMaxLength(10)
+                    b.Property<int>("ApplicationFormNumber")
                         .HasColumnType("int");
+
+                    b.Property<string>("BankAccountName")
+                        .IsRequired()
+                        .HasMaxLength(90)
+                        .HasColumnType("varchar(90)");
+
+                    b.Property<string>("BankAccountNumber")
+                        .IsRequired()
+                        .HasMaxLength(10)
+                        .HasColumnType("varchar(10)");
 
                     b.Property<string>("BankName")
                         .IsRequired()
                         .HasMaxLength(50)
                         .HasColumnType("varchar(50)");
 
-                    b.Property<DateTime>("DateCreated")
+                    b.Property<DateTime>("Created")
+                        .HasColumnType("datetime");
+
+                    b.Property<string>("CreatedBy")
+                        .HasColumnType("text");
+
+                    b.Property<DateTime>("DateAdmitted")
+                        .HasMaxLength(50)
                         .HasColumnType("datetime");
 
                     b.Property<string>("DegreeInView")
+                        .IsRequired()
                         .HasColumnType("text");
 
                     b.Property<string>("Discipline")
@@ -52,43 +68,39 @@ namespace ScholarshipManagement.Data.Migrations
                         .HasMaxLength(50)
                         .HasColumnType("varchar(50)");
 
-                    b.Property<string>("Duration")
-                        .IsRequired()
+                    b.Property<int>("Duration")
                         .HasMaxLength(50)
-                        .HasColumnType("varchar(50)");
+                        .HasColumnType("int");
 
-                    b.Property<string>("InstitutionType")
-                        .IsRequired()
+                    b.Property<int>("InstitutionType")
                         .HasMaxLength(50)
-                        .HasColumnType("varchar(50)");
+                        .HasColumnType("int");
+
+                    b.Property<bool>("IsDeleted")
+                        .HasColumnType("tinyint(1)");
 
                     b.Property<string>("LastSchoolResult")
                         .IsRequired()
-                        .HasMaxLength(50)
-                        .HasColumnType("varchar(50)");
+                        .HasMaxLength(200)
+                        .HasColumnType("varchar(200)");
 
                     b.Property<string>("LetterOfAdmission")
-                        .IsRequired()
-                        .HasMaxLength(50)
-                        .HasColumnType("varchar(50)");
+                        .HasMaxLength(200)
+                        .HasColumnType("varchar(200)");
 
-                    b.Property<string>("Level")
-                        .IsRequired()
-                        .HasMaxLength(50)
-                        .HasColumnType("varchar(50)");
+                    b.Property<DateTime?>("Modified")
+                        .HasColumnType("datetime");
 
-                    b.Property<string>("LikeyCompletionYear")
-                        .IsRequired()
-                        .HasMaxLength(50)
-                        .HasColumnType("varchar(50)");
-
-                    b.Property<int>("MemberCode")
-                        .HasColumnType("int");
+                    b.Property<string>("ModifiedBy")
+                        .HasColumnType("text");
 
                     b.Property<string>("NameOfSchool")
                         .IsRequired()
                         .HasMaxLength(50)
                         .HasColumnType("varchar(50)");
+
+                    b.Property<byte[]>("RowVersion")
+                        .HasColumnType("varbinary(4000)");
 
                     b.Property<string>("SchoolBill")
                         .IsRequired()
@@ -100,68 +112,107 @@ namespace ScholarshipManagement.Data.Migrations
                         .HasMaxLength(50)
                         .HasColumnType("varchar(50)");
 
-                    b.HasKey("Id");
-
-                    b.ToTable("ApplicationForms");
-                });
-
-            modelBuilder.Entity("ScholarshipManagement.Data.Models.Bank", b =>
-                {
-                    b.Property<int>("Id")
-                        .ValueGeneratedOnAdd()
+                    b.Property<int>("StudentId")
                         .HasColumnType("int");
 
-                    b.Property<DateTime>("DateCreated")
+                    b.Property<DateTime>("YearToGraduate")
                         .HasColumnType("datetime");
 
-                    b.Property<string>("FirstBankOfNigeriaPlc")
-                        .HasColumnType("text");
-
-                    b.Property<string>("FirstCityMonumentBankPlc")
-                        .HasColumnType("text");
-
-                    b.Property<string>("GuaranteeTrustBankPlc")
-                        .HasColumnType("text");
-
-                    b.Property<int>("MemberCode")
-                        .HasColumnType("int");
-
-                    b.Property<string>("PolarisBankPlc")
-                        .HasColumnType("text");
-
-                    b.Property<string>("StabicIBTCBankPlc")
-                        .HasColumnType("text");
-
-                    b.Property<string>("StandardCharteredBankPlc")
-                        .HasColumnType("text");
-
-                    b.Property<string>("StarlingBankPlc")
-                        .HasColumnType("text");
-
-                    b.Property<string>("UnionBankOfNigeriaPlc")
-                        .HasColumnType("text");
-
-                    b.Property<string>("UnitedBankPlc")
-                        .HasColumnType("text");
-
-                    b.Property<string>("UnityBankPlc")
-                        .HasColumnType("text");
-
-                    b.Property<string>("WemaBankPlc")
-                        .HasColumnType("text");
-
-                    b.Property<string>("ZenithBankPlc")
-                        .HasColumnType("text");
-
                     b.HasKey("Id");
 
-                    b.ToTable("Banks");
+                    b.HasIndex("StudentId");
+
+                    b.ToTable("Applications");
                 });
 
-            modelBuilder.Entity("ScholarshipManagement.Data.Models.Payment", b =>
+            modelBuilder.Entity("ScholarshipManagement.Data.Entities.Circuit", b =>
                 {
                     b.Property<int>("Id")
                         .ValueGeneratedOnAdd()
+                        .HasColumnType("int");
+
+                    b.Property<DateTime>("Created")
+                        .HasColumnType("datetime");
+
+                    b.Property<string>("CreatedBy")
+                        .HasColumnType("text");
+
+                    b.Property<string>("Email")
+                        .HasColumnType("text");
+
+                    b.Property<bool>("IsDeleted")
+                        .HasColumnType("tinyint(1)");
+
+                    b.Property<DateTime?>("Modified")
+                        .HasColumnType("datetime");
+
+                    b.Property<string>("ModifiedBy")
+                        .HasColumnType("text");
+
+                    b.Property<string>("Name")
+                        .HasColumnType("text");
+
+                    b.Property<string>("PhoneNumber")
+                        .HasColumnType("text");
+
+                    b.Property<byte[]>("RowVersion")
+                        .HasColumnType("varbinary(4000)");
+
+                    b.HasKey("Id");
+
+                    b.ToTable("Circuits");
+                });
+
+            modelBuilder.Entity("ScholarshipManagement.Data.Entities.Jamaat", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int");
+
+                    b.Property<int>("CircuitId")
+                        .HasColumnType("int");
+
+                    b.Property<DateTime>("Created")
+                        .HasColumnType("datetime");
+
+                    b.Property<string>("CreatedBy")
+                        .HasColumnType("text");
+
+                    b.Property<string>("Email")
+                        .HasColumnType("text");
+
+                    b.Property<bool>("IsDeleted")
+                        .HasColumnType("tinyint(1)");
+
+                    b.Property<DateTime?>("Modified")
+                        .HasColumnType("datetime");
+
+                    b.Property<string>("ModifiedBy")
+                        .HasColumnType("text");
+
+                    b.Property<string>("Name")
+                        .HasColumnType("text");
+
+                    b.Property<string>("PhoneNumber")
+                        .HasColumnType("text");
+
+                    b.Property<byte[]>("RowVersion")
+                        .HasColumnType("varbinary(4000)");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("CircuitId");
+
+                    b.ToTable("Jamaats");
+                });
+
+            modelBuilder.Entity("ScholarshipManagement.Data.Entities.Payment", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int");
+
+                    b.Property<int>("AcademicLeve")
                         .HasColumnType("int");
 
                     b.Property<decimal>("AmountApprovedAndGranted")
@@ -170,14 +221,14 @@ namespace ScholarshipManagement.Data.Migrations
                     b.Property<decimal>("AmountRecommended")
                         .HasColumnType("decimal(18, 2)");
 
-                    b.Property<decimal>("AmountRequested")
-                        .HasColumnType("decimal(18, 2)");
+                    b.Property<int>("ApplicationFormId")
+                        .HasColumnType("int");
 
                     b.Property<string>("ApprovedBy")
                         .HasColumnType("text");
 
-                    b.Property<int>("BankAccount")
-                        .HasColumnType("int");
+                    b.Property<string>("BankAccountNumber")
+                        .HasColumnType("text");
 
                     b.Property<string>("BankName")
                         .HasColumnType("text");
@@ -185,163 +236,351 @@ namespace ScholarshipManagement.Data.Migrations
                     b.Property<bool>("ConfirmPayment")
                         .HasColumnType("tinyint(1)");
 
-                    b.Property<DateTime>("DateApproved")
+                    b.Property<DateTime>("Created")
                         .HasColumnType("datetime");
 
-                    b.Property<DateTime>("DateCreated")
+                    b.Property<string>("CreatedBy")
+                        .HasColumnType("text");
+
+                    b.Property<DateTime>("DateApproved")
                         .HasColumnType("datetime");
 
                     b.Property<DateTime>("DatePaid")
                         .HasColumnType("datetime");
 
-                    b.Property<int>("MemberCode")
-                        .HasColumnType("int");
+                    b.Property<bool>("IsDeleted")
+                        .HasColumnType("tinyint(1)");
+
+                    b.Property<DateTime?>("Modified")
+                        .HasColumnType("datetime");
+
+                    b.Property<string>("ModifiedBy")
+                        .HasColumnType("text");
 
                     b.Property<string>("ProofOfChandaPmt")
                         .HasColumnType("text");
 
+                    b.Property<byte[]>("RowVersion")
+                        .HasColumnType("varbinary(4000)");
+
                     b.HasKey("Id");
+
+                    b.HasIndex("ApplicationFormId");
 
                     b.ToTable("Payments");
                 });
 
-            modelBuilder.Entity("ScholarshipManagement.Data.Models.Role", b =>
+            modelBuilder.Entity("ScholarshipManagement.Data.Entities.Role", b =>
                 {
                     b.Property<int>("Id")
                         .ValueGeneratedOnAdd()
                         .HasColumnType("int");
 
-                    b.Property<DateTime>("DateCreated")
+                    b.Property<DateTime>("Created")
                         .HasColumnType("datetime");
+
+                    b.Property<string>("CreatedBy")
+                        .HasColumnType("text");
 
                     b.Property<string>("Description")
                         .HasColumnType("text");
 
-                    b.Property<int>("MemberCode")
-                        .HasColumnType("int");
+                    b.Property<bool>("IsDeleted")
+                        .HasColumnType("tinyint(1)");
+
+                    b.Property<DateTime?>("Modified")
+                        .HasColumnType("datetime");
+
+                    b.Property<string>("ModifiedBy")
+                        .HasColumnType("text");
 
                     b.Property<string>("RoleName")
                         .HasColumnType("text");
+
+                    b.Property<byte[]>("RowVersion")
+                        .HasColumnType("varbinary(4000)");
 
                     b.HasKey("Id");
 
                     b.ToTable("Roles");
                 });
 
-            modelBuilder.Entity("ScholarshipManagement.Data.Models.Student", b =>
+            modelBuilder.Entity("ScholarshipManagement.Data.Entities.Student", b =>
                 {
                     b.Property<int>("Id")
                         .ValueGeneratedOnAdd()
                         .HasColumnType("int");
 
-                    b.Property<decimal>("Address")
-                        .HasMaxLength(50)
-                        .HasColumnType("decimal(18, 2)");
-
-                    b.Property<string>("AuxiliaryBody")
+                    b.Property<string>("Address")
                         .IsRequired()
-                        .HasMaxLength(10)
-                        .HasColumnType("varchar(10)");
+                        .HasMaxLength(250)
+                        .HasColumnType("varchar(250)");
 
-                    b.Property<string>("Circuit")
-                        .IsRequired()
-                        .HasMaxLength(50)
-                        .HasColumnType("varchar(50)");
+                    b.Property<int>("AuxiliaryBody")
+                        .HasColumnType("int");
 
-                    b.Property<DateTime>("DateCreated")
+                    b.Property<int>("CircuitId")
+                        .HasColumnType("int");
+
+                    b.Property<DateTime>("Created")
                         .HasColumnType("datetime");
+
+                    b.Property<string>("CreatedBy")
+                        .HasColumnType("text");
 
                     b.Property<DateTime>("DateOfBirth")
-                        .HasMaxLength(10)
                         .HasColumnType("datetime");
-
-                    b.Property<string>("Email")
-                        .IsRequired()
-                        .HasMaxLength(50)
-                        .HasColumnType("varchar(50)");
 
                     b.Property<string>("FirstName")
                         .IsRequired()
                         .HasMaxLength(50)
                         .HasColumnType("varchar(50)");
 
-                    b.Property<string>("Gender")
-                        .IsRequired()
-                        .HasMaxLength(10)
-                        .HasColumnType("varchar(10)");
+                    b.Property<int>("Gender")
+                        .HasColumnType("int");
 
-                    b.Property<string>("Guidian")
+                    b.Property<string>("GuardianFullname")
                         .IsRequired()
-                        .HasMaxLength(30)
-                        .HasColumnType("varchar(30)");
+                        .HasMaxLength(150)
+                        .HasColumnType("varchar(150)");
 
-                    b.Property<string>("GuidianPhoneNo")
+                    b.Property<string>("GuardianMemberCode")
+                        .HasColumnType("text");
+
+                    b.Property<string>("GuardianPhoneNumber")
                         .IsRequired()
                         .HasMaxLength(11)
                         .HasColumnType("varchar(11)");
 
-                    b.Property<string>("Jamaat")
-                        .IsRequired()
-                        .HasMaxLength(10)
-                        .HasColumnType("varchar(10)");
+                    b.Property<bool>("IsDeleted")
+                        .HasColumnType("tinyint(1)");
 
-                    b.Property<int>("MemberCode")
+                    b.Property<int>("JamaatId")
                         .HasColumnType("int");
+
+                    b.Property<DateTime?>("Modified")
+                        .HasColumnType("datetime");
+
+                    b.Property<string>("ModifiedBy")
+                        .HasColumnType("text");
 
                     b.Property<string>("OtherName")
                         .HasMaxLength(30)
                         .HasColumnType("varchar(30)");
 
-                    b.Property<string>("PhoneNO")
-                        .HasMaxLength(30)
-                        .HasColumnType("varchar(30)");
-
                     b.Property<string>("Photograph")
                         .IsRequired()
-                        .HasMaxLength(30)
-                        .HasColumnType("varchar(30)");
+                        .HasColumnType("text");
+
+                    b.Property<byte[]>("RowVersion")
+                        .HasColumnType("varbinary(4000)");
 
                     b.Property<string>("SurName")
                         .IsRequired()
                         .HasMaxLength(50)
                         .HasColumnType("varchar(50)");
 
+                    b.Property<int>("UserId")
+                        .HasColumnType("int");
+
                     b.HasKey("Id");
+
+                    b.HasIndex("CircuitId");
+
+                    b.HasIndex("JamaatId");
+
+                    b.HasIndex("UserId");
 
                     b.ToTable("Students");
                 });
 
-            modelBuilder.Entity("ScholarshipManagement.Data.Models.User", b =>
+            modelBuilder.Entity("ScholarshipManagement.Data.Entities.User", b =>
                 {
                     b.Property<int>("Id")
                         .ValueGeneratedOnAdd()
                         .HasColumnType("int");
 
-                    b.Property<DateTime>("DateCreated")
+                    b.Property<DateTime>("Created")
                         .HasColumnType("datetime");
 
+                    b.Property<string>("CreatedBy")
+                        .HasColumnType("text");
+
                     b.Property<string>("Email")
+                        .IsRequired()
+                        .HasMaxLength(50)
+                        .HasColumnType("varchar(50)");
+
+                    b.Property<string>("HashSalt")
                         .HasColumnType("text");
 
-                    b.Property<int>("MemberCode")
+                    b.Property<bool>("IsDeleted")
+                        .HasColumnType("tinyint(1)");
+
+                    b.Property<string>("MemberCode")
+                        .HasColumnType("text");
+
+                    b.Property<DateTime?>("Modified")
+                        .HasColumnType("datetime");
+
+                    b.Property<string>("ModifiedBy")
+                        .HasColumnType("text");
+
+                    b.Property<string>("PasswordHash")
+                        .IsRequired()
+                        .HasMaxLength(50)
+                        .HasColumnType("varchar(50)");
+
+                    b.Property<string>("PhoneNumber")
+                        .HasColumnType("text");
+
+                    b.Property<byte[]>("RowVersion")
+                        .HasColumnType("varbinary(4000)");
+
+                    b.Property<int>("UserType")
                         .HasColumnType("int");
-
-                    b.Property<string>("Password")
-                        .IsRequired()
-                        .HasMaxLength(50)
-                        .HasColumnType("varchar(50)");
-
-                    b.Property<string>("PhoneNo")
-                        .HasColumnType("text");
-
-                    b.Property<string>("UserName")
-                        .IsRequired()
-                        .HasMaxLength(50)
-                        .HasColumnType("varchar(50)");
 
                     b.HasKey("Id");
 
                     b.ToTable("Users");
+                });
+
+            modelBuilder.Entity("ScholarshipManagement.Data.Entities.UserRole", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int");
+
+                    b.Property<DateTime>("Created")
+                        .HasColumnType("datetime");
+
+                    b.Property<string>("CreatedBy")
+                        .HasColumnType("text");
+
+                    b.Property<bool>("IsDeleted")
+                        .HasColumnType("tinyint(1)");
+
+                    b.Property<DateTime?>("Modified")
+                        .HasColumnType("datetime");
+
+                    b.Property<string>("ModifiedBy")
+                        .HasColumnType("text");
+
+                    b.Property<int>("RoleId")
+                        .HasColumnType("int");
+
+                    b.Property<byte[]>("RowVersion")
+                        .HasColumnType("varbinary(4000)");
+
+                    b.Property<int>("UserId")
+                        .HasColumnType("int");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("RoleId");
+
+                    b.HasIndex("UserId");
+
+                    b.ToTable("UserRoles");
+                });
+
+            modelBuilder.Entity("ScholarshipManagement.Data.Entities.ApplicationForm", b =>
+                {
+                    b.HasOne("ScholarshipManagement.Data.Entities.Student", "Student")
+                        .WithMany("ApplicationForms")
+                        .HasForeignKey("StudentId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.Navigation("Student");
+                });
+
+            modelBuilder.Entity("ScholarshipManagement.Data.Entities.Jamaat", b =>
+                {
+                    b.HasOne("ScholarshipManagement.Data.Entities.Circuit", "Circuit")
+                        .WithMany("Jamaats")
+                        .HasForeignKey("CircuitId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.Navigation("Circuit");
+                });
+
+            modelBuilder.Entity("ScholarshipManagement.Data.Entities.Payment", b =>
+                {
+                    b.HasOne("ScholarshipManagement.Data.Entities.ApplicationForm", "ApplicationForm")
+                        .WithMany()
+                        .HasForeignKey("ApplicationFormId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.Navigation("ApplicationForm");
+                });
+
+            modelBuilder.Entity("ScholarshipManagement.Data.Entities.Student", b =>
+                {
+                    b.HasOne("ScholarshipManagement.Data.Entities.Circuit", "Circuit")
+                        .WithMany()
+                        .HasForeignKey("CircuitId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.HasOne("ScholarshipManagement.Data.Entities.Jamaat", "Jamaat")
+                        .WithMany()
+                        .HasForeignKey("JamaatId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.HasOne("ScholarshipManagement.Data.Entities.User", "User")
+                        .WithMany()
+                        .HasForeignKey("UserId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.Navigation("Circuit");
+
+                    b.Navigation("Jamaat");
+
+                    b.Navigation("User");
+                });
+
+            modelBuilder.Entity("ScholarshipManagement.Data.Entities.UserRole", b =>
+                {
+                    b.HasOne("ScholarshipManagement.Data.Entities.Role", "Role")
+                        .WithMany("UserRoles")
+                        .HasForeignKey("RoleId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.HasOne("ScholarshipManagement.Data.Entities.User", "User")
+                        .WithMany("UserRoles")
+                        .HasForeignKey("UserId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.Navigation("Role");
+
+                    b.Navigation("User");
+                });
+
+            modelBuilder.Entity("ScholarshipManagement.Data.Entities.Circuit", b =>
+                {
+                    b.Navigation("Jamaats");
+                });
+
+            modelBuilder.Entity("ScholarshipManagement.Data.Entities.Role", b =>
+                {
+                    b.Navigation("UserRoles");
+                });
+
+            modelBuilder.Entity("ScholarshipManagement.Data.Entities.Student", b =>
+                {
+                    b.Navigation("ApplicationForms");
+                });
+
+            modelBuilder.Entity("ScholarshipManagement.Data.Entities.User", b =>
+                {
+                    b.Navigation("UserRoles");
                 });
 #pragma warning restore 612, 618
         }

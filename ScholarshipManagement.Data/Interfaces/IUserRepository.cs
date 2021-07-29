@@ -9,9 +9,9 @@ namespace ScholarshipManagement.Data.Interfaces
 {
     public interface IUserRepository: IRepository<User>
     {
-        Task<User> GetUserAsync(string userName);
+        Task<User> GetUserAsync(string email);
 
-        Task<User> GetUser(Guid id);
+        Task<User> GetUser(int id);
 
     }
 }

@@ -1,4 +1,5 @@
-﻿using System;
+﻿using ScholarshipManagement.Data.DTOs;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -9,9 +10,13 @@ namespace ScholarshipManagement.Data.Services
     public interface IUserService
     {
         public Task<BaseResponse> CreateUserAsync(CreateUserRequestModel model);
-        public Task<BaseResponse> UpdateUserAsync(Guid id, UpdateUserRequestModel model);
+
+        public Task<BaseResponse> UpdateUserAsync(int id, UpdateUserRequestModel model);
+
+        public Task<UserDto> LoginUserAsync(LoginUserRequestModel model);
 
         Task<UsersResponseModel> GetUser();
-        Task<UserResponseModel> GetUser(Guid id);
+
+        Task<UserResponseModel> GetUser(int id);
     }
 }

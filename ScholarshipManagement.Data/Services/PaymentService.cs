@@ -50,7 +50,7 @@ namespace ScholarshipManagement.Data.Services
 
         }
 
-        public async Task<BaseResponse> UpdatePaymentAsync(Guid id, UpdatePaymentRequestModel model)
+        public async Task<BaseResponse> UpdatePaymentAsync(int id, UpdatePaymentRequestModel model)
         {
             var paymentExists = await _paymentRepository.ExistsAsync(u => u.AcademicLeve == model.AcademicLeve && u.ApplicationFormId == model.ApplicationFormId);
             if (paymentExists)
@@ -106,7 +106,7 @@ namespace ScholarshipManagement.Data.Services
                 };
         }
             
-        public async Task<PaymentResponseModel> GetPayment(Guid id)
+        public async Task<PaymentResponseModel> GetPayment(int id)
         {
                 var payment = await _paymentRepository.GetAsync(id);
                 if (payment == null)

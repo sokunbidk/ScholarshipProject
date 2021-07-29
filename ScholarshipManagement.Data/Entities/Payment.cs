@@ -9,7 +9,7 @@ namespace ScholarshipManagement.Data.Entities
 {
     public class Payment : BaseEntity
     {
-        public Guid ApplicationFormId { get; set; }
+        public int ApplicationFormId { get; set; }
 
         public ApplicationForm ApplicationForm { get; set; }
 

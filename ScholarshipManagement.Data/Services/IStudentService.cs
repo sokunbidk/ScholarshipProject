@@ -1,17 +1,17 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+﻿using System.Threading.Tasks;
 
 namespace ScholarshipManagement.Data.Services
 {
     public interface IStudentService
     {
         public Task<BaseResponse> CreateStudentAsync(CreateStudentRequestModel model);
-        public Task<BaseResponse> UpdateStudentAsync(Guid id, UpdateStudentRequestModel model);
 
-        Task<StudentsResponseModel> GetStudent();
-        Task<StudentResponseModel> GetStudent(Guid id);
+        public Task<BaseResponse> UpdateStudentAsync(int id, UpdateStudentRequestModel model);
+
+        //public Task<IList<UpdateApplicationRequestModel>> GetStudentApplicationFormsAsync();
+
+        Task<StudentsResponseModel> GetStudents(StudentsResponseModel model);
+
+        Task<StudentResponseModel> GetStudent(int id);
     }
 }

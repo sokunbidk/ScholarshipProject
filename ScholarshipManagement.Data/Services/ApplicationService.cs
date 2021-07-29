@@ -18,8 +18,8 @@ namespace ScholarshipManagement.Data.Services
         }
         public async Task<BaseResponse> CreateApplicationAsync(CreateApplicationFormRequestModel model)
         { 
-        
             var applicantionFormExists = await _applicationFormRepository.ExistsAsync(u => u.ApplicationFormNumber == model.ApplicationFormNumber);
+
             if (applicantionFormExists)
             {
                 throw new BadRequestException($"Applicantion form with name '{model.ApplicationFormNumber}' already exists.");
@@ -35,6 +35,8 @@ namespace ScholarshipManagement.Data.Services
 
             var applicantion = new ApplicationForm
             {
+                StudentId = model.StudentId,
+                ApplicationFormNumber = model.ApplicationFormNumber,
                 InstitutionType = model.InstitutionType,
                 NameOfSchool= model.NameOfSchool,
                 AcademicLevel = model.AcademicLevel,
@@ -49,8 +51,7 @@ namespace ScholarshipManagement.Data.Services
                 BankAccountNumber = model.BankAccountNumber,
                 LastSchoolResult = model.LastSchoolResult,
                 SchoolBill = model.SchoolBill
-                
-             
+
             };
 
             await _applicationFormRepository.AddAsync(applicantion);
@@ -64,20 +65,25 @@ namespace ScholarshipManagement.Data.Services
        
         }
 
-        public async Task<BaseResponse> UpdateApplicationAsync(Guid id, UpdateApplictionRequestModel model)
+        public async Task<BaseResponse> UpdateApplicationAsync(int id, UpdateApplicationRequestModel model)
         {
-            var applicantExists = await _applicationFormRepository.ExistsAsync(u => u.Id != id && u.Student.MemberCode == model.MemberCode);
+            var applicantExists = await _applicationFormRepository.ExistsAsync(u => u.Id != id && u.Student.User.MemberCode == model.MemberCode);
+
             if (applicantExists)
             {
                 throw new BadRequestException($"Student with MemberCode '{model.MemberCode}' already exists.");
             }
+
             var applicant = await _applicationFormRepository.GetAsync(id);
             if (applicant == null)
             {
                 throw new NotFoundException("Role does not exist");
             }
-            applicant.InstitutionType = model.InstitutionType;
-            applicant.NameOfSchool = model.NameOfSchool;
+
+            applicant.Remarks = model.Remarks;
+            applicant.Approvals = model.Approvals;
+
+            /*applicant.NameOfSchool = model.NameOfSchool;
             applicant.AcademicLevel = model.AcademicLevel;
             applicant.SchoolSession = model.SchoolSession;
             applicant.Discipline = model.Discipline;
@@ -86,11 +92,9 @@ namespace ScholarshipManagement.Data.Services
             applicant.YearToGraduate = model.YearToGraduate;
             applicant.LetterOfAdmission = model.LetterOfAdmission;
             applicant.AmountRequested = model.AmountRequested;
-            applicant.BankName = model.BankName;
-            applicant.BankAccountNumber = model.BankAccountNumber;
-            applicant.BankAccountName = model.BankAccountName;
             applicant.LastSchoolResult = model.LastSchoolResult;
-            applicant.SchoolBill = model.SchoolBill;
+            applicant.SchoolBill = model.SchoolBill;*/
+
 
             await _applicationFormRepository.UpdateAsync(applicant);
             await _applicationFormRepository.SaveChangesAsync();
@@ -98,7 +102,7 @@ namespace ScholarshipManagement.Data.Services
             return new BaseResponse
             {
                 Status = true,
-                Message = "Role successfully updated"
+                Message = "Approval Given Successfully"
             };
         }
 
@@ -133,7 +137,7 @@ namespace ScholarshipManagement.Data.Services
             };
         }
 
-        public async Task<ApplicationResponseModel> GetApplication(Guid id)
+        public async Task<ApplicationResponseModel> GetApplication(int id)
         {
             var applicant = await _applicationFormRepository.GetAsync(id);
             if (applicant == null)

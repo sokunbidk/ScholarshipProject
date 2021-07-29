@@ -29,7 +29,6 @@ namespace ScholarshipManagement.Web.UI
                 );
 
             services.AddScoped<IApplicationFormRepository, ApplicationFormRepository>();
-            services.AddScoped<ICircuitRepository, CircuitRepository>();
             services.AddScoped<IJamaatRepository, JamaatRepository>();
             services.AddScoped<IPaymentRepository, PaymentRepository>();
             services.AddScoped<IRoleRepository, RoleRepository>();

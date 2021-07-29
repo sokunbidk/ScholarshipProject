@@ -14,7 +14,7 @@ namespace ScholarshipManagement.Data.Entities
 
         public string PhoneNumber { get; set; }
 
-        public Guid CircuitId { get; set; } //reference property
+        public int CircuitId { get; set; } //reference property
 
         public Circuit Circuit { get; set; } ///navigation prop
 

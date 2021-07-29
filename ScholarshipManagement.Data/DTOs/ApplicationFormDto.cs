@@ -1,19 +1,15 @@
 ﻿using ScholarshipManagement.Data.Enums;
 using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace ScholarshipManagement.Data.DTOs
 {
     public class ApplicationFormDto
     {
-        public Guid Id { get; set; }
+        public int Id { get; set; }
 
-        public Guid ApplicationFormNumber { get; set; }
+        public int ApplicationFormNumber { get; set; }
 
-        public Guid StudentId { get; set; }
+        public int StudentId { get; set; }
 
         public string MemberCode { get; set; }
 

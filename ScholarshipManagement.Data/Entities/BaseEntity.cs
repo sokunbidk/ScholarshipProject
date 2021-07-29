@@ -4,7 +4,7 @@ namespace ScholarshipManagement.Data.Entities
 {
     public abstract class BaseEntity
     {
-        public Guid Id { get; set; }
+        public int Id { get; set; }
 
         public bool IsDeleted { get; set; }
 

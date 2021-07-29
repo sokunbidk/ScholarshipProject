@@ -2,14 +2,14 @@
 using System;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
-using System.ComponentModel.DataAnnotations.Schema;
 
 namespace ScholarshipManagement.Data.Entities
 {
     public class Student : BaseEntity
     {
-        [Required, MaxLength(10)]
-        public string MemberCode { get; set; }
+        public int UserId { get; set; }
+
+        public User User { get; set; }
 
         [Required, MaxLength(50)]
         public string SurName { get; set; }
@@ -23,42 +23,30 @@ namespace ScholarshipManagement.Data.Entities
         [Required, MaxLength(250)]
         public string Address { get; set; }
 
-        
-        public Guid JamaatId { get; set; }
+        public int JamaatId { get; set; }
 
-        [Required, MaxLength(50)]
-        public Guid CircuitId { get; set; }
+        public Jamaat Jamaat { get; set; }
 
-        [MaxLength(30)]
-        public string PhoneNumber { get; set; }
+        public int CircuitId { get; set; }
 
-        [Required, MaxLength(50)]
-        public string EmailAddress { get; set; }
+        public Circuit Circuit  { get; set; }
 
-        [Required, MaxLength(10)]
         public Gender Gender { get; set; }
 
-        [Required, MaxLength(10)]
         public DateTime DateOfBirth { get; set; }
 
-        [Required, MaxLength(10)]
         public AuxiliaryBody AuxiliaryBody { get; set; }
 
         [Required, MaxLength(150)]
-        public string Guardian { get; set; }
+        public string GuardianFullname { get; set; }
 
         [Required, MaxLength(11)]
         public string GuardianPhoneNumber { get; set; }
 
-        [MaxLength(11)]
         public string GuardianMemberCode { get; set; }
 
-        [Required, MaxLength(30), StringLength(1024)]
+        
         public string Photograph { get; set; }
-
-        public Guid UserId { get; set; }
-
-        public User User { get; set; }
 
         public ICollection<ApplicationForm> ApplicationForms { get; set; } = new HashSet<ApplicationForm>();
     }

@@ -18,12 +18,12 @@ namespace ScholarshipManagement.Data.Repositories
             DbContext = context;
         }
 
-        public async Task<Jamaat> GetJamaatAsync(Guid circuitid)
+        public async Task<Jamaat> GetJamaatAsync(int circuitid)
         {
             return await Query().SingleOrDefaultAsync(u => u.CircuitId == circuitid);
         }
 
-        public async Task<Jamaat> GetJamaat(Guid id)
+        public async Task<Jamaat> GetJamaat(int id)
         {
             return await Query().SingleOrDefaultAsync(u => u.Id == id);
         }
