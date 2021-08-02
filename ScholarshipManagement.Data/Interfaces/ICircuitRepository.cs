@@ -8,14 +8,17 @@ using System.Threading.Tasks;
 
 namespace ScholarshipManagement.Data.Interfaces
 {
-    public interface ICircuitRepository 
+    public interface ICircuitRepository : IRepository<Circuit>
     {
-        //Task<IList<CircuitDto>> GetCircuitsAsync();
-        //Task<CircuitDto> GetCircuitAsync(string circuitID);
+        IList<Circuit> GetCircuits();
 
-        Task<CircuitDto> GetCircuit(int id);
-        Task<Jamaat> GetCircuitAsync(int circuitID);
+        public List<Circuit> GetAllCircuits();
 
-        //Task<IList<CircuitDto>> GetCircuitAsync(Guid circuitId);
+
+
+        Task<Circuit> GetCircuitAsync(int circuitId);
+
+        Task<Circuit> GetCircuitByName(string circuitName);
+
     }
 }

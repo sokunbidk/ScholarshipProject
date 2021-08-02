@@ -1,0 +1,63 @@
+﻿@model IList<ScholarshipManagement.Data.CircuitViewModel>
+
+@{
+    ViewData["Title"] = "Circuits";
+    int count = 0;
+}
+
+
+<h1>Circuit List</h1>
+<div class="card">
+    <div class=" card-header">
+        <a class="btn btn-success" asp-controller="Circuit" asp-action="Create">Add Circuit</a>
+    </div>
+
+    <div class="card-body">
+        @if (Model.Count() == 0)
+        {
+            <div>
+                <h5 class="text-center text-danger">No Circuit Found!</h5>
+            </div>
+        }
+        else
+        {
+            <table class="table table-bordered">
+                <thead>
+                    <tr>
+                        <th>S/N</th>
+                        <th>Name</th>
+                        <th>Email</th>
+                        <th>Action</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    @foreach (var circuit in Model)
+                    {
+                        <tr>
+                            <td> @(++count) </td>
+                            <td> @circuit.CircuitName </td>
+                            <td> @circuit.Email </td>
+                            
+                            <td>
+                                <div class="btn-group">
+                                    <a asp-action="Detail" asp-route-id="@circuit.Id" class="btn btn-primary">
+                                        View
+                                    </a>
+                                    <a asp-action="Update" asp-route-id="@circuit.Id" class="btn btn-success">
+                                        Edit
+                                    </a>
+                                    <a asp-action="Delete" asp-route-id="@circuit.Id" class="btn btn-danger">
+                                        Delete
+                                    </a>
+                                </div>
+
+                            </td>
+                        </tr>
+                    }
+                </tbody>
+            </table>
+        }
+
+    </div>
+</div>
+

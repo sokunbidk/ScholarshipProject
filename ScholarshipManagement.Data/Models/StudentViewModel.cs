@@ -35,7 +35,7 @@ namespace ScholarshipManagement.Data
        
         public string GuardianFullname { get; set; }
       
-        public string GuardianPhoneNo { get; set; }
+        public string GuardianPhoneNumber { get; set; }
         
         public string Photograph { get; set; }
     }
@@ -43,12 +43,13 @@ namespace ScholarshipManagement.Data
 
     public class CreateStudentRequestModel
     {
-        public int Id { get; set; }
-        public User User { get; set; }
-
+        public int UserId { get; set; }
+  
         [Required(ErrorMessage = "Surname is required")]
         [Display(Name = "Surname")]
         public string SurName { get; set; }
+
+        public string MemberCode { get; set; }
 
         [Required(ErrorMessage = "Firstname is required")]
         [Display(Name = "First Name")]
@@ -63,12 +64,8 @@ namespace ScholarshipManagement.Data
         [Display(Name = "Choose Jamaat")]
         public int JamaatId { get; set; }
 
-        public Jamaat Jamaat { get; set; }
-
         [Display(Name = "Choose Circuit")]
         public int CircuitId { get; set; }
-
-        public  Circuit Circuit { get; set; }
 
         [Required, Display(Name = "Auxiliary Body")]
         public AuxiliaryBody AuxiliaryBody { get; set; }
@@ -81,15 +78,15 @@ namespace ScholarshipManagement.Data
         public DateTime DateOfBirth { get; set; }
 
         [Required, Display(Name = "Guardian Name")]
-        public string GuardianName { get; set; }
+        public string GuardianFullName { get; set; }
 
         [Required, Display(Name = "Guardian Phone Number")]
-        public string GuardianPhone { get; set; }
+        public string GuardianPhoneNumber { get; set; }
 
-        [Required, Display(Name = "Guardian MemberCode")]
+       // [Required, Display(Name = "Guardian MemberCode")]
         public string GuardianMemberCode { get; set; }
             
-        [Required, Display(Name = "Upload Photograph")]
+        //[Required, Display(Name = "Upload Photograph")]
         public string Photograph { get; set; }
     }
     public class UpdateStudentRequestModel

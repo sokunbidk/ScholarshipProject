@@ -34,12 +34,17 @@ namespace ScholarshipManagement.Web.UI
             services.AddScoped<IRoleRepository, RoleRepository>();
             services.AddScoped<IStudentRepository, StudentRepository>();
             services.AddScoped<IUserRepository, UserRepository>();
+            services.AddScoped<ICircuitRepository, CircuitRepository>();
+            services.AddScoped<IJamaatRepository, JamaatRepository>();
+
 
             services.AddScoped<IApplicationService, ApplicationService>();
             services.AddScoped<IPaymentService, PaymentService>();
             services.AddScoped<IStudentService, StudentService>();
             services.AddScoped<IUserService, UserService>();
             services.AddScoped<IRoleService, RoleService>();
+            services.AddScoped<ICircuitService, CircuitService>();
+            services.AddScoped<IJamaatService, JamaatService>();
 
 
         }

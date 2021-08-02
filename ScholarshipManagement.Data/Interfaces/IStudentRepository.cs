@@ -14,7 +14,7 @@ namespace ScholarshipManagement.Data.Interfaces
 
         Task<Student> GetStudent(int id);
 
-        Task<IList<UpdateApplicationRequestModel>> GetStudentApplicationFormsAsync();
+        //Task<IList<UpdateRequestModel>> GetStudentApplicationFormsAsync();
 
         //Task<IList<StudentDto>> GetStudentsAsync(Guid studentId);
 

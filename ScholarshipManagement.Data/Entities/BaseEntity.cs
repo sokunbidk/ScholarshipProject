@@ -8,9 +8,9 @@ namespace ScholarshipManagement.Data.Entities
 
         public bool IsDeleted { get; set; }
 
-        public DateTime Created { get; set; }
+        public DateTime Created { get; set; } = DateTime.Today;
 
-        public DateTime? Modified { get; set; }
+        public DateTime? Modified { get; set; } = DateTime.Today;
 
         public string CreatedBy { get; set; }
 

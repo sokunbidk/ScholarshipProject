@@ -38,6 +38,7 @@ namespace ScholarshipManagement.Data.Repositories
                 //.Where(u => u.Student.CircuitId == u.UserId
                 .Select(uc => new UpdateApplicationRequestModel
                 {
+                    
                     StudentId = uc.StudentId,
                     MemberCode = uc.Student.User.MemberCode,
                     SurName = uc.Student.SurName,
@@ -51,7 +52,7 @@ namespace ScholarshipManagement.Data.Repositories
                     Gender = uc.Student.Gender,
                     DateOfBirth = uc.Student.DateOfBirth,
                     AuxiliaryBody = uc.Student.AuxiliaryBody,
-                    GuardianFullname = uc.Student.GuardianFullname,
+                    GuardianFullname = uc.Student.GuardianFullName,
                     GuardianPhone = uc.Student.GuardianPhoneNumber,
                     GuardianMemberCode = uc.Student.GuardianMemberCode,
                     Photograph = uc.Student.Photograph,
@@ -140,8 +141,6 @@ namespace ScholarshipManagement.Data.Repositories
 
                 }).ToListAsync();
         }
-
-
     }
 }
 

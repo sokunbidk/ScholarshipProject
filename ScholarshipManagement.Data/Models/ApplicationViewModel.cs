@@ -130,7 +130,7 @@ namespace ScholarshipManagement.Data
         public Jamaat Jamaat { get; set; }      
 
         [Display(Name = "Circuit")]
-        public Circuit Circuit { get; set; }     
+        public Entities.Circuit Circuit { get; set; }     
 
         [Required, Display(Name = "AuxiliaryBody")]
         public AuxiliaryBody AuxiliaryBody { get; set; }

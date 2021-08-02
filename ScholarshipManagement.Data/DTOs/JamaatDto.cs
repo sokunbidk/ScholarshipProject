@@ -9,8 +9,8 @@ namespace ScholarshipManagement.Data.DTOs
 {
     public class JamaatDto
     {
-        public Guid Id { get; set; }
-        public Guid Circuitid { get; set; }
+        public int Id { get; set; }
+        public int Circuitid { get; set; }
         public string Name { get; set; }
 
         public string Email { get; set; }

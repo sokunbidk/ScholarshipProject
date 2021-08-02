@@ -13,5 +13,7 @@ namespace ScholarshipManagement.Data.Interfaces
 
         Task<User> GetUser(int id);
 
+        Task<User> GetUserMemeberCodeAsync(string memberCode);
+
     }
 }

@@ -10,10 +10,12 @@ namespace ScholarshipManagement.Data.Interfaces
 {
     public interface IJamaatRepository:  IRepository<Jamaat>
     {
-        //Task<IList<JamaatDto>> GetJamaatsAsync();
+       
         Task<Jamaat> GetJamaatAsync(int circuitID);
 
         Task<Jamaat> GetJamaat(int id);
+        IList<Jamaat> GetJamaats();
+        Task<Jamaat> GetCircuitByName(string JamaatName);
 
     }
 }

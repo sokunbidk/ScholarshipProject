@@ -22,10 +22,20 @@ namespace ScholarshipManagement.Data.Repositories
         {
             return await Query().SingleOrDefaultAsync(u => u.CircuitId == circuitid);
         }
+        public IList<Jamaat> GetJamaats() //All jamaats
+        {
+            return DbContext.Jamaats.AsNoTracking().OrderBy(c => c.Name).ToList();
+        }
 
         public async Task<Jamaat> GetJamaat(int id)
         {
             return await Query().SingleOrDefaultAsync(u => u.Id == id);
         }
+        
+        public async Task<Jamaat> GetCircuitByName(string JamaatName) //A jamaat By Name
+        {
+            return await Query().SingleOrDefaultAsync(u => u.Name == JamaatName);
+        }
+       
     }
 }

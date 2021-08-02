@@ -13,6 +13,15 @@
             <div class="card card-body">
                 <form method="POST">
                     <div class="form-row">
+                       
+                        <div class="form-group col-lg-4">
+                            <label asp-for="MemberCode"></label>
+                            <input type="text" asp-for="MemberCode" class="form-control" />
+                            <span asp-validation-for="MemberCode"></span>
+                        </div>
+
+                    </div>
+                    <div class="form-row">
                         <div class="form-group col-lg-4">
                             <label asp-for="SurName"></label>
                             <input type="text" asp-for="SurName" class="form-control" />
@@ -40,15 +49,15 @@
 
                     <div class="form-row">
                         <div class="form-group col-lg-4">
-                            <label asp-for="Jamaat"></label>
-                            <input class="form-control" type="text" asp-for="Jamaat" />
-                            <span asp-validation-for="Jamaat"></span>
+                            <label asp-for="JamaatId"></label>
+                            <input class="form-control" type="text" asp-for="JamaatId" />
+                            <span asp-validation-for="JamaatId"></span>
                         </div>
 
                         <div class="form-group col-lg-4">
-                            <label asp-for="Circuit"></label>
-                            <input class="form-control" type="text" asp-for="Circuit" />
-                            <span asp-validation-for="Circuit"></span>
+                            <label asp-for="CircuitId"></label>
+                            <input class="form-control" type="text" asp-for="CircuitId" />
+                            <span asp-validation-for="CircuitId"></span>
                         </div>
 
                         <div class="form-group col-lg-4">
@@ -73,14 +82,19 @@
 
                     <div class="form-row">
                         <div class="form-group col-lg-6">
-                            <label asp-for="GuardianName"></label>
-                            <input class="form-control" type="text" asp-for="GuardianName" />
-                            <span asp-validation-for="GuardianName"></span>
+                            <label asp-for="GuardianFullName"></label>
+                            <input class="form-control" type="text" asp-for="GuardianFullName" />
+                            <span asp-validation-for="GuardianFullName"></span>
                         </div>
                         <div class="form-group col-lg-6">
-                            <label asp-for="GuardianPhone"></label>
-                            <input class="form-control" type="text" asp-for="GuardianPhone" />
-                            <span asp-validation-for="GuardianPhone"></span>
+                            <label asp-for="GuardianPhoneNumber"></label>
+                            <input class="form-control" type="text" asp-for="GuardianPhoneNumber" />
+                            <span asp-validation-for="GuardianPhoneNumber"></span>
+                        </div>
+                        <div class="form-group col-lg-6">
+                            <label asp-for="GuardianMemberCode"></label>
+                            <input class="form-control" type="text" asp-for="GuardianMemberCode" />
+                            <span asp-validation-for="GuardianMemberCode"></span>
                         </div>
                     </div>
                     <div class="form-group">

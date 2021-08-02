@@ -1,5 +1,9 @@
 ﻿using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
+using ScholarshipManagement.Data;
+using ScholarshipManagement.Data.DTOs;
+using ScholarshipManagement.Data.Interfaces;
+using ScholarshipManagement.Data.Services;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -9,79 +13,37 @@ namespace ScholarshipManagement.Web.UI.Controllers
 {
     public class CircuitController : Controller
     {
-        // GET: CircuitController
+        private readonly ICircuitService _circuitService;
+
+        private readonly ICircuitRepository _circuitRepository;
+
+        public CircuitController(ICircuitService circuitService, ICircuitRepository circuitRepository)
+        {
+            _circuitService = circuitService;
+            _circuitRepository = circuitRepository;
+        }
+        //Projects from Db to View
         public ActionResult Index()
         {
-            return View();
-        }
 
-        // GET: CircuitController/Details/5
-        public ActionResult Details(int id)
+            var circuit = _circuitService.GetCircuits();
+            return View(circuit);
+        }
+        //BlankForm
+        [HttpGet]
+        public IActionResult Create()
         {
             return View();
         }
 
-        // GET: CircuitController/Create
-        public ActionResult Create()
-        {
-            return View();
-        }
-
-        // POST: CircuitController/Create
+        //Updates inputs from User
         [HttpPost]
-        [ValidateAntiForgeryToken]
-        public ActionResult Create(IFormCollection collection)
+        public async Task<IActionResult> Create(CreateCircuitRequestModel model)
         {
-            try
-            {
-                return RedirectToAction(nameof(Index));
-            }
-            catch
-            {
-                return View();
-            }
+          await _circuitService.CreateCircuitAsync(model);
+            return RedirectToAction ("Index");
         }
 
-        // GET: CircuitController/Edit/5
-        public ActionResult Edit(int id)
-        {
-            return View();
-        }
-
-        // POST: CircuitController/Edit/5
-        [HttpPost]
-        [ValidateAntiForgeryToken]
-        public ActionResult Edit(int id, IFormCollection collection)
-        {
-            try
-            {
-                return RedirectToAction(nameof(Index));
-            }
-            catch
-            {
-                return View();
-            }
-        }
-
-        // GET: CircuitController/Delete/5
-        public ActionResult Delete(int id)
-        {
-            return View();
-        }
-
-        // POST: CircuitController/Delete/5
-        [HttpPost]
-        [ValidateAntiForgeryToken]
-        public ActionResult Delete(int id, IFormCollection collection)
-        {
-            try
-            {
-                return RedirectToAction(nameof(Index));
-            }
-            catch
-            {
-                return View();
-            }
-        }
+   
     }
 }

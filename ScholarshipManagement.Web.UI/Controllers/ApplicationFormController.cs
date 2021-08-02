@@ -44,27 +44,27 @@ namespace ScholarshipManagement.Web.UI.Controllers
             return View(students);
   
         }
-        [HttpGet]
+      /*  [HttpGet]
         public IActionResult UpdateProgress()
         {
              var applications = _studentRepository.GetStudentApplicationFormsAsync();
 
             return View(applications);
-        }
+        }*/
 
         [HttpPost]
         public IActionResult EditApplication(UpdateApplicationRequestModel model)
         {
-            var students = _applicationService.Update(model);
+            var students = _applicationService.UpdateAsync(model);
 
             return View(students);
 
-            //return RedirectToAction(GetApplications);
+            
         }
         [HttpGet]
-        public IActionResult EditApplication(int id)
+        public IActionResult EditApplication(int applicationFormNumber)
         {
-            var applications = _applicationService.GetApplication(id);
+            var applications = _applicationService.GetApplicationFormAsync(applicationFormNumber);
 
             return View(applications);
         }

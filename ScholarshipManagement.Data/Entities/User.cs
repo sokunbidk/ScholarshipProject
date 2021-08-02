@@ -6,11 +6,8 @@ namespace ScholarshipManagement.Data.Entities
 {
     public class User : BaseEntity
     {
-        [Required, MaxLength(50)]
-        [Display(Name = "User Email")]
         public string Email { get; set; }
 
-        [Required, MaxLength(50)]
         public string PasswordHash { get; set; }
 
         public string HashSalt { get; set; }
@@ -20,6 +17,7 @@ namespace ScholarshipManagement.Data.Entities
         public string MemberCode { get; set; }
 
         public string PhoneNumber { get; set; }
+        //public string CircuitId { get; set; }
 
         public ICollection<UserRole> UserRoles { get; set; } = new HashSet<UserRole>();
     }

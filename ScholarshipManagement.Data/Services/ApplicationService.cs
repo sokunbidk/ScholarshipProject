@@ -67,7 +67,7 @@ namespace ScholarshipManagement.Data.Services
 
         public async Task<BaseResponse> UpdateApplicationAsync(int id, UpdateApplicationRequestModel model)
         {
-            var applicantExists = await _applicationFormRepository.ExistsAsync(u => u.Id != id && u.Student.User.MemberCode == model.MemberCode);
+            var applicantExists = await _applicationFormRepository.ExistsAsync(u => u.Id != model.StudentId && u.Student.User.MemberCode == model.MemberCode);
 
             if (applicantExists)
             {
@@ -140,6 +140,7 @@ namespace ScholarshipManagement.Data.Services
         public async Task<ApplicationResponseModel> GetApplication(int id)
         {
             var applicant = await _applicationFormRepository.GetAsync(id);
+
             if (applicant == null)
             {
                 throw new NotFoundException("Applicant does not exist");
@@ -176,6 +177,43 @@ namespace ScholarshipManagement.Data.Services
 
 
         }
+
+     
+
+        public Task<BaseResponse> UpdateAsync(UpdateApplicationRequestModel model)
+        {
+            throw new NotImplementedException();
+        }
+
+        public Task<ApplicationForm> GetApplicationFormAsync(int applicationFormNumber)
+        {
+            throw new NotImplementedException();
+        }
+        /*  public async Task<ApplicationForm> GetApplicationFormAsync(int applicationFormNumber)
+ {
+     var applicationForm = _applicationFormRepository.GetApplicationFormAsync(applicationFormNumber);
+
+     var application = new UpdateApplicationRequestModel
+     {
+         InstitutionType = applicationForm.InstitutionType,
+         NameOfSchool = applicationForm,
+             AcademenicLevel = applicant.AcademicLevel,
+             SchoolSession = applicant.SchoolSession,
+             Discipline = applicant.Discipline,
+             Duration = applicant.Duration,
+             DegreeInView = applicant.DegreeInView,
+             YearToGraduate = applicant.YearToGraduate,
+             LetterOfAdmission = applicant.LetterOfAdmission,
+             AmountRequested = applicant.AmountRequested,
+             BankName = applicant.BankName,
+             BankAccountNumber = applicant.BankAccountNumber,
+             BankAccountName = applicant.BankAccountName,
+             LastSchoolResult = applicant.LastSchoolResult,
+             SchoolBill = applicant.SchoolBill,
+
+             return application;
+     }
+ }*/
 
     }
 }

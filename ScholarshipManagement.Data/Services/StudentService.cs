@@ -11,36 +11,49 @@ namespace ScholarshipManagement.Data.Services
     public class StudentService : IStudentService
     {
         private readonly IStudentRepository _studentRepository;
-        public StudentService(IStudentRepository studentRepository)
+
+        private readonly IUserRepository _userRepository;
+        public StudentService(IStudentRepository studentRepository, IUserRepository userRepository)
         {
             _studentRepository = studentRepository;
+            _userRepository = userRepository;
         }
         public async Task<BaseResponse> CreateStudentAsync(CreateStudentRequestModel model)
         {
-            Student student = new()
+
+            var user = await _userRepository.GetUserMemeberCodeAsync(model.MemberCode);
+
+            /*if (user == null)
             {
-                UserId = model.User.Id = 1,
-                SurName = model.SurName,
-                FirstName = model.FirstName,
-                OtherName = model.OtherName,
-                Address = model.Address,
-                CircuitId = model.Circuit.Id,
-                JamaatId = model.Jamaat.Id,
-                AuxiliaryBody = model.AuxiliaryBody,
-                /*PhoneNumber = model.User.PhoneNumber,
-                OtherName = model.OtherName,
-                MemberCode = model.MemberCode,*/
-                Gender = model.Gender,
-                DateOfBirth = model.DateOfBirth,
-                GuardianFullname = model.GuardianName,
-                GuardianPhoneNumber = model.GuardianPhone,
-                GuardianMemberCode = model.GuardianMemberCode,
-                Photograph = model.Photograph
-            };
+                throw new NotFoundException("User does not exist");
+            }*/
 
-            await _studentRepository.AddAsync(student);
-            await _studentRepository.SaveChangesAsync();
+            Student student = new()
+            //CreateStudentRequestModel student = new()
+            {
 
+                    UserId = 1,
+                    SurName = model.SurName,
+                    FirstName = model.FirstName,
+                    OtherName = model.OtherName,
+                    Address = model.Address,
+                    CircuitId = model.CircuitId,
+                    JamaatId = model.JamaatId,
+                    AuxiliaryBody = model.AuxiliaryBody,
+                    //PhoneNumber = user.PhoneNumber,
+                    //EmailAddress = user.Email,
+                    //MemberCode = user.MemberCode,
+                    Gender = model.Gender,
+                    DateOfBirth = model.DateOfBirth,
+                    GuardianFullName = model.GuardianFullName,
+                    GuardianPhoneNumber = model.GuardianPhoneNumber,
+                    GuardianMemberCode = model.GuardianMemberCode,
+                    Photograph = model.Photograph
+                };
+
+                await _studentRepository.AddAsync(student);
+                await _studentRepository.SaveChangesAsync();
+            
             return new BaseResponse
             {
                 Status = true,
@@ -62,7 +75,7 @@ namespace ScholarshipManagement.Data.Services
             student.AuxiliaryBody = model.AuxiliaryBody;
             student.DateOfBirth = model.DateOfBirth;
             student.FirstName = model.FirstName;
-            student.GuardianFullname = model.GuardianFullname;
+            student.GuardianFullName = model.GuardianFullname;
             student.GuardianPhoneNumber = model.GuardianPhone;
             student.JamaatId = model.JamaatId;
             student.CircuitId = model.CircuitId;
@@ -86,7 +99,7 @@ namespace ScholarshipManagement.Data.Services
                 AuxiliaryBody = r.AuxiliaryBody,
                 DateOfBirth = r.DateOfBirth,
                 FirstName = r.FirstName,
-                GuardianFullname = r.GuardianFullname,
+                GuardianFullname = r.GuardianFullName,
                 GuardianPhoneNumber = r.GuardianPhoneNumber,
                 MemberCode = r.User.MemberCode,
                 PhoneNumber = r.User.PhoneNumber,
@@ -121,7 +134,7 @@ namespace ScholarshipManagement.Data.Services
                     DateOfBirth = student.DateOfBirth,
                     EmailAddress = student.User.Email,
                     FirstName = student.FirstName,
-                    GuardianFullname = student.GuardianFullname,
+                    GuardianFullname = student.GuardianFullName,
                     GuardianPhoneNumber = student.GuardianPhoneNumber,
                     MemberCode = student.User.MemberCode,
                     OtherName = student.OtherName,

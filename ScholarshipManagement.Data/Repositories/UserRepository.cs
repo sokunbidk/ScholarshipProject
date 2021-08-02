@@ -28,7 +28,10 @@ namespace ScholarshipManagement.Data.Repositories
             return await Query().SingleOrDefaultAsync(u => u.Id == id);
         }
 
-
+        public async Task<User> GetUserMemeberCodeAsync(string memberCode)
+        {
+            return await Query().SingleOrDefaultAsync(u => u.MemberCode.Equals(memberCode));
+        }
     }
 }
 

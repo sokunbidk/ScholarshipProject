@@ -13,32 +13,19 @@ namespace ScholarshipManagement.Web.UI.Controllers
             _studentService = studentService;
         }
 
-        public IActionResult Index()
-        {
-            return View();
-        }
-
-        public IActionResult Dashboard()
-        {
-            return View();
-        }
-
-        public IActionResult AdminDashboard()
-        {
-            return View();
-        }
-
         public IActionResult NewCandidate()
         {
             return View();
         }
 
+
         [HttpPost]
         public  IActionResult NewCandidate(CreateStudentRequestModel model)
         {
-            _studentService.CreateStudentAsync(model);
+           var student = _studentService.CreateStudentAsync(model);
 
-            return RedirectToAction("ReturningCandidate", "ApplicationForm");
+            // return RedirectToAction("ReturningCandidate", "ApplicationForm");
+            return RedirectToAction("NewCandidate");
         }
         
 

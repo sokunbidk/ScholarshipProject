@@ -8,10 +8,13 @@ using System.Threading.Tasks;
 
 namespace ScholarshipManagement.Data.DTOs
 {
-    public class CircuitDto : BaseEntity
+    public class CircuitDto 
     {
-        public int CircuitName { get; set; }
-        
+        public int Id { get; set; }
+
+        public string CircuitName { get; set; }
+
+        public string Email { get; set; }
 
         public IList<JamaatDto> Jamaats { get; set; }
     }
