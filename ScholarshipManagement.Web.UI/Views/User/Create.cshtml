@@ -4,56 +4,107 @@
     ViewData["Title"] = "Sign Up";
 }
 
-<div class="row">
+<div class="row justify-content-center">
 
-    <div class="col-md-7">
-        <div class="card">
-            <div class="card-header">
-                <h4>@ViewData["Title"]</h4>
+    <div class="col-md-7 mt-5">
+        <div class="card formcard">
+            <div class="card-header formheader">
+                <h4 class="text-center formlabel ">@ViewData["Title"]</h4>
             </div>
 
-            
 
-            <div class="card card-body">
+
+            <div class="card card-body formcard">
+                @if (!string.IsNullOrEmpty(ViewBag.Message))
+                {
+                    <p class="alert alert-warning alert-dismissible" id="successUser" role="alert">@ViewBag.Message</p>
+                }
                 <form method="POST">
 
                     <div class="form-row">
+                        <div class="form-group col-lg-12">
+                            <label class="formlabel" asp-for="FullName"></label>
+                            <input type="text" id="fullname" asp-for="FullName" class="form-control" required/>
+                            <span asp-validation-for="FullName"></span>
+                        </div>
                         <div class="form-group col-lg-4">
-                            <label asp-for="Email"></label>
-                            <input type="text" asp-for="Email" class="form-control" />
+                            <label class="formlabel" asp-for="Email"></label>
+                            <input type="email" id="email" asp-for="Email" onblur="validateEmail()" class="form-control" required />
                             <span asp-validation-for="Email"></span>
+                            <div class="text-danger" id="emailerr"></div>
                         </div>
 
                         <div class="form-group col-lg-4">
-                            <label asp-for="PhoneNumber"></label>
-                            <input type="text" asp-for="PhoneNumber" class="form-control" />
+                            <label class="formlabel" asp-for="PhoneNumber"></label>
+                            <input type="text" id="phoneNo" asp-for="PhoneNumber" maxlength="11" class="form-control" required />
                             <span asp-validation-for="PhoneNumber"></span>
                         </div>
 
                         <div class="form-group col-lg-4">
-                            <label asp-for="MemberCode"></label>
-                            <input class="form-control" type="text" asp-for="MemberCode" />
+                            <label class="formlabel"asp-for="MemberCode"></label>
+                            <input class="form-control"onkeyup="validateMemberCode()" id="membercode" type="text" asp-for="MemberCode" required/>
                             <span asp-validation-for="MemberCode"></span>
+                            <div class="text-danger" id="codeerr"></div>
                         </div>
                     </div>
 
-                    <div class="form-group">
-                        <label asp-for="Password"></label>
-                        <input class="form-control" type="password" asp-for="Password" />
-                        <span asp-validation-for="Password"></span>
-                    </div>
+
 
                     <div class="form-row">
-                        <div class="form-group">
-                            <label asp-for="ConfirmPassword"></label>
-                            <input class="form-control" type="text" asp-for="ConfirmPassword" />
+                        <div class="form-group  col-lg-6">
+                            <label class="formlabel"asp-for="Password"></label>
+                            <input id="password" class="form-control" type="password" asp-for="Password" required/>
+                            <span asp-validation-for="Password"></span>
+                        </div>
+
+                        <div class="form-group col-lg-6">
+                            <label class="formlabel" asp-for="ConfirmPassword"></label>
+                            <input id="confirmpassword" class="form-control" onkeyup="confirmPassword()" type="password" asp-for="ConfirmPassword" required/>
                             <span asp-validation-for="ConfirmPassword"></span>
                         </div>
-                        <input type="submit" class="btn btn-success" value="Submit" />
+                        <div class="text-danger text-center" id="passworderr"></div>
                     </div>
+
+                    <div class="form-row justify-content-center">
+                        <input type="submit"  id="submitbtn" class="btn btn-success text-dark formlabel" value="Submit" />
+                    </div>
+
                 </form>
+            </div>
+            <div class="card-footer formlabel formfooter">
+                Already have an account? <a asp-controller="User" asp-action="Login">Sign In</a>
             </div>
         </div>
     </div>
 
 </div>
+
+<script>
+   @* $(function () { congrats(); });*@
+
+ @*   function congrats() {
+        $(document).ready(function () {
+            let action = document.getElementById('successUser');
+            if (action.innerHTML === "User successfully created") {
+                Swal.fire({
+                    icon: 'success',
+                    title: 'Congratulations! You have successfully registered.',
+                    showCancelButton: false,
+                    focusConfirm: false,
+                    html:
+                        'Please click on, ' +
+                        '<b><a asp-controller="User" asp-action="Login">Sign In</a></b> ' +
+                        'to log into your page',
+                    confirmButtonColor: '#b1ef95',
+                    confirmButtonText:
+                        '<a asp-controller="User" asp-action="Login">Sign In</a>',
+                    confirmButtonAriaLabel: 'Thumbs up, OK!'
+                })
+            }
+        })
+    }
+
+    congrats();*@
+
+
+</script>

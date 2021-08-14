@@ -18,10 +18,7 @@ namespace ScholarshipManagement.Data
         public string CircuitName { get; set; }
         public Circuit Circuit { get; set; } //navigation properties
         public string Name { get; set; }
-        
-
         public string Email { get; set; }
-
         public string PhoneNumber { get; set; }
         
     }

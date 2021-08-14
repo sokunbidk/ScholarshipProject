@@ -35,9 +35,9 @@ namespace ScholarshipManagement.Data.DTOs
 
         public string SchoolBill { get; set; }
 
-        public string AcademenicLevel { get; set; }
+        public string AcademicLevel { get; set; }
 
-        public double AmountRequested { get; set; }
+        public decimal AmountRequested { get; set; }
 
         public string BankAccountNumber { get; set; }
 

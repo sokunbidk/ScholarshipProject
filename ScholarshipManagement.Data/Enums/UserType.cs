@@ -10,6 +10,10 @@ namespace ScholarshipManagement.Data.Enums
     {
         Student = 1,
         Circuit = 2,
-        Admin = 3
+        Committee = 3,
+        NaibAmir = 4,
+        Amir = 5,
+        Accounts = 6,
+            Secretariat=7
     }
 }

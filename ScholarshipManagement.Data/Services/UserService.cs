@@ -31,7 +31,7 @@ namespace ScholarshipManagement.Data.Services
 
             if(model.Password != model.ConfirmPassword)
             {
-                throw new BadRequestException($"Password does not match");
+                throw new BadRequestException($"Password does not match"); 
             }
 
             string salt = GenerateSalt();
@@ -40,12 +40,15 @@ namespace ScholarshipManagement.Data.Services
 
             var user = new User
             {
+                UserFullName = model.FullName,
                 Email = model.Email,
                 PhoneNumber = model.PhoneNumber,
                 MemberCode = model.MemberCode,
-                UserType = model.UserType,
-                HashSalt= salt,
+                UserType = Enums.UserType.Student,
+                HashSalt = salt,
                 PasswordHash = hashedPassword,
+                CreatedBy = model.FullName,
+
             };
 
             await _userRepository.AddAsync(user);
@@ -54,29 +57,23 @@ namespace ScholarshipManagement.Data.Services
             return new BaseResponse
             {
                 Status = true,
-                Message = "Password successfully created"
+                Message = "User successfully created"
             };
         }
 
         public async Task<UserDto> LoginUserAsync(LoginUserRequestModel model)
         {
+           
             var user = await _userRepository.GetUserAsync(model.Email);
-
-            if(user == null)
-            {
-                throw new NotFoundException("User does not exist");
-            }
-
             string hashedPassword = HashPassword(model.Password, user.HashSalt);
-
-            if (!user.PasswordHash.Equals(hashedPassword))
+            if (user == null || user.PasswordHash != hashedPassword)
             {
-                throw new BadRequestException($"Invalid Password");
+                return null;
             }
-
             return new UserDto
             {
                 Id = user.Id,
+                UserFullName =user.UserFullName,
                 MemberCode = user.MemberCode,
                 Email = user.Email,
                 PhoneNumber = user.PhoneNumber,
@@ -142,6 +139,8 @@ namespace ScholarshipManagement.Data.Services
                     Email = user.Email,
                     PhoneNumber = user.PhoneNumber,
                     MemberCode = user.MemberCode,
+                    UserType = user.UserType,
+                    Id = user.Id
                 },
                 Status = true,
                 Message = "Successful"
@@ -174,6 +173,11 @@ namespace ScholarshipManagement.Data.Services
                 numBytesRequested: 256 / 8));
 
             return hashed;
+        }
+
+        public Task<Circuit> GetUserCircuit(int id)
+        {
+            return _userRepository.GetUserCircuit(id);
         }
     }
 }

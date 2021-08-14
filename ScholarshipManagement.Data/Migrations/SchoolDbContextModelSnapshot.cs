@@ -31,9 +31,6 @@ namespace ScholarshipManagement.Data.Migrations
                     b.Property<decimal>("AmountRequested")
                         .HasColumnType("decimal(18, 2)");
 
-                    b.Property<int>("ApplicationFormNumber")
-                        .HasColumnType("int");
-
                     b.Property<string>("BankAccountName")
                         .IsRequired()
                         .HasMaxLength(90)
@@ -49,14 +46,17 @@ namespace ScholarshipManagement.Data.Migrations
                         .HasMaxLength(50)
                         .HasColumnType("varchar(50)");
 
-                    b.Property<DateTime>("Created")
-                        .HasColumnType("datetime");
-
                     b.Property<string>("CreatedBy")
                         .HasColumnType("text");
 
                     b.Property<DateTime>("DateAdmitted")
                         .HasMaxLength(50)
+                        .HasColumnType("datetime");
+
+                    b.Property<DateTime>("DateCreated")
+                        .HasColumnType("datetime");
+
+                    b.Property<DateTime>("DateModified")
                         .HasColumnType("datetime");
 
                     b.Property<string>("DegreeInView")
@@ -88,9 +88,6 @@ namespace ScholarshipManagement.Data.Migrations
                         .HasMaxLength(200)
                         .HasColumnType("varchar(200)");
 
-                    b.Property<DateTime?>("Modified")
-                        .HasColumnType("datetime");
-
                     b.Property<string>("ModifiedBy")
                         .HasColumnType("text");
 
@@ -98,6 +95,9 @@ namespace ScholarshipManagement.Data.Migrations
                         .IsRequired()
                         .HasMaxLength(50)
                         .HasColumnType("varchar(50)");
+
+                    b.Property<string>("Remarks")
+                        .HasColumnType("text");
 
                     b.Property<byte[]>("RowVersion")
                         .HasColumnType("varbinary(4000)");
@@ -111,6 +111,9 @@ namespace ScholarshipManagement.Data.Migrations
                         .IsRequired()
                         .HasMaxLength(50)
                         .HasColumnType("varchar(50)");
+
+                    b.Property<int>("Status")
+                        .HasColumnType("int");
 
                     b.Property<int>("StudentId")
                         .HasColumnType("int");
@@ -131,11 +134,20 @@ namespace ScholarshipManagement.Data.Migrations
                         .ValueGeneratedOnAdd()
                         .HasColumnType("int");
 
-                    b.Property<DateTime>("Created")
-                        .HasColumnType("datetime");
+                    b.Property<int>("CircuitId")
+                        .HasColumnType("int");
+
+                    b.Property<string>("CircuitName")
+                        .HasColumnType("text");
 
                     b.Property<string>("CreatedBy")
                         .HasColumnType("text");
+
+                    b.Property<DateTime>("DateCreated")
+                        .HasColumnType("datetime");
+
+                    b.Property<DateTime>("DateModified")
+                        .HasColumnType("datetime");
 
                     b.Property<string>("Email")
                         .HasColumnType("text");
@@ -143,17 +155,11 @@ namespace ScholarshipManagement.Data.Migrations
                     b.Property<bool>("IsDeleted")
                         .HasColumnType("tinyint(1)");
 
-                    b.Property<DateTime?>("Modified")
-                        .HasColumnType("datetime");
-
                     b.Property<string>("ModifiedBy")
                         .HasColumnType("text");
 
-                    b.Property<string>("Name")
-                        .HasColumnType("text");
-
-                    b.Property<string>("PhoneNumber")
-                        .HasColumnType("text");
+                    b.Property<int>("PresidentId")
+                        .HasColumnType("int");
 
                     b.Property<byte[]>("RowVersion")
                         .HasColumnType("varbinary(4000)");
@@ -172,11 +178,14 @@ namespace ScholarshipManagement.Data.Migrations
                     b.Property<int>("CircuitId")
                         .HasColumnType("int");
 
-                    b.Property<DateTime>("Created")
-                        .HasColumnType("datetime");
-
                     b.Property<string>("CreatedBy")
                         .HasColumnType("text");
+
+                    b.Property<DateTime>("DateCreated")
+                        .HasColumnType("datetime");
+
+                    b.Property<DateTime>("DateModified")
+                        .HasColumnType("datetime");
 
                     b.Property<string>("Email")
                         .HasColumnType("text");
@@ -184,13 +193,13 @@ namespace ScholarshipManagement.Data.Migrations
                     b.Property<bool>("IsDeleted")
                         .HasColumnType("tinyint(1)");
 
-                    b.Property<DateTime?>("Modified")
-                        .HasColumnType("datetime");
+                    b.Property<int>("JamaatId")
+                        .HasColumnType("int");
 
-                    b.Property<string>("ModifiedBy")
+                    b.Property<string>("JamaatName")
                         .HasColumnType("text");
 
-                    b.Property<string>("Name")
+                    b.Property<string>("ModifiedBy")
                         .HasColumnType("text");
 
                     b.Property<string>("PhoneNumber")
@@ -236,13 +245,16 @@ namespace ScholarshipManagement.Data.Migrations
                     b.Property<bool>("ConfirmPayment")
                         .HasColumnType("tinyint(1)");
 
-                    b.Property<DateTime>("Created")
-                        .HasColumnType("datetime");
-
                     b.Property<string>("CreatedBy")
                         .HasColumnType("text");
 
                     b.Property<DateTime>("DateApproved")
+                        .HasColumnType("datetime");
+
+                    b.Property<DateTime>("DateCreated")
+                        .HasColumnType("datetime");
+
+                    b.Property<DateTime>("DateModified")
                         .HasColumnType("datetime");
 
                     b.Property<DateTime>("DatePaid")
@@ -251,21 +263,26 @@ namespace ScholarshipManagement.Data.Migrations
                     b.Property<bool>("IsDeleted")
                         .HasColumnType("tinyint(1)");
 
-                    b.Property<DateTime?>("Modified")
-                        .HasColumnType("datetime");
-
                     b.Property<string>("ModifiedBy")
                         .HasColumnType("text");
 
                     b.Property<string>("ProofOfChandaPmt")
                         .HasColumnType("text");
 
+                    b.Property<string>("Remarks")
+                        .HasColumnType("text");
+
                     b.Property<byte[]>("RowVersion")
                         .HasColumnType("varbinary(4000)");
+
+                    b.Property<int>("StudentId")
+                        .HasColumnType("int");
 
                     b.HasKey("Id");
 
                     b.HasIndex("ApplicationFormId");
+
+                    b.HasIndex("StudentId");
 
                     b.ToTable("Payments");
                 });
@@ -276,20 +293,20 @@ namespace ScholarshipManagement.Data.Migrations
                         .ValueGeneratedOnAdd()
                         .HasColumnType("int");
 
-                    b.Property<DateTime>("Created")
-                        .HasColumnType("datetime");
-
                     b.Property<string>("CreatedBy")
                         .HasColumnType("text");
+
+                    b.Property<DateTime>("DateCreated")
+                        .HasColumnType("datetime");
+
+                    b.Property<DateTime>("DateModified")
+                        .HasColumnType("datetime");
 
                     b.Property<string>("Description")
                         .HasColumnType("text");
 
                     b.Property<bool>("IsDeleted")
                         .HasColumnType("tinyint(1)");
-
-                    b.Property<DateTime?>("Modified")
-                        .HasColumnType("datetime");
 
                     b.Property<string>("ModifiedBy")
                         .HasColumnType("text");
@@ -319,17 +336,23 @@ namespace ScholarshipManagement.Data.Migrations
                     b.Property<int>("AuxiliaryBody")
                         .HasColumnType("int");
 
-                    b.Property<int>("CircuitId")
+                    b.Property<int?>("CircuitId")
                         .HasColumnType("int");
-
-                    b.Property<DateTime>("Created")
-                        .HasColumnType("datetime");
 
                     b.Property<string>("CreatedBy")
                         .HasColumnType("text");
 
+                    b.Property<DateTime>("DateCreated")
+                        .HasColumnType("datetime");
+
+                    b.Property<DateTime>("DateModified")
+                        .HasColumnType("datetime");
+
                     b.Property<DateTime>("DateOfBirth")
                         .HasColumnType("datetime");
+
+                    b.Property<string>("EmailAddress")
+                        .HasColumnType("text");
 
                     b.Property<string>("FirstName")
                         .IsRequired()
@@ -339,7 +362,7 @@ namespace ScholarshipManagement.Data.Migrations
                     b.Property<int>("Gender")
                         .HasColumnType("int");
 
-                    b.Property<string>("GuardianFullname")
+                    b.Property<string>("GuardianFullName")
                         .IsRequired()
                         .HasMaxLength(150)
                         .HasColumnType("varchar(150)");
@@ -358,8 +381,8 @@ namespace ScholarshipManagement.Data.Migrations
                     b.Property<int>("JamaatId")
                         .HasColumnType("int");
 
-                    b.Property<DateTime?>("Modified")
-                        .HasColumnType("datetime");
+                    b.Property<string>("MemberCode")
+                        .HasColumnType("text");
 
                     b.Property<string>("ModifiedBy")
                         .HasColumnType("text");
@@ -368,8 +391,10 @@ namespace ScholarshipManagement.Data.Migrations
                         .HasMaxLength(30)
                         .HasColumnType("varchar(30)");
 
+                    b.Property<string>("PhoneNumber")
+                        .HasColumnType("text");
+
                     b.Property<string>("Photograph")
-                        .IsRequired()
                         .HasColumnType("text");
 
                     b.Property<byte[]>("RowVersion")
@@ -400,16 +425,17 @@ namespace ScholarshipManagement.Data.Migrations
                         .ValueGeneratedOnAdd()
                         .HasColumnType("int");
 
-                    b.Property<DateTime>("Created")
-                        .HasColumnType("datetime");
-
                     b.Property<string>("CreatedBy")
                         .HasColumnType("text");
 
+                    b.Property<DateTime>("DateCreated")
+                        .HasColumnType("datetime");
+
+                    b.Property<DateTime>("DateModified")
+                        .HasColumnType("datetime");
+
                     b.Property<string>("Email")
-                        .IsRequired()
-                        .HasMaxLength(50)
-                        .HasColumnType("varchar(50)");
+                        .HasColumnType("text");
 
                     b.Property<string>("HashSalt")
                         .HasColumnType("text");
@@ -420,22 +446,20 @@ namespace ScholarshipManagement.Data.Migrations
                     b.Property<string>("MemberCode")
                         .HasColumnType("text");
 
-                    b.Property<DateTime?>("Modified")
-                        .HasColumnType("datetime");
-
                     b.Property<string>("ModifiedBy")
                         .HasColumnType("text");
 
                     b.Property<string>("PasswordHash")
-                        .IsRequired()
-                        .HasMaxLength(50)
-                        .HasColumnType("varchar(50)");
+                        .HasColumnType("text");
 
                     b.Property<string>("PhoneNumber")
                         .HasColumnType("text");
 
                     b.Property<byte[]>("RowVersion")
                         .HasColumnType("varbinary(4000)");
+
+                    b.Property<string>("UserFullName")
+                        .HasColumnType("text");
 
                     b.Property<int>("UserType")
                         .HasColumnType("int");
@@ -451,17 +475,17 @@ namespace ScholarshipManagement.Data.Migrations
                         .ValueGeneratedOnAdd()
                         .HasColumnType("int");
 
-                    b.Property<DateTime>("Created")
-                        .HasColumnType("datetime");
-
                     b.Property<string>("CreatedBy")
                         .HasColumnType("text");
 
+                    b.Property<DateTime>("DateCreated")
+                        .HasColumnType("datetime");
+
+                    b.Property<DateTime>("DateModified")
+                        .HasColumnType("datetime");
+
                     b.Property<bool>("IsDeleted")
                         .HasColumnType("tinyint(1)");
-
-                    b.Property<DateTime?>("Modified")
-                        .HasColumnType("datetime");
 
                     b.Property<string>("ModifiedBy")
                         .HasColumnType("text");
@@ -514,16 +538,22 @@ namespace ScholarshipManagement.Data.Migrations
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
+                    b.HasOne("ScholarshipManagement.Data.Entities.Student", "Student")
+                        .WithMany()
+                        .HasForeignKey("StudentId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
                     b.Navigation("ApplicationForm");
+
+                    b.Navigation("Student");
                 });
 
             modelBuilder.Entity("ScholarshipManagement.Data.Entities.Student", b =>
                 {
                     b.HasOne("ScholarshipManagement.Data.Entities.Circuit", "Circuit")
                         .WithMany()
-                        .HasForeignKey("CircuitId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
+                        .HasForeignKey("CircuitId");
 
                     b.HasOne("ScholarshipManagement.Data.Entities.Jamaat", "Jamaat")
                         .WithMany()

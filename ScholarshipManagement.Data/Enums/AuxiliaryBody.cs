@@ -8,9 +8,9 @@ namespace ScholarshipManagement.Data.Enums
 {
     public enum AuxiliaryBody
     {
-        MajlisAnsarullah = 1,
+        MajlisKhuddam = 1,
         LajnaImaillah = 2,
-        MajlisKhuddam = 3,
+        MajlisAnsarullah = 3,
         MajlisAtfal = 4,
         Nasirat = 5,
         NonMember = 6

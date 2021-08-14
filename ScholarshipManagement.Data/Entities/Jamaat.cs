@@ -8,8 +8,8 @@ namespace ScholarshipManagement.Data.Entities
 {
     public class Jamaat : BaseEntity
     {
-        public string Name { get; set; }
-
+        public string JamaatName { get; set; }
+       
         public string Email { get; set; }
 
         public string PhoneNumber { get; set; }

@@ -15,7 +15,7 @@ namespace ScholarshipManagement.Data.DTOs
 
         public string EmailAddress { get; set; }
 
-        public string Surname { get; set; }
+        public string SurName { get; set; }
 
         public string FirstName { get; set; }
 
@@ -37,7 +37,7 @@ namespace ScholarshipManagement.Data.DTOs
 
         public AuxiliaryBody AuxiliaryBody { get; set; }
 
-        public string GuardianFullname { get; set; }
+        public string GuardianFullName { get; set; }
 
         public string GuardianPhoneNumber { get; set; }
 

@@ -24,7 +24,7 @@ namespace ScholarshipManagement.Data.Repositories
 
         public async Task<ApplicationForm> GetApplicationFormAsync(int applicationFormNumber)
         {
-            return await Query().SingleOrDefaultAsync(u => u.ApplicationFormNumber == applicationFormNumber);
+            return await Query().SingleOrDefaultAsync(u => u.Id == applicationFormNumber);
         }
 
         public async Task<ApplicationForm> GetApplicationFormByMemberCodeAsync(string memberCode)

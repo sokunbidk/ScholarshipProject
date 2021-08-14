@@ -4,14 +4,17 @@ namespace ScholarshipManagement.Data.Services
 {
     public interface IStudentService
     {
-        public Task<BaseResponse> CreateStudentAsync(CreateStudentRequestModel model);
+        public Task<BaseResponse> CreateStudentAsync(CreateStudentRequestModel model,string currentUser);
 
         public Task<BaseResponse> UpdateStudentAsync(int id, UpdateStudentRequestModel model);
 
         //public Task<IList<UpdateApplicationRequestModel>> GetStudentApplicationFormsAsync();
 
         Task<StudentsResponseModel> GetStudents(StudentsResponseModel model);
+       // public Task<StudentViewModel> GetStudentAsync(StudentViewModel model);
 
-        Task<StudentResponseModel> GetStudent(int id);
+        Task<StudentViewModel> GetStudentReturningCandidate(string email);
+
+        Task<StudentResponseModel> GetApplicantById(int id);
     }
 }

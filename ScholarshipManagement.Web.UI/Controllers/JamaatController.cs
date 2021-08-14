@@ -28,13 +28,14 @@ namespace ScholarshipManagement.Web.UI.Controllers
         }
 
 
-        
+        //View Jamaats Created in Line 58
         public ActionResult Index()
         {
              var jamaat = _jamaatService.GetJamaats();
             
             return View(jamaat);
         }
+        //Supply Circuit Dropdown List
         [HttpGet]
         public IActionResult Create()
         {
@@ -50,7 +51,7 @@ namespace ScholarshipManagement.Web.UI.Controllers
             return View();
         }
 
-
+        //Creates the Jamaat Method
         [HttpPost]
         public async Task<IActionResult> Create(CreateJamaatRequestModel model)
         {
@@ -58,9 +59,6 @@ namespace ScholarshipManagement.Web.UI.Controllers
             await _jamaatService.CreateJamaatAsync(model);
             return RedirectToAction ("Index");
         }
-
-
-
 
     }
 }

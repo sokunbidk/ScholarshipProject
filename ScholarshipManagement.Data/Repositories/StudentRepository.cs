@@ -23,13 +23,19 @@ namespace ScholarshipManagement.Data.Repositories
         public async Task<Student> GetStudentAsync(string memberCode)
         {
             return await Query().SingleOrDefaultAsync(u => u.User.MemberCode == memberCode);
+            //return await DbContext.Set<T>().SingleOrDefaultAsync(e => e.Id == id);
         }
-
+        
         public async Task<Student> GetStudent(int id)
         {
             return await Query().SingleOrDefaultAsync(u => u.Id == id);
         }
 
+        public async Task<Student> GetStudentByEmail(string email)
+        { 
+            //var user =  _userRepository.GetUserAsync(email);
+            return await Query().SingleOrDefaultAsync(u => u.EmailAddress == email);
+        }
         public async Task<IList<UpdateApplicationRequestModel>> GetStudentApplicationFormsAsync()
         {
             return await DbContext.Applications
@@ -46,13 +52,13 @@ namespace ScholarshipManagement.Data.Repositories
                     OtherName = uc.Student.OtherName,
                     Address = uc.Student.Address,
                     Jamaat = uc.Student.Jamaat,
-                    Circuit = uc.Student.Circuit,
+                    Circuit = uc.Student.Jamaat.Circuit,
                     PhoneNumber = uc.Student.User.PhoneNumber,
                     EmailAddress = uc.Student.User.Email,
                     Gender = uc.Student.Gender,
                     DateOfBirth = uc.Student.DateOfBirth,
                     AuxiliaryBody = uc.Student.AuxiliaryBody,
-                    GuardianFullname = uc.Student.GuardianFullName,
+                    GuardianFullName = uc.Student.GuardianFullName,
                     GuardianPhone = uc.Student.GuardianPhoneNumber,
                     GuardianMemberCode = uc.Student.GuardianMemberCode,
                     Photograph = uc.Student.Photograph,
@@ -61,11 +67,11 @@ namespace ScholarshipManagement.Data.Repositories
                     SchoolSession = uc.SchoolSession,
                     Discipline = uc.Discipline,
                     Duration = uc.Duration,
-                    ApplicationFormNumber = uc.ApplicationFormNumber,
+                    ApplicationFormNumber = uc.Id,
                     DegreeInView = uc.DegreeInView,
                     SchoolBill = uc.SchoolBill,
                     AmountRequested = uc.AmountRequested,
-                    CreatedDate = uc.Created
+                    CreatedDate = uc.DateCreated
                 }).ToListAsync();
         }
 
@@ -80,11 +86,11 @@ namespace ScholarshipManagement.Data.Repositories
                 {
                     InstitutionType = uc.InstitutionType,
                     NameOfSchool = uc.NameOfSchool,
-                    AcademenicLevel = uc.AcademicLevel,
+                    AcademicLevel = uc.AcademicLevel,
                     SchoolSession = uc.SchoolSession,
                     Discipline = uc.Discipline,
                     Duration = uc.Duration,
-                    ApplicationFormNumber = uc.ApplicationFormNumber,
+                    ApplicationFormNumber = uc.Id,
                     DegreeInView = uc.DegreeInView,
                     SchoolBill = uc.SchoolBill,
                     AmountRequested = uc.AmountRequested,
@@ -92,7 +98,7 @@ namespace ScholarshipManagement.Data.Repositories
                     BankAccountName = uc.BankAccountName,
                     BankAccountNumber = uc.BankAccountNumber,
                     BankName = uc.BankName,
-                    Created = uc.Created
+                    Created = uc.DateCreated
                 }).ToListAsync();
         }
 
@@ -107,7 +113,7 @@ namespace ScholarshipManagement.Data.Repositories
                 {
                     AmountRecommended = uc.AmountRecommended,
                     ApplicationFormId = uc.ApplicationFormId,
-                    ApplicationFormNumber = uc.ApplicationForm.ApplicationFormNumber,
+                    ApplicationFormNumber = uc.ApplicationForm.Id,
                     AmountApprovedAndGranted = uc.AmountApprovedAndGranted,
                     memberCode = uc.ApplicationForm.Student.User.MemberCode,
                     ApprovedBy = uc.ApprovedBy,
@@ -130,7 +136,7 @@ namespace ScholarshipManagement.Data.Repositories
                 {
                     AmountRecommended = uc.AmountRecommended,
                     ApplicationFormId = uc.ApplicationFormId,
-                    ApplicationFormNumber = uc.ApplicationForm.ApplicationFormNumber,
+                    ApplicationFormNumber = uc.ApplicationForm.Id,
                     AmountApprovedAndGranted = uc.AmountApprovedAndGranted,
                     memberCode = uc.ApplicationForm.Student.User.MemberCode,
                     ApprovedBy = uc.ApprovedBy,
@@ -140,6 +146,18 @@ namespace ScholarshipManagement.Data.Repositories
 
 
                 }).ToListAsync();
+        }
+
+        public async Task<Student> GetStudentByMemberCodeAsync(string memberCode)
+        {
+            return await Query().SingleOrDefaultAsync(u => u.MemberCode.Equals(memberCode));
+        }
+
+        public async Task<Student> GetStudentWithJamatByIdAsync(int id)
+        {
+            return await Query().Include(s => s.Jamaat)
+                .ThenInclude(s => s.Circuit)
+                .SingleOrDefaultAsync(s => s.Id == id);
         }
     }
 }

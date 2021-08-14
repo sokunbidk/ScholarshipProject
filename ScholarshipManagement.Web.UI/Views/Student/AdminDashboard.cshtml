@@ -1,12 +1,27 @@
-﻿<h1>Welcome to Admin dashboard</h1>
+﻿<h1>Admin</h1>
+@*@if (!string.IsNullOrEmpty(ViewBag.Message))
+{
+    <p class="alert alert-dismissible welcomemsg" role="alert">@ViewBag.Message</p>
+}*@
 
-<a asp-controller="ApplicationForm" asp-action="UpdateProgress">View Pending Applications</a>
 
-<div class=" card-header">
-    <a class="btn btn-success" asp-controller="Circuit" asp-action="Create">Create Circuit</a>
+<div class="card">
+
+    <div class="card-header">
+        <a class="btn btn-success option" asp-controller="ApplicationForm" asp-action="PendingApplications">View Pending Applications</a>
+    </div>
+
+    @*<div class="card-header">
+        <a class="btn btn-success" asp-controller="Circuit" asp-action="Create">Create Circuit</a>
+    </div>
+
+
+    <div class="card-header">
+        <a class="btn btn-success" asp-controller="Jamaat" asp-action="Create">Create Jamaat</a>
+    </div>*@
+
 </div>
 
 
-<div class=" card-header">
-    <a class="btn btn-success" asp-controller="Jamaat" asp-action="Index">Create Jamaat</a>
-</div>
+
+

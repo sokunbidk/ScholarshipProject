@@ -32,6 +32,7 @@ namespace ScholarshipManagement.Data.Services
             {
                 CircuitName = model.CircuitName,
                 Email = model.Email
+               
             };
             await _circuitRepository.AddAsync(circuit);
             await _circuitRepository.SaveChangesAsync();

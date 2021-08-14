@@ -9,7 +9,9 @@ namespace ScholarshipManagement.Data
 {
     public class StudentViewModel
     {
+        public int StudentId { get; set; }
         public string MemberCode { get; set; }
+        public int UserId { get; set; }
 
         public string SurName { get; set; }
 
@@ -33,8 +35,9 @@ namespace ScholarshipManagement.Data
        
         public AuxiliaryBody AuxiliaryBody { get; set; }
        
-        public string GuardianFullname { get; set; }
-      
+        public string GuardianFullName { get; set; }
+        public string GuardianMemberCode { get; set; }
+
         public string GuardianPhoneNumber { get; set; }
         
         public string Photograph { get; set; }
@@ -61,16 +64,16 @@ namespace ScholarshipManagement.Data
         [Display(Name = "Address")]
         public string Address { get; set; }
 
-        [Display(Name = "Choose Jamaat")]
+        [Display(Name = "Select Jamaat")]
         public int JamaatId { get; set; }
 
-        [Display(Name = "Choose Circuit")]
+        [Display(Name = "Select Circuit")]
         public int CircuitId { get; set; }
 
-        [Required, Display(Name = "Auxiliary Body")]
+        [Required, Display(Name = "Select Auxiliary Body")]
         public AuxiliaryBody AuxiliaryBody { get; set; }
 
-        [Required(ErrorMessage = "You must select a gender")]
+        [Required(ErrorMessage = "Select gender")]
         [Display(Name = "Gender")]
         public Gender Gender { get; set; }
 
@@ -83,10 +86,12 @@ namespace ScholarshipManagement.Data
         [Required, Display(Name = "Guardian Phone Number")]
         public string GuardianPhoneNumber { get; set; }
 
-       // [Required, Display(Name = "Guardian MemberCode")]
+        [Required, Display(Name = "Guardian MemberCode")]
         public string GuardianMemberCode { get; set; }
-            
-        //[Required, Display(Name = "Upload Photograph")]
+
+        [DataType(DataType.Upload)]
+        [Display(Name = "Upload Photograph")]
+        [Required(ErrorMessage = "Please Select Pix to upload.")]
         public string Photograph { get; set; }
     }
     public class UpdateStudentRequestModel

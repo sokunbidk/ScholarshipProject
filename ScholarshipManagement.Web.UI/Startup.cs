@@ -8,6 +8,7 @@ using ScholarshipManagement.Data.ApplicationContext;
 using ScholarshipManagement.Data.Repositories;
 using ScholarshipManagement.Data.Interfaces;
 using ScholarshipManagement.Data.Services;
+using Microsoft.AspNetCore.Authentication.Cookies;
 
 namespace ScholarshipManagement.Web.UI
 {
@@ -46,7 +47,15 @@ namespace ScholarshipManagement.Web.UI
             services.AddScoped<ICircuitService, CircuitService>();
             services.AddScoped<IJamaatService, JamaatService>();
 
+            services.AddAuthentication(CookieAuthenticationDefaults.AuthenticationScheme)
+                .AddCookie(config =>
+                {
+                    config.LoginPath = "/user/login";
+                    config.Cookie.Name = "Scholarship";
+                });
 
+
+            services.AddHttpClient();
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
@@ -63,6 +72,10 @@ namespace ScholarshipManagement.Web.UI
             app.UseStaticFiles();
 
             app.UseRouting();
+
+            app.UseHttpsRedirection();
+            
+            app.UseAuthentication();
 
             app.UseAuthorization();
 

@@ -48,9 +48,12 @@ namespace ScholarshipManagement.Data
 
     public class CreateApplicationFormRequestModel
     {
-        public int StudentId { get; set; }
+        //public int StudentId { get; set; }
 
-        public int ApplicationFormNumber { get; set; }
+        [Display(Name = "Member Code")]
+        public string MemberCode { get; set; }
+
+        //public int ApplicationFormNumber { get; set; }
 
         [Required(ErrorMessage = "Category name is required")]
         [Display(Name = "Institution Type")]
@@ -149,7 +152,7 @@ namespace ScholarshipManagement.Data
         public DateTime DateOfBirth { get; set; }
 
         [Required, Display(Name = "Guidian")]
-        public string GuardianFullname { get; set; }
+        public string GuardianFullName { get; set; }
 
         [Required, Display(Name = "GuidianPhone")]
         public string GuardianPhone { get; set; }
@@ -189,7 +192,7 @@ namespace ScholarshipManagement.Data
         public string SchoolBill { get; set; }
 
         [Column(TypeName = "decimal(18, 2)"), Display(Name = "Amount Requested")]
-        public double AmountRequested { get; set; }
+        public decimal AmountRequested { get; set; }
 
         public string LastSchoolResult { get; set; }
 

@@ -3,17 +3,18 @@
     ViewData["Title"] = "Student Registration";
 }
 
-<div class="row">
+<div class="row justify-content-center mt-5">
 
     <div class="col-md-7">
         <div class="card">
             <div class="card-header">
-                <h4>@ViewData["Title"]</h4>
+                <h4 class="text-center">@ViewData["Title"]</h4>
             </div>
+           
             <div class="card card-body">
-                <form method="POST">
+                <form method="POST" enctype="multipart/form-data">
                     <div class="form-row">
-                       
+
                         <div class="form-group col-lg-4">
                             <label asp-for="MemberCode"></label>
                             <input type="text" asp-for="MemberCode" class="form-control" />
@@ -50,32 +51,47 @@
                     <div class="form-row">
                         <div class="form-group col-lg-4">
                             <label asp-for="JamaatId"></label>
-                            <input class="form-control" type="text" asp-for="JamaatId" />
+                            <select asp-for="JamaatId" class="form-control" asp-items="ViewBag.Jamaats">
+                                <option selected>-- Select Jamaat --</option>
+                            </select>
                             <span asp-validation-for="JamaatId"></span>
                         </div>
 
                         <div class="form-group col-lg-4">
                             <label asp-for="CircuitId"></label>
-                            <input class="form-control" type="text" asp-for="CircuitId" />
-                            <span asp-validation-for="CircuitId"></span>
+                            <select asp-for="CircuitId" class="form-control" asp-items="ViewBag.Circuits">
+                                <option selected>-- Select Circuit --</option>
+                            </select>
+                                <span asp-validation-for="CircuitId"></span>
                         </div>
 
                         <div class="form-group col-lg-4">
                             <label asp-for="AuxiliaryBody"></label>
-                            <input class="form-control" type="text" asp-for="AuxiliaryBody" />
+                            <select asp-for="AuxiliaryBody" class="form-control">
+                                <option value="1">MajlisKhuddam</option>
+                                <option value="2">Lajnah</option>
+                                <option value="3">MajlisAnsarullah</option>
+                                <option value="4">MajlisAtfal</option>
+                                <option value="5">Nasrat</option>
+                                <option value="6">NonMember</option>
+                            </select>
                             <span asp-validation-for="AuxiliaryBody"></span>
                         </div>
                     </div>
                     <div class="form-row">
                         <div class="form-group col-lg-6">
                             <label asp-for="Gender"></label>
-                            <input class="form-control" type="text" asp-for="Gender" />
+
+                            <select asp-for="Gender" class="form-control">
+                                <option value="1">Male</option>
+                                <option value="2">Female</option>
+                            </select>
                             <span asp-validation-for="Gender"></span>
                         </div>
 
                         <div class="form-group col-lg-6">
                             <label asp-for="DateOfBirth"></label>
-                            <input class="form-control" type="text" asp-for="DateOfBirth" />
+                            <input class="form-control" type="date" asp-for="DateOfBirth" />
                             <span asp-validation-for="DateOfBirth"></span>
                         </div>
                     </div>
@@ -91,18 +107,22 @@
                             <input class="form-control" type="text" asp-for="GuardianPhoneNumber" />
                             <span asp-validation-for="GuardianPhoneNumber"></span>
                         </div>
+
+                    </div>
+                    <div class="form-row">
                         <div class="form-group col-lg-6">
                             <label asp-for="GuardianMemberCode"></label>
                             <input class="form-control" type="text" asp-for="GuardianMemberCode" />
                             <span asp-validation-for="GuardianMemberCode"></span>
                         </div>
+                        <div class="form-group col-lg-6">
+                            <label for="userphoto">Choose Photo</label>
+                            <input class="form-control" type="file" id="userphoto" name="files" />
+                        </div>
                     </div>
-                    <div class="form-group">
-                        <label asp-for="Photograph"></label>
-                        <input class="form-control" type="file" asp-for="Photograph" />
-                        <span asp-validation-for="Photograph"></span>
-                    </div>
+
                     <input type="submit" class="btn btn-success" value="Continue" />
+
                 </form>
             </div>
         </div>

@@ -10,5 +10,6 @@ namespace ScholarshipManagement.Data.Interfaces
         Task<ApplicationForm> GetApplicationFormAsync(int applicationFormNumber);
 
         Task<ApplicationForm> GetApplicationFormByMemberCodeAsync(string memberCode);
+        //ExistsAsync
     }
 }

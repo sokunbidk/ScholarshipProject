@@ -3,29 +3,71 @@
 <head>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>@ViewData["Title"] - ScholarshipManagement.Web.UI</title>
+    <title>@ViewData["Title"] - TA'LIM Portal</title>
     <link rel="stylesheet" href="~/lib/bootstrap/dist/css/bootstrap.min.css" />
     <link rel="stylesheet" href="~/css/site.css" />
 </head>
 <body>
     <header>
-        <nav class="navbar navbar-expand-sm navbar-toggleable-sm navbar-light bg-white border-bottom box-shadow mb-3">
+        <nav id="mynavbar"class="navbar navbar-expand-sm navbar-toggleable-sm navbar-light  border-bottom box-shadow mb-3">
             <div class="container">
-                <a class="navbar-brand" asp-area="" asp-controller="Home" asp-action="Index">ScholarshipManagement.Web.UI</a>
-                <button class="navbar-toggler" type="button" data-toggle="collapse" data-target=".navbar-collapse" aria-controls="navbarSupportedContent"
+                <div style=" width: 70px; overflow:hidden; margin-left: -50px; margin-right: 20px;">
+                    <img src="/images/logo1.jpg" width="100%" />
+                </div>
+                <a class="navbar-brand text-white" asp-area="" asp-controller="Home" asp-action="Index">Welcome to: TA'LIM Portal</a>
+                <button class="navbar-toggler btn-white" type="button" data-toggle="collapse" data-target=".navbar-collapse" aria-controls="navbarSupportedContent"
                         aria-expanded="false" aria-label="Toggle navigation">
                     <span class="navbar-toggler-icon"></span>
                 </button>
                 <div class="navbar-collapse collapse d-sm-inline-flex justify-content-between">
                     <ul class="navbar-nav flex-grow-1">
                         <li class="nav-item">
-                            <a class="nav-link text-dark" asp-area="" asp-controller="Home" asp-action="Index">Home</a>
+                            <a class="nav-link text-white" asp-area="" asp-controller="Home" asp-action="Index">Home</a>
                         </li>
                         <li class="nav-item">
-                            <a class="nav-link text-dark" asp-area="" asp-controller="Home" asp-action="Privacy">Privacy</a>
+                            <a class="nav-link text-white" asp-area="" asp-controller="Home" asp-action="Index">Privacy</a>
                         </li>
                     </ul>
                 </div>
+                <div class="collapse navbar-collapse mr-3 " id="navbarNav">
+                    <ul class="navbar-nav">
+
+
+
+                        @if (User != null && User.Identity.IsAuthenticated)
+
+                        {
+
+                            <li class="nav-item active mr-3 float-right">
+                                <a class="nav-link  text-white" href="#">@User.Identity.Name</a>
+                            </li>
+                            <li class="nav-item mr-3 float-right">
+                                <a class="nav-link text-white  mr-3" asp-area="" asp-controller="User" asp-action="Logout"><i class="fas fa-user"></i> Logout</a>
+                            </li>
+                        }
+                        else
+                        {
+                            <a class="nav-link text-white  mr-3" asp-area="" asp-controller="User" asp-action="Login"><i class="fas fa-user"></i>Login</a>
+                        }
+
+
+                        @*<li class="nav-item float-right">
+                    <a class="nav-link text-success " asp-area="" asp-controller="User" asp-action="Create"><i class="fas fa-user"></i>Sign up</a>
+                </li>*@
+                        @*<li class="nav-item mr-3 float-right">
+                    <form class="form-inline  " method="post" asp-action="Search" asp-controller="Home">
+
+                        <input class="form-control nav-link " type="search" name="search" placeholder="Search for products..." aria-label="Search" style="width:200px;">
+                        <button class="btn btn-success text-white ml-0 nav-link" type="submit">Search</button>
+
+                    </form>
+                </li>*@
+
+                    </ul>
+                </div>
+                @*<div style="width: 150px; height: 100px; overflow:hidden; margin-left:30px;">
+                    <img src="/images/logo2.png" width="100%" />
+                </div>*@
             </div>
         </nav>
     </header>
@@ -35,13 +77,15 @@
         </main>
     </div>
 
-    <footer class="border-top footer text-muted">
-        <div class="container">
-            &copy; 2021 - ScholarshipManagement.Web.UI - <a asp-area="" asp-controller="Home" asp-action="Privacy">Privacy</a>
+    <footer id="myfooter" class="border-top footer text-muted">
+        <div class="container text-white">
+            &copy; 2021 - TA'LIM Portal - <a class="text-white" asp-area="" asp-controller="Home" asp-action="Privacy">Privacy</a>
         </div>
     </footer>
-    <script src="~/lib/jquery/dist/jquery.min.js"></script>
+  @*<script src="~/lib/jquery/dist/jquery.js"></script>*@
+<script src="https://code.jquery.com/jquery-3.6.0.js" integrity="sha256-H+K7U5CnXl1h5ywQfKtSj8PCmoN9aaq30gDh27Xc0jk=" crossorigin="anonymous"></script>
     <script src="~/lib/bootstrap/dist/js/bootstrap.bundle.min.js"></script>
+    <script src="~/lib/sweetalert2.all.min.js"></script>
     <script src="~/js/site.js" asp-append-version="true"></script>
     @await RenderSectionAsync("Scripts", required: false)
 </body>

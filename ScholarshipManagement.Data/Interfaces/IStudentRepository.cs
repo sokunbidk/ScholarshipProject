@@ -12,7 +12,11 @@ namespace ScholarshipManagement.Data.Interfaces
     {
         Task<Student> GetStudentAsync(string memberCode);
 
+        Task<Student> GetStudentByMemberCodeAsync(string memberCode);
+
         Task<Student> GetStudent(int id);
+
+        Task<Student> GetStudentByEmail(string email);
 
         //Task<IList<UpdateRequestModel>> GetStudentApplicationFormsAsync();
 
@@ -23,6 +27,8 @@ namespace ScholarshipManagement.Data.Interfaces
         //Task<IList<StudentDto>> GetStudentAsync(Guid studentId);
 
         Task<IList<PaymentDto>> GetStudentPaymentsAsync(string memberCode);
+
+        Task<Student> GetStudentWithJamatByIdAsync(int id);
 
 
     }

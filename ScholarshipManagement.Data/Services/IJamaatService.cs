@@ -1,4 +1,5 @@
 ﻿
+using ScholarshipManagement.Data.Entities;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -16,6 +17,8 @@ namespace ScholarshipManagement.Data.Services
         IList<JamaatViewModel> GetJamaats();
 
         Task<JamaatResponseModel> GetJamaat(int id);
+
+        public List<Jamaat> GetJamaatList();
 
         //Task<IList<CircuitDto>> GetAllCircuitsAsync();
 

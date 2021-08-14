@@ -61,6 +61,37 @@ html {
 body {
   /* Margin bottom by footer height */
   margin-bottom: 60px;
+
+}
+
+#mynavbar {
+    background-color: forestgreen !important;
+}
+#myfooter {
+    background-color: forestgreen !important;
+}
+.formlabel{
+    font-weight:bold;
+}
+
+.formcard{
+    background-color:lightblue;
+}
+.formfooter, .formheader {
+    background-color: cornflowerblue;
+}
+#submitbtn{
+    background-color:Highlight;
+}
+
+.welcomemsg{
+    font-weight:bold;
+    font-size:20px;
+    margin-left:700px;
+}
+
+.table-title {
+    background-color: mediumseagreen;
 }
 .footer {
   position: absolute;

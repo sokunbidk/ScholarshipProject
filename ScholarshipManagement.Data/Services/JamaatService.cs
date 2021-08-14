@@ -21,7 +21,7 @@ namespace ScholarshipManagement.Data.Services
         }
         public async Task<BaseResponse> CreateJamaatAsync(CreateJamaatRequestModel model)
         {
-            var jamaatExist = await _jamaatRepository.ExistsAsync(c => c.Name == model.Name || c.Email == model.Email);
+            var jamaatExist = await _jamaatRepository.ExistsAsync(c => c.JamaatName == model.Name || c.Email == model.Email);
             if (jamaatExist)
             {
                 throw new BadRequestException ($" Jamaat with name '{model.Name}' or email '{model.Email}' already exist");
@@ -29,7 +29,7 @@ namespace ScholarshipManagement.Data.Services
 
             var jamaat = new Jamaat
             {
-                Name = model.Name,
+                JamaatName = model.Name,
                 Email = model.Email,
                 CircuitId = model.CircuitId,    //foreign Key
                 PhoneNumber = model.PhoneNumber
@@ -46,6 +46,25 @@ namespace ScholarshipManagement.Data.Services
 
         }
 
+        public List<Jamaat> GetJamaatList()
+        {
+            return _jamaatRepository.GetAllJamaats();
+        }
+        //Gets all Jamaat and List them by Records
+        public IList<JamaatViewModel> GetJamaats()
+        {
+            var jamaats = _jamaatRepository.GetJamaats().Select(r => new JamaatViewModel
+            {
+                Id = r.Id,
+                Name = r.JamaatName,
+                Email = r.Email,
+                PhoneNumber = r.PhoneNumber,
+                Circuitid = r.CircuitId,
+                CircuitName = r.Circuit.CircuitName,
+            }).ToList();
+            return jamaats;
+        }
+
         public Task<JamaatResponseModel> GetJamaat(int id)
         {
             throw new NotImplementedException();
@@ -56,21 +75,6 @@ namespace ScholarshipManagement.Data.Services
             throw new NotImplementedException();
         }
 
-       
-        public IList<JamaatViewModel> GetJamaats()
-        {
-            var jamaats = _jamaatRepository.GetJamaats().Select(r => new JamaatViewModel
-            {
-                Id = r.Id,
-                Name = r.Name,
-                Email = r.Email,
-                PhoneNumber = r.PhoneNumber,
-                Circuitid = r.Circuit.Id,
-                //CircuitName =r.Circuit.CircuitName
-            }).ToList();
-            return jamaats;
-        }
-        
 
         public Task<BaseResponse> UpdateJamaatAsync(int id, UpdateJamaatRequestModel model)
         {

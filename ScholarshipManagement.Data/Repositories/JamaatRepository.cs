@@ -24,7 +24,13 @@ namespace ScholarshipManagement.Data.Repositories
         }
         public IList<Jamaat> GetJamaats() //All jamaats
         {
-            return DbContext.Jamaats.AsNoTracking().OrderBy(c => c.Name).ToList();
+            return DbContext.Jamaats.Include(p=>p.Circuit).AsNoTracking().OrderBy(c => c.JamaatName).ToList();
+        }
+
+        public List<Jamaat> GetAllJamaats()
+        {
+            return DbContext.Jamaats.OrderBy(c => c.JamaatName).ToList();
+
         }
 
         public async Task<Jamaat> GetJamaat(int id)
@@ -34,7 +40,7 @@ namespace ScholarshipManagement.Data.Repositories
         
         public async Task<Jamaat> GetCircuitByName(string JamaatName) //A jamaat By Name
         {
-            return await Query().SingleOrDefaultAsync(u => u.Name == JamaatName);
+            return await Query().SingleOrDefaultAsync(u => u.JamaatName == JamaatName);
         }
        
     }

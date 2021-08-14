@@ -16,6 +16,7 @@ namespace ScholarshipManagement.Data.Services
         public Task<UserDto> LoginUserAsync(LoginUserRequestModel model);
 
         Task<UsersResponseModel> GetUser();
+        Task<Entities.Circuit> GetUserCircuit(int id);
 
         Task<UserResponseModel> GetUser(int id);
     }
