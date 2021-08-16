@@ -32,6 +32,7 @@ namespace ScholarshipManagement.Data.Services
             {
                 CircuitName = model.CircuitName,
                 Email = model.Email
+                PresidentId = model.
                
             };
             await _circuitRepository.AddAsync(circuit);
