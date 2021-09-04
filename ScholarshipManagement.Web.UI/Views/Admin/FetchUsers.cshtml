@@ -1,0 +1,66 @@
+﻿@model List<ScholarshipManagement.Data.DTOs.UserDto>
+@{
+    ViewData["Title"] = "Update User";
+    int count = 0;
+}
+
+
+<h1>Update User</h1>
+<div>
+
+
+    <div class="card-body">
+        @if (Model.Count() == 0)
+        {
+            <div>
+                <h5 class="text-center text-danger">No User Exists!</h5>
+            </div>
+        }
+        else
+        {
+            <a class="text-danger  text-lg-right font-weight-bold" asp-controller="Admin" asp-action="AdminDashboard">---Dashboard</a>
+            <table class="table  table-responsive-sm table-bordered">
+                <thead class="table-title">
+                    <tr class="text-white">
+                        <th>S/N</th>
+                        <th>FullName</th>
+                        <th>Email</th>
+                        <th>MemberCode</th>
+                        <th>Phone No</th>
+                        <th>UserType</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    @foreach (var userDto in Model)
+                    {
+                        <tr>
+                            <td> @(++count) </td>
+                            <td>@userDto.UserFullName</td>
+                            <td>@userDto.Email</td>
+                            <td> @userDto.MemberCode</td>
+                            <td> @userDto.PhoneNumber</td>
+                            <td> @userDto.UserType</td>
+
+
+                            <td>
+                                <a asp-action="UpdateUser" asp-route-id="@userDto.Id" class="btn btn-primary">
+                                    Edit
+                                </a>
+
+                            </td>
+                            <td>
+                                <a asp-action="DeleteUser" asp-route-id="@userDto.Id" class="btn btn-danger">
+                                    Delete
+                                </a>
+
+                            </td>
+
+                        </tr>
+                    }
+                </tbody>
+            </table>
+        }
+
+    </div>
+</div>
+

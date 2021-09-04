@@ -27,7 +27,7 @@ namespace ScholarshipManagement.Data.DTOs
 
         public string DegreeInView { get; set; }
 
-        public string DateAdmitted { get; set; }
+        public DateTime DateAdmitted { get; set; }
 
         public DateTime YearToGraduate { get; set; }
 

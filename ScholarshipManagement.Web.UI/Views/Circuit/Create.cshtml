@@ -13,6 +13,10 @@
             </div>
 
             <div class="card card-body">
+                @if (!string.IsNullOrEmpty(ViewBag.Message))
+                {
+                    <p class="alert alert-warning alert-dismissible" id="successUser" role="alert">@ViewBag.Message</p>
+                }
                 <form method="POST">
 
                     <div class="form-row">
@@ -28,11 +32,19 @@
                             <span asp-validation-for="CircuitName"></span>
                         </div>
 
-                       
+                        <div class="form-group col-lg-4">
+                            <label asp-for="PresidentId"></label>
+                            <select asp-for="PresidentId" class="form-control" asp-items="ViewBag.presidentId">
+                                <option selected>-- Select PresidentId --</option>
+                            </select>
+                            <span asp-validation-for="PresidentId"></span>
+                        </div>
+
+
                     </div>
 
                     <div class="form-row">
-                    
+
                         <input type="submit" class="btn btn-success" value="Submit" />
                     </div>
                 </form>

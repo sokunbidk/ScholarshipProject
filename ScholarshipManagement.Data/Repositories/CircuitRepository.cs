@@ -21,7 +21,6 @@ namespace ScholarshipManagement.Data.Repositories
         public IList<Circuit> GetCircuits()
         {
             return DbContext.Circuits.AsNoTracking().OrderBy(c => c.CircuitName).ToList();
-
         }
 
         public List<Circuit> GetAllCircuits()

@@ -36,6 +36,7 @@ namespace ScholarshipManagement.Data.Repositories
             //var user =  _userRepository.GetUserAsync(email);
             return await Query().SingleOrDefaultAsync(u => u.EmailAddress == email);
         }
+        //Use latter
         public async Task<IList<UpdateApplicationRequestModel>> GetStudentApplicationFormsAsync()
         {
             return await DbContext.Applications
@@ -45,33 +46,6 @@ namespace ScholarshipManagement.Data.Repositories
                 .Select(uc => new UpdateApplicationRequestModel
                 {
                     
-                    StudentId = uc.StudentId,
-                    MemberCode = uc.Student.User.MemberCode,
-                    SurName = uc.Student.SurName,
-                    FirstName = uc.Student.FirstName,
-                    OtherName = uc.Student.OtherName,
-                    Address = uc.Student.Address,
-                    Jamaat = uc.Student.Jamaat,
-                    Circuit = uc.Student.Jamaat.Circuit,
-                    PhoneNumber = uc.Student.User.PhoneNumber,
-                    EmailAddress = uc.Student.User.Email,
-                    Gender = uc.Student.Gender,
-                    DateOfBirth = uc.Student.DateOfBirth,
-                    AuxiliaryBody = uc.Student.AuxiliaryBody,
-                    GuardianFullName = uc.Student.GuardianFullName,
-                    GuardianPhone = uc.Student.GuardianPhoneNumber,
-                    GuardianMemberCode = uc.Student.GuardianMemberCode,
-                    Photograph = uc.Student.Photograph,
-                    NameOfSchool = uc.NameOfSchool,
-                    AcademicLevel = uc.AcademicLevel,
-                    SchoolSession = uc.SchoolSession,
-                    Discipline = uc.Discipline,
-                    Duration = uc.Duration,
-                    ApplicationFormNumber = uc.Id,
-                    DegreeInView = uc.DegreeInView,
-                    SchoolBill = uc.SchoolBill,
-                    AmountRequested = uc.AmountRequested,
-                    CreatedDate = uc.DateCreated
                 }).ToListAsync();
         }
 

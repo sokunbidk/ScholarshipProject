@@ -376,7 +376,6 @@ C:\Users\ADD. SEC. MA'AL\Desktop\FullStackTraining\CsharpTraining\ScholarshipMan
 C:\Users\ADD. SEC. MA'AL\Desktop\FullStackTraining\CsharpTraining\ScholarshipManagement\ScholarshipManagement.Web.UI\obj\Debug\net5.0\Razor\Views\ApplicationForm\CreateApplication.cshtml.g.cs
 C:\Users\ADD. SEC. MA'AL\Desktop\FullStackTraining\CsharpTraining\ScholarshipManagement\ScholarshipManagement.Web.UI\obj\Debug\net5.0\Razor\Views\ApplicationForm\CreateApplicationNewStudent.cshtml.g.cs
 C:\Users\ADD. SEC. MA'AL\Desktop\FullStackTraining\CsharpTraining\ScholarshipManagement\ScholarshipManagement.Web.UI\obj\Debug\net5.0\Razor\Views\ApplicationForm\EditApplication.cshtml.g.cs
-C:\Users\ADD. SEC. MA'AL\Desktop\FullStackTraining\CsharpTraining\ScholarshipManagement\ScholarshipManagement.Web.UI\obj\Debug\net5.0\Razor\Views\Banks\BankForm.cshtml.g.cs
 C:\Users\ADD. SEC. MA'AL\Desktop\FullStackTraining\CsharpTraining\ScholarshipManagement\ScholarshipManagement.Web.UI\obj\Debug\net5.0\Razor\Views\Circuit\Create.cshtml.g.cs
 C:\Users\ADD. SEC. MA'AL\Desktop\FullStackTraining\CsharpTraining\ScholarshipManagement\ScholarshipManagement.Web.UI\obj\Debug\net5.0\Razor\Views\Circuit\Index.cshtml.g.cs
 C:\Users\ADD. SEC. MA'AL\Desktop\FullStackTraining\CsharpTraining\ScholarshipManagement\ScholarshipManagement.Web.UI\obj\Debug\net5.0\Razor\Views\Home\Index.cshtml.g.cs
@@ -388,10 +387,8 @@ C:\Users\ADD. SEC. MA'AL\Desktop\FullStackTraining\CsharpTraining\ScholarshipMan
 C:\Users\ADD. SEC. MA'AL\Desktop\FullStackTraining\CsharpTraining\ScholarshipManagement\ScholarshipManagement.Web.UI\obj\Debug\net5.0\Razor\Views\Shared\Error.cshtml.g.cs
 C:\Users\ADD. SEC. MA'AL\Desktop\FullStackTraining\CsharpTraining\ScholarshipManagement\ScholarshipManagement.Web.UI\obj\Debug\net5.0\Razor\Views\Shared\_Layout.cshtml.g.cs
 C:\Users\ADD. SEC. MA'AL\Desktop\FullStackTraining\CsharpTraining\ScholarshipManagement\ScholarshipManagement.Web.UI\obj\Debug\net5.0\Razor\Views\Shared\_ValidationScriptsPartial.cshtml.g.cs
-C:\Users\ADD. SEC. MA'AL\Desktop\FullStackTraining\CsharpTraining\ScholarshipManagement\ScholarshipManagement.Web.UI\obj\Debug\net5.0\Razor\Views\Student\AdminDashboard.cshtml.g.cs
 C:\Users\ADD. SEC. MA'AL\Desktop\FullStackTraining\CsharpTraining\ScholarshipManagement\ScholarshipManagement.Web.UI\obj\Debug\net5.0\Razor\Views\Student\Dashboard.cshtml.g.cs
 C:\Users\ADD. SEC. MA'AL\Desktop\FullStackTraining\CsharpTraining\ScholarshipManagement\ScholarshipManagement.Web.UI\obj\Debug\net5.0\Razor\Views\Student\DashboardReturningStudent.cshtml.g.cs
-C:\Users\ADD. SEC. MA'AL\Desktop\FullStackTraining\CsharpTraining\ScholarshipManagement\ScholarshipManagement.Web.UI\obj\Debug\net5.0\Razor\Views\Student\EditProfile.cshtml.g.cs
 C:\Users\ADD. SEC. MA'AL\Desktop\FullStackTraining\CsharpTraining\ScholarshipManagement\ScholarshipManagement.Web.UI\obj\Debug\net5.0\Razor\Views\Student\NewCandidate.cshtml.g.cs
 C:\Users\ADD. SEC. MA'AL\Desktop\FullStackTraining\CsharpTraining\ScholarshipManagement\ScholarshipManagement.Web.UI\obj\Debug\net5.0\Razor\Views\Student\ReturningCandidateRegView.cshtml.g.cs
 C:\Users\ADD. SEC. MA'AL\Desktop\FullStackTraining\CsharpTraining\ScholarshipManagement\ScholarshipManagement.Web.UI\obj\Debug\net5.0\Razor\Views\User\Create.cshtml.g.cs
@@ -1251,3 +1248,14 @@ C:\Users\ADD. SEC. MA'AL\Desktop\FullStackTraining\CsharpTraining\ScholarshipMan
 C:\Users\ADD. SEC. MA'AL\Desktop\FullStackTraining\CsharpTraining\ScholarshipManagement13-08-2021\ScholarshipManagement.Web.UI\obj\Debug\net5.0\ref\ScholarshipManagement.Web.UI.dll
 C:\Users\ADD. SEC. MA'AL\Desktop\FullStackTraining\CsharpTraining\ScholarshipManagement13-08-2021\ScholarshipManagement.Web.UI\obj\Debug\net5.0\ScholarshipManagement.Web.UI.pdb
 C:\Users\ADD. SEC. MA'AL\Desktop\FullStackTraining\CsharpTraining\ScholarshipManagement13-08-2021\ScholarshipManagement.Web.UI\obj\Debug\net5.0\ScholarshipManagement.Web.UI.genruntimeconfig.cache
+C:\Users\ADD. SEC. MA'AL\Desktop\FullStackTraining\CsharpTraining\ScholarshipManagement\ScholarshipManagement.Web.UI\obj\Debug\net5.0\Razor\Views\Secretariat\SecretariatDashBoard.cshtml.g.cs
+C:\Users\ADD. SEC. MA'AL\Desktop\FullStackTraining\CsharpTraining\ScholarshipManagement\ScholarshipManagement.Web.UI\obj\Debug\net5.0\Razor\Views\Admin\AdminDashboard.cshtml.g.cs
+C:\Users\ADD. SEC. MA'AL\Desktop\FullStackTraining\CsharpTraining\ScholarshipManagement\ScholarshipManagement.Web.UI\obj\Debug\net5.0\Razor\Views\Committee\CommitteeDashboard.cshtml.g.cs
+C:\Users\ADD. SEC. MA'AL\Desktop\FullStackTraining\CsharpTraining\ScholarshipManagement\ScholarshipManagement.Web.UI\obj\Debug\net5.0\Razor\Views\Admin\UpdateUser.cshtml.g.cs
+C:\Users\ADD. SEC. MA'AL\Desktop\FullStackTraining\CsharpTraining\ScholarshipManagement\ScholarshipManagement.Web.UI\obj\Debug\net5.0\Razor\Views\Admin\FetchUsers.cshtml.g.cs
+C:\Users\ADD. SEC. MA'AL\Desktop\FullStackTraining\CsharpTraining\ScholarshipManagement\ScholarshipManagement.Web.UI\obj\Debug\net5.0\Razor\Views\Admin\PendingApplicationsEdit.cshtml.g.cs
+C:\Users\ADD. SEC. MA'AL\Desktop\FullStackTraining\CsharpTraining\ScholarshipManagement\ScholarshipManagement.Web.UI\obj\Debug\net5.0\Razor\Views\Admin\UpdatePendingStudent.cshtml.g.cs
+C:\Users\ADD. SEC. MA'AL\Desktop\FullStackTraining\CsharpTraining\ScholarshipManagement\ScholarshipManagement.Web.UI\obj\Debug\net5.0\Razor\Views\Admin\UpdatePendingApplication.cshtml.g.cs
+C:\Users\ADD. SEC. MA'AL\Desktop\FullStackTraining\CsharpTraining\ScholarshipManagement\ScholarshipManagement.Web.UI\obj\Debug\net5.0\Razor\Views\Committee\PendingApplicationsFocus.cshtml.g.cs
+C:\Users\ADD. SEC. MA'AL\Desktop\FullStackTraining\CsharpTraining\ScholarshipManagement\ScholarshipManagement.Web.UI\obj\Debug\net5.0\Razor\Views\Student\StudentApplicationStatus.cshtml.g.cs
+C:\Users\ADD. SEC. MA'AL\Desktop\FullStackTraining\CsharpTraining\ScholarshipManagement\ScholarshipManagement.Web.UI\obj\Debug\net5.0\Razor\Views\Student\StudentApplicationStatus - Copy.cshtml.g.cs

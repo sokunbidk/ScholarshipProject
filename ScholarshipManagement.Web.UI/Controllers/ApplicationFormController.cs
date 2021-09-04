@@ -47,110 +47,134 @@ namespace ScholarshipManagement.Web.UI.Controllers
         //Returning Candidate Application
         [HttpPost]
         public IActionResult CreateApplication(CreateApplicationFormRequestModel model)
-        {
-
-            Random random = new Random();
-            var currentUser = User.FindFirst("Email").Value;
-            var currentUserId = User.FindFirst(ClaimTypes.NameIdentifier).Value;
-
-            var files = HttpContext.Request.Form.Files;
-
-
-            string admissionLetterupload = _env.WebRootPath + @"\UploadedFiles\AdmissionLetter\";
-            string schBillupload = _env.WebRootPath + @"\UploadedFiles\SchBill\";
-            string schResultupload = _env.WebRootPath + @"\UploadedFiles\SchResult\";
-
-
-            string admissionLetterfileName = currentUserId + "-admissionLetter-" + random.Next(100000).ToString();
-
-            string schBillfileName = currentUserId + "-schBill-" + random.Next(100000).ToString();
-
-            string schResultfileName = currentUserId + "-schResult-" + random.Next(100000).ToString();
-
-
-            string admissionLetterExtension = Path.GetExtension(files[0].FileName);
-            string schBillExtension = Path.GetExtension(files[1].FileName);
-            string schResultExtension = Path.GetExtension(files[2].FileName);
-
-
-            using (var fileStream = new FileStream(Path.Combine(admissionLetterupload, admissionLetterfileName + admissionLetterExtension), FileMode.Create))
+        {  
+            try
             {
-                files[0].CopyTo(fileStream);
-            }
+                //Upload Documents
+                Random random = new Random();
+                var currentUser = User.FindFirst("Email").Value;
+                var currentUserId = User.FindFirst(ClaimTypes.NameIdentifier).Value;
 
-            using (var fileStream = new FileStream(Path.Combine(schBillupload, schBillfileName + schBillExtension), FileMode.Create))
+                var files = HttpContext.Request.Form.Files;
+
+
+               // string admissionLetterupload = _env.WebRootPath + @"\UploadedFiles\AdmissionLetter\";
+                string schBillupload = _env.WebRootPath + @"\UploadedFiles\SchBill\";
+                string schResultupload = _env.WebRootPath + @"\UploadedFiles\SchResult\";
+
+
+                //string admissionLetterfileName = currentUserId + "-admissionLetter-" + random.Next(100000).ToString();
+
+                string schBillfileName = currentUserId + "-schBill-" + random.Next(100000).ToString();
+                string schResultfileName = currentUserId + "-schResult-" + random.Next(100000).ToString();
+
+
+                //string admissionLetterExtension = Path.GetExtension(files[0].FileName);
+                string schBillExtension = Path.GetExtension(files[0].FileName);
+                string schResultExtension = Path.GetExtension(files[1].FileName);
+
+
+                /*using (var fileStream = new FileStream(Path.Combine(admissionLetterupload, admissionLetterfileName + admissionLetterExtension), FileMode.Create))
+                {
+                    files[0].CopyTo(fileStream);
+                }*/
+
+                using (var fileStream = new FileStream(Path.Combine(schBillupload, schBillfileName + schBillExtension), FileMode.Create))
+                {
+                    files[0].CopyTo(fileStream);
+                }
+
+                using (var fileStream = new FileStream(Path.Combine(schResultupload, schResultfileName + schResultExtension), FileMode.Create))
+                {
+                    files[1].CopyTo(fileStream);
+                }
+
+
+                //model.LetterOfAdmission = admissionLetterfileName + admissionLetterExtension;
+                model.SchoolBill = schBillfileName + schBillExtension;
+                model.LastSchoolResult = schResultfileName + schResultExtension;
+
+
+                _applicationService.CreateApplicationAsync(model, currentUser);
+
+                //return RedirectToAction("DashboardReturningStudent", "Student");
+            }
+            catch (Exception e)
             {
-                files[1].CopyTo(fileStream);
+                ViewBag.Message = e.Message;   
+
+                return View();
             }
+            ViewBag.Message = "Submitted Successfully";
+            return View();
 
-            using (var fileStream = new FileStream(Path.Combine(schResultupload, schResultfileName + schResultExtension), FileMode.Create))
-            {
-                files[2].CopyTo(fileStream);
-            }
-
-
-            model.LetterOfAdmission = admissionLetterfileName + admissionLetterExtension;
-            model.SchoolBill = schBillfileName + schBillExtension;
-            model.LastSchoolResult = schResultfileName + schResultExtension;
-
-            _applicationService.CreateApplicationAsync(model, currentUser);
-
-            return RedirectToAction("DashboardReturningStudent", "Student");
         }
-        //New Candidate Application
+        //New Candidate Application, after Registration
         [HttpPost]
         public IActionResult CreateApplicationNewStudent(CreateApplicationFormRequestModel model)
         {
-            Random random = new Random();
-            var currentUser = User.FindFirst("Email").Value;
-            var currentUserId = User.FindFirst(ClaimTypes.NameIdentifier).Value;
-
-
-            var files = HttpContext.Request.Form.Files;
-
-
-            string admissionLetterupload = _env.WebRootPath + @"\UploadedFiles\AdmissionLetter\";
-            string schBillupload = _env.WebRootPath + @"\UploadedFiles\SchBill\";
-            string schResultupload = _env.WebRootPath + @"\UploadedFiles\SchResult\";
-
-
-            string admissionLetterfileName = currentUserId + "-admissionLetter-" + random.Next(100000).ToString();
-
-            string schBillfileName = currentUserId + "-schBill-" + random.Next(100000).ToString();
-
-            string schResultfileName = currentUserId + "-schResult-" + random.Next(100000).ToString();
-
-
-            string admissionLetterExtension = Path.GetExtension(files[0].FileName);
-            string schBillExtension = Path.GetExtension(files[1].FileName);
-            string schResultExtension = Path.GetExtension(files[2].FileName);
-
-
-            using (var fileStream = new FileStream(Path.Combine(admissionLetterupload, admissionLetterfileName + admissionLetterExtension), FileMode.Create))
+            try
             {
-                files[0].CopyTo(fileStream);
-            }
+                Random random = new Random();
+                var currentUser = User.FindFirst("Email").Value;
+                var currentUserId = User.FindFirst(ClaimTypes.NameIdentifier).Value;
 
-            using (var fileStream = new FileStream(Path.Combine(schBillupload, schBillfileName + schBillExtension), FileMode.Create))
+
+                var files = HttpContext.Request.Form.Files;
+
+
+                string admissionLetterupload = _env.WebRootPath + @"\UploadedFiles\AdmissionLetter\";
+                string schBillupload = _env.WebRootPath + @"\UploadedFiles\SchBill\";
+                //string schResultupload = _env.WebRootPath + @"\UploadedFiles\SchResult\";
+
+
+                string admissionLetterfileName = currentUserId + "-admissionLetter-" + random.Next(100000).ToString();
+
+                string schBillfileName = currentUserId + "-schBill-" + random.Next(100000).ToString();
+
+                //string schResultfileName = currentUserId + "-schResult-" + random.Next(100000).ToString();
+
+
+                string admissionLetterExtension = Path.GetExtension(files[0].FileName);
+                string schBillExtension = Path.GetExtension(files[1].FileName);
+                //string schResultExtension = Path.GetExtension(files[2].FileName);
+
+
+                using (var fileStream = new FileStream(Path.Combine(admissionLetterupload, admissionLetterfileName + admissionLetterExtension), FileMode.Create))
+                {
+                    files[0].CopyTo(fileStream);
+                }
+
+                using (var fileStream = new FileStream(Path.Combine(schBillupload, schBillfileName + schBillExtension), FileMode.Create))
+                {
+                    files[1].CopyTo(fileStream);
+                }
+
+                /*using (var fileStream = new FileStream(Path.Combine(schResultupload, schResultfileName + schResultExtension), FileMode.Create))
+                {
+                    files[2].CopyTo(fileStream);
+                }*/
+
+
+                model.LetterOfAdmission = admissionLetterfileName + admissionLetterExtension;
+                model.SchoolBill = schBillfileName + schBillExtension;
+                //model.LastSchoolResult = schResultfileName + schResultExtension;
+
+
+
+                ViewBag.Message = _applicationService.CreateNewApplicationAsync(model, currentUser);
+   
+            }
+            catch (Exception e)
             {
-                files[1].CopyTo(fileStream);
+                ViewBag.Message = e.Message;        
+
+                return View();
+                
             }
-
-            using (var fileStream = new FileStream(Path.Combine(schResultupload, schResultfileName + schResultExtension), FileMode.Create))
-            {
-                files[2].CopyTo(fileStream);
-            }
-
-
-            model.LetterOfAdmission = admissionLetterfileName + admissionLetterExtension;
-            model.SchoolBill = schBillfileName + schBillExtension;
-            model.LastSchoolResult = schResultfileName + schResultExtension;
-
-
-
-            _applicationService.CreateNewApplicationAsync(model, currentUser);
-
-            return RedirectToAction("DashboardReturningStudent", "Student");
+            ViewBag.Message = "Application Submitted";
+            return View();
+            
         }
 
         
@@ -162,39 +186,44 @@ namespace ScholarshipManagement.Web.UI.Controllers
             var userResponseModel = await _userService.GetUser(currentUserId);
 
             var userDto = userResponseModel.Data;
+            
 
-            List<ApprovalStatus> status = new List<ApprovalStatus>() { ApprovalStatus.Default };
+            List<ApprovalStatus> status = new List<ApprovalStatus>() { ApprovalStatus.Draft };
             var isGlobal = true;
             List<int> circuitIds = null;
             switch (userDto.UserType)
             {
                 case UserType.Circuit:
-                    status =new List<ApprovalStatus>() { ApprovalStatus.Default };
+
+                    status = new List<ApprovalStatus>() { ApprovalStatus.Draft, ApprovalStatus.Committee };
                     isGlobal = false;
                     circuitIds = new List<int>();
                     var circuit = await _userService.GetUserCircuit(userDto.Id);
-                    if(circuit != null)
+                    if (circuit != null)
                     {
                         circuitIds.Add(circuit.Id);
                     }
                     break;
+                case UserType.Admin:
+                    status = new List<ApprovalStatus>() { ApprovalStatus.NaibAmir, ApprovalStatus.Amir, ApprovalStatus.Accounts, ApprovalStatus.Committee, ApprovalStatus.Draft, ApprovalStatus.Disbursed };
+                    break;
                 case UserType.Committee:
-                    status = new List<ApprovalStatus>() { ApprovalStatus.NaibAmir, ApprovalStatus.Amir, ApprovalStatus.Accounts, ApprovalStatus.Committee };
+                    status = new List<ApprovalStatus>() { ApprovalStatus.NaibAmir, ApprovalStatus.Amir, ApprovalStatus.Accounts, ApprovalStatus.Disbursed };
                     break;
                 case UserType.NaibAmir:
-                    status = new List<ApprovalStatus>() { ApprovalStatus.NaibAmir };
+                    status = new List<ApprovalStatus>()
+                    {
+                       ApprovalStatus.NaibAmir ,ApprovalStatus.Amir
+                    };
                     break;
                 case UserType.Amir:
-                    status = new List<ApprovalStatus>() { ApprovalStatus.Amir };
+                    status = new List<ApprovalStatus>() { ApprovalStatus.Amir , ApprovalStatus.Accounts };
                     break;
                 case UserType.Accounts:
-                    status = new List<ApprovalStatus>() { ApprovalStatus.Accounts };
-                    break;
-                
+                    status = new List<ApprovalStatus>() { ApprovalStatus.Accounts, ApprovalStatus.Disbursed};
+                    break;     
             }
-
-
-            var pendingApplications = await _applicationService.PendingApplicationsByStatus(status,isGlobal,circuitIds);
+            var pendingApplications = await _applicationService.PendingApplicationsByStatus(status,isGlobal,circuitIds,userDto.Id);
 
             return View(pendingApplications);
         }
@@ -202,18 +231,41 @@ namespace ScholarshipManagement.Web.UI.Controllers
         [HttpGet]
         public IActionResult UpdateApprovalStatus(int id)
         {
-            var currentUserId = int.Parse(User.FindFirst(ClaimTypes.NameIdentifier).Value);
+            try
+            {
+                var currentUserId = int.Parse(User.FindFirst(ClaimTypes.NameIdentifier).Value);
 
-            _applicationService.UpdateApprovalStatus(id, currentUserId);
-            return RedirectToAction("PendingApplications");
+                _applicationService.UpdateApprovalStatus(id, currentUserId);
+                return RedirectToAction("PendingApplications");
+            }
+            
+            catch (Exception e)
+            {
+                ViewBag.Message = e.Message;         
+
+                return View();
+            }
+            ViewBag.Message = "Delivered To the Next Level";
+
+            
         }
-        //updates Application Status
+        //updates Application Status-Decline
         [HttpGet]
         public IActionResult DeclineApprovalStatus(int id)
         {
-            
-            _applicationService.DeclineApprovalStatus(id);
-            return RedirectToAction("PendingApplications");
+            try
+            {
+                _applicationService.DeclineApprovalStatus(id);
+                return RedirectToAction("PendingApplications");
+            }
+            catch(Exception e)
+            {
+                ViewBag.Message -= "Cannot Declined!";
+            }
+            return ViewBag.Message -= "Application Declined!";
+
+
+
         }
         [HttpGet]
         public async Task<IActionResult> PendingApplicationsDetail(int id)
@@ -235,21 +287,10 @@ namespace ScholarshipManagement.Web.UI.Controllers
             return View(pendingStudent);
         }
 
-        [HttpPost]
-        public IActionResult EditApplication(UpdateApplicationRequestModel model)
-        {
-            var students = _applicationService.UpdateAsync(model);
-
-            return View(students);
-
-        }
-        [HttpGet]
-        public IActionResult EditApplication(int applicationFormNumber)
-        {
-            var applications = _applicationService.GetApplicationFormAsync(applicationFormNumber);
-
-            return View(applications);
-        }
+       
+       
+       
+        
         
     }
 }

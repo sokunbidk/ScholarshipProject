@@ -1,8 +1,8 @@
 {
   "version": 2,
-  "dgSpecHash": "F7Arp2KhBLWzswsD8Zuu0yudsL4eSNQIU8awIFNjHoKh3+2Zw1MvSL+zKRDfycSeD+Pc2hteNW3N6MLTe+FIKQ==",
+  "dgSpecHash": "o0gHpjLvELZkPhyu71k1fv5RppvvkGG5769mOUQmntBc+loShBFSE41bW+YkFPxtWT8mMveiIU9M8y1+bh4F/A==",
   "success": true,
-  "projectFilePath": "C:\\Users\\ADD. SEC. MA'AL\\Desktop\\FullStackTraining\\CsharpTraining\\ScholarshipManagement13-08-2021\\ScholarshipManagement.Data\\ScholarshipManagement.Data.csproj",
+  "projectFilePath": "C:\\Users\\ADD. SEC. MA'AL\\Desktop\\FullStackTraining\\CsharpTraining\\ScholarshipManagement\\ScholarshipManagement.Data\\ScholarshipManagement.Data.csproj",
   "expectedPackageFiles": [
     "C:\\Users\\ADD. SEC. MA'AL\\.nuget\\packages\\bouncycastle.netcore\\1.8.5\\bouncycastle.netcore.1.8.5.nupkg.sha512",
     "C:\\Users\\ADD. SEC. MA'AL\\.nuget\\packages\\google.protobuf\\3.14.0\\google.protobuf.3.14.0.nupkg.sha512",

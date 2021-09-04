@@ -59,14 +59,23 @@ namespace ScholarshipManagement.Data
         public string FirstName { get; set; }
 
         [Display(Name = "Other Name")]
-        public string OtherName { get; set; }
 
+        public string OtherName { get; set; }
+        [Required(ErrorMessage = "Address is required")]
         [Display(Name = "Address")]
         public string Address { get; set; }
 
+        [Display(Name = "Email Address")]
+        public string EmailAddress { get; set; }
+
+        [Display(Name = "Phone Number")]
+        public string PhoneNumber { get; set; }
+
+        [Required(ErrorMessage = "Jamaat is required")]
         [Display(Name = "Select Jamaat")]
         public int JamaatId { get; set; }
 
+        [Required(ErrorMessage = "Circuit is required")]
         [Display(Name = "Select Circuit")]
         public int CircuitId { get; set; }
 
@@ -77,16 +86,21 @@ namespace ScholarshipManagement.Data
         [Display(Name = "Gender")]
         public Gender Gender { get; set; }
 
+        [Required(ErrorMessage = "DOB is required")]
         [Display(Name = "Date Of Birth")]
         public DateTime DateOfBirth { get; set; }
 
-        [Required, Display(Name = "Guardian Name")]
+        [Required(ErrorMessage = "Guardian Name is required")]
+        [Display(Name = "Guardian Name")]
         public string GuardianFullName { get; set; }
 
-        [Required, Display(Name = "Guardian Phone Number")]
+        [Required(ErrorMessage = "Guardian Phone No is required")]
+        [MaxLength(11)]
+        [Display(Name = "Guardian Phone Number")]
         public string GuardianPhoneNumber { get; set; }
 
-        [Required, Display(Name = "Guardian MemberCode")]
+        [Required(ErrorMessage = "Guardian MemberCode is required")]
+        [Display(Name = "Guardian MemberCode")]
         public string GuardianMemberCode { get; set; }
 
         [DataType(DataType.Upload)]
@@ -96,6 +110,8 @@ namespace ScholarshipManagement.Data
     }
     public class UpdateStudentRequestModel
     {
+        public string MemberCode { get; set; }
+
         [Required(ErrorMessage = "Surname is required")]
         [Display(Name = "Surname")]
         public string SurName { get; set; }
@@ -117,7 +133,7 @@ namespace ScholarshipManagement.Data
 
         [Display(Name = "Choose Circuit")]
         public int CircuitId { get; set; }
-
+        
         [Display(Name = "AuxiliaryBody")]
         public AuxiliaryBody AuxiliaryBody { get; set; }
 
@@ -135,11 +151,14 @@ namespace ScholarshipManagement.Data
         public DateTime DateOfBirth { get; set; }
 
         [Required, Display(Name = "Guardian")]
-        public string GuardianFullname { get; set; }
+        public string GuardianFullName { get; set; }
 
         [Required, Display(Name = "Guardian Phone")]
-        public string GuardianPhone { get; set; }
+        public string GuardianPhoneNumber { get; set; }
 
+        [Required, Display(Name = "Guardian MemberCode")]
+        public string GuardianMemberCode { get; set; }
+        
         [Required, Display(Name = "Photograph")]
         public string Photograph { get; set; }
     }

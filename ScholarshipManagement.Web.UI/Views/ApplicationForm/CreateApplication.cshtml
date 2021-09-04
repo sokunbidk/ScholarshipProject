@@ -11,111 +11,119 @@
                 <h4 class="text-center">@ViewData["Title"]</h4>
             </div>
             <div class="card card-body">
+                @if (!string.IsNullOrEmpty(ViewBag.Message))
+                {
+                    <p class="alert alert-warning alert-dismissible" id="successUser" role="alert">@ViewBag.Message</p>
+                }
                 <form method="POST" enctype="multipart/form-data">
-                  
-
                     <div class="form-row">
 
                         <div class="form-group col-lg-4">
-                            <label asp-for="InstitutionType"></label>
-                            <input type="text" class="form-control" asp-for="InstitutionType" />
-                            <span asp-validation-for="InstitutionType"></span>
+                                <label class="formlabel" asp-for="InstitutionType"></label>
+                                <select asp-for="InstitutionType" required class="form-control">
+                                    <option value="1">University</option>
+                                    <option value="2">Polytechnic</option>
+                                    <option value="3">College</option>
+                                    <option value="4">Secondary</option>
+                                    <option value="5">Primary</option>
+                                    <option value="6">Artisan</option>
+                                </select>
+                                <span asp-validation-for="InstitutionType"></span>
                         </div>
                         <div class="form-group col-lg-4">
-                            <label asp-for="NameOfSchool"></label>
-                            <input type="text" asp-for="NameOfSchool" class="form-control" />
+                            <label class="formlabel" asp-for="NameOfSchool"></label>
+                            <input type="text" required asp-for="NameOfSchool" class="form-control" />
                             <span asp-validation-for="NameOfSchool"></span>
                         </div>
 
                         <div class="form-group col-lg-4">
-                            <label asp-for="AcademicLevel"></label>
-                            <input type="text" asp-for="AcademicLevel" class="form-control" />
+                            <label class="formlabel" asp-for="AcademicLevel"></label>
+                            <input type="text" required asp-for="AcademicLevel" class="form-control" />
                             <span asp-validation-for="AcademicLevel"></span>
                         </div>
-
                     </div>
                     <div class="form-row">
                         <div class="form-group col-lg-4">
-                            <label asp-for="SchoolSession"></label>
-                            <input class="form-control" type="text" asp-for="SchoolSession" />
+                            <label class="formlabel" asp-for="SchoolSession"></label>
+                            <input required class="form-control" type="text" asp-for="SchoolSession" />
                             <span asp-validation-for="SchoolSession"></span>
                         </div>
 
                         <div class="form-group col-lg-4">
-                            <label asp-for="Discipline"></label>
-                            <input class="form-control" type="text" asp-for="Discipline" />
+                            <label class="formlabel" asp-for="Discipline"></label>
+                            <input required class="form-control" type="text" asp-for="Discipline" />
                             <span asp-validation-for="Discipline"></span>
                         </div>
                         <div class="form-group col-lg-4">
-                            <label asp-for="Duration"></label>
-                            <input class="form-control" type="text" asp-for="Duration" />
+                            <label class="formlabel" asp-for="Duration"></label>
+                            <input required class="form-control" type="text" asp-for="Duration" />
                             <span asp-validation-for="Duration"></span>
                         </div>
                     </div>
 
                     <div class="form-row">
-                        <div class="form-group col-lg-3">
-                            <label asp-for="DegreeInView"></label>
-                            <input class="form-control" type="text" asp-for="DegreeInView" />
+                        <div class="form-group col-lg-4">
+                            <label class="formlabel" asp-for="DegreeInView"></label>
+                            <input required class="form-control" type="text" asp-for="DegreeInView" />
                             <span asp-validation-for="DegreeInView"></span>
                         </div>
-                        <div class="form-group col-lg-3">
-                            <label asp-for="DateAdmitted"></label>
-                            <input class="form-control" type="date" asp-for="DateAdmitted" />
+                        <div class="form-group col-lg-4">
+                            <label class="formlabel" asp-for="DateAdmitted"></label>
+                            <input required class="form-control" type="date" asp-for="DateAdmitted" />
                             <span asp-validation-for="DateAdmitted"></span>
                         </div>
-                        <div class="form-group col-lg-3">
-                            <label asp-for="YearToGraduate"></label>
-                            <input class="form-control" type="date" asp-for="YearToGraduate" />
+                        <div class="form-group col-lg-4">
+                            <label class="formlabel" asp-for="YearToGraduate"></label>
+                            <input required class="form-control" type="date" asp-for="YearToGraduate" />
                             <span asp-validation-for="YearToGraduate"></span>
                         </div>
-                        <div class="form-group col-lg-3">
-                            <label asp-for="AmountRequested"></label>
+
+                    </div>
+                    <div class="form-row">
+                        @*<div class="form-group col-lg-3">
+            <label class="formlabel" for="letterOfAdmission">Admission Letter</label>
+            <input class="form-control" type="file" id="letterOfAdmission" name="files" />
+            <span asp-validation-for="LetterOfAdmission"></span>
+        </div>*@
+                        <div class="form-group col-lg-4">
+                            <label class="formlabel" asp-for="AmountRequested"></label>
                             <input class="form-control" type="text" asp-for="AmountRequested" />
                             <span asp-validation-for="AmountRequested"></span>
                         </div>
-                        
-                    </div>                 
-                    <div class="form-row">
-                        <div class="form-group col-lg-3">
-                            <label for="letterOfAdmission">Admission Letter</label>
-                            <input class="form-control" type="file" id="letterOfAdmission" name="files" />
-                            <span asp-validation-for="LetterOfAdmission"></span>
-                        </div>
                         <div class="form-group col-lg-4">
-                            <label for="schoolBill">School Bill</label>
+                            <label required class="formlabel" for="schoolBill">School Bill</label>
                             <input class="form-control" type="file" id="schoolBill" name="files" />
                             <span asp-validation-for="SchoolBill"></span>
                         </div>
 
                         <div class="form-group col-lg-4">
-                            <label for="LastSchoolResult">Last School Result</label>
-                            <input class="form-control" type="file" id="LastSchoolResult" name="files" />
+                            <label class="formlabel" for="LastSchoolResult">Last School Result</label>
+                            <input required class="form-control" type="file" id="LastSchoolResult" name="files" />
                             <span asp-validation-for="LastSchoolResult"></span>
                         </div>
 
                     </div>
                     <div class="form-row">
                         <div class="form-group col-lg-4">
-                            <label asp-for="BankName"></label>
-                            <input class="form-control" type="text" asp-for="BankName" />
+                            <label class="formlabel" asp-for="BankName"></label>
+                            <input required class="form-control" type="text" asp-for="BankName" />
                             <span asp-validation-for="BankName"></span>
                         </div>
                         <div class="form-group col-lg-4">
-                            <label asp-for="BankAccountNumber"></label>
-                            <input class="form-control" id="bankacct" onkeyup="checkLength(event)" maxlength="10" type="text" asp-for="BankAccountNumber" />
+                            <label class="formlabel" asp-for="BankAccountNumber"></label>
+                            <input required class="form-control" id="bankacct" onkeyup="checkLength(event)" maxlength="10" type="text" asp-for="BankAccountNumber" />
                             <span asp-validation-for="BankAccountNumber"></span>
                             <div class="text-danger" id="err"></div>
                         </div>
 
                         <div class="form-group col-lg-4">
-                            <label asp-for="BankAccountName"></label>
-                            <input class="form-control" type="text" asp-for="BankAccountName" />
+                            <label class="formlabel" asp-for="BankAccountName"></label>
+                            <input required class="form-control" type="text" asp-for="BankAccountName" />
                             <span asp-validation-for="BankAccountName"></span>
                         </div>
 
                     </div>
-                   
+
                     <input type="submit" class="btn btn-success" value="Save" />
                 </form>
             </div>
@@ -128,7 +136,7 @@
     function checkLength(event) {
         let bank = document.getElementById('bankacct');
         if (typeof bank.value != Number) {
-            document.getElementById('err').innerHTML = "Bank account can't contain alphabets";
+            document.getElementById('err').innerHTML = "";
         }
         if (bank.value.length > 10) {
             document.getElementById('err').innerHTML = "Bank account can't be greater than 10";

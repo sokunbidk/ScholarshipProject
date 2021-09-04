@@ -1,0 +1,116 @@
+﻿@model ScholarshipManagement.Data.DTOs.StudentDto 
+@{
+    ViewData["Title"] = "Edit Applicant Profile";
+}
+
+<div class="row justify-content-center mt-5">
+
+    <div class="col-md-7">
+        <div class="card">
+            <div class="card-header">
+                <h4 class="text-center">@ViewData["Title"]</h4>
+            </div>
+            <div class="card card-body">
+                <a class="text-danger  text-lg-right font-weight-bold" asp-controller="Admin" asp-action="PendingApplicationsEdit">---Dashboard</a>
+                <form method="POST">
+                    <div class="form-row">
+
+                        <div class="form-group col-lg-3">
+                            <label class="formlabel" asp-for="MemberCode"></label>
+                            <input type="text" asp-for="MemberCode" class="form-control" />
+                            <span asp-validation-for="MemberCode"></span>
+                        </div>
+                        <div style="width: 100px; height: 100px; overflow:hidden; margin-left:320px;">
+                            <img src="/UploadedFiles/Photograph/@Model.Photograph" width="100%" />
+                        </div>
+
+                    </div>
+                    <div class="form-row">
+                        <div class="form-group col-lg-4">
+                            <label class="formlabel" asp-for="SurName"></label>
+                            <input type="text" asp-for="SurName" class="form-control" />
+                            <span asp-validation-for="SurName"></span>
+                        </div>
+
+                        <div class="form-group col-lg-4">
+                            <label class="formlabel" asp-for="FirstName"></label>
+                            <input type="text" asp-for="FirstName" class="form-control" />
+                            <span asp-validation-for="FirstName"></span>
+                        </div>
+
+                        <div class="form-group col-lg-4">
+                            <label class="formlabel" asp-for="OtherName"></label>
+                            <input class="form-control" type="text" asp-for="OtherName" />
+                            <span asp-validation-for="OtherName"></span>
+                        </div>
+                    </div>
+
+                    <div class="form-row">
+
+                        <div class="form-group col-lg-4">
+                            <label class="formlabel" asp-for="Address"></label>
+                            <input class="form-control" type="text" asp-for="Address" />
+                            <span asp-validation-for="Address"></span>
+                        </div>
+
+                        <div class="form-group col-lg-4">
+                            <label class="formlabel" asp-for="JamaatName"></label>
+                            <input class="form-control" readonly type="text" asp-for="JamaatName" />
+                            <span asp-validation-for="JamaatName"></span>
+                        </div>
+
+                        <div class="form-group col-lg-4">
+                            <label class="formlabel" asp-for="CircuitName"></label>
+                            <input class="form-control" readonly type="text" asp-for="CircuitName" />
+                            <span asp-validation-for="CircuitName"></span>
+                        </div>
+
+                    </div>
+                    <div class="form-row">
+
+                        <div class="form-group col-lg-4">
+                            <label class="formlabel" asp-for="AuxiliaryBody"></label>
+                            <input class="form-control" readonly type="text" asp-for="AuxiliaryBody" />
+                            <span asp-validation-for="AuxiliaryBody"></span>
+                        </div>
+                        <div class="form-group col-lg-2">
+                            <label class="formlabel" asp-for="Gender"></label>
+                            <input class="form-control" readonly type="text" asp-for="Gender" />
+                            <span asp-validation-for="Gender"></span>
+                        </div>
+
+                        <div class="form-group col-lg-6">
+                            <label class="formlabel" asp-for="DateOfBirth"></label>
+                            <input class="form-control" readonly type="date" asp-for="DateOfBirth" />
+                            <span asp-validation-for="DateOfBirth"></span>
+                        </div>
+                    </div>
+
+                    <div class="form-row">
+                        <div class="form-group col-lg-4">
+                            <label class="formlabel" asp-for="GuardianFullName"></label>
+                            <input class="form-control" type="text" asp-for="GuardianFullName" />
+                            <span asp-validation-for="GuardianFullName"></span>
+                        </div>
+                        <div class="form-group col-lg-4">
+                            <label class="formlabel" asp-for="GuardianPhoneNumber"></label>
+                            <input class="form-control" type="text" asp-for="GuardianPhoneNumber" />
+                            <span asp-validation-for="GuardianPhoneNumber"></span>
+                        </div>
+
+                        <div class="form-group col-lg-4">
+                            <label class="formlabel" asp-for="GuardianMemberCode"></label>
+                            <input class="form-control" type="text" asp-for="GuardianMemberCode" />
+                            <span asp-validation-for="GuardianMemberCode"></span>
+                        </div>
+
+                    </div>
+                    <div class="form-row justify-content-center">
+                        <input type="submit" class="btn btn-success" value="Save" />
+                    </div>
+                </form>
+
+            </div>
+        </div>
+    </div>
+</div>

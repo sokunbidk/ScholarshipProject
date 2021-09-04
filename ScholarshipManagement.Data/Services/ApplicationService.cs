@@ -42,6 +42,7 @@ namespace ScholarshipManagement.Data.Services
             }
             var applicantion = new ApplicationForm
             {
+                UderId = student.UserId,
                 StudentId = student.Id,
                 InstitutionType = model.InstitutionType,
                 NameOfSchool = model.NameOfSchool,
@@ -52,14 +53,14 @@ namespace ScholarshipManagement.Data.Services
                 DegreeInView = model.DegreeInView,
                 DateAdmitted = model.DateAdmitted,
                 YearToGraduate = model.YearToGraduate,
-                LetterOfAdmission = model.LetterOfAdmission,
+                //LetterOfAdmission = model.LetterOfAdmission,
                 AmountRequested = model.AmountRequested,
                 BankName = model.BankName,
                 BankAccountNumber = model.BankAccountNumber,
                 BankAccountName = model.BankAccountName,
                 LastSchoolResult = model.LastSchoolResult,
                 SchoolBill = model.SchoolBill,
-                Status = ApprovalStatus.Default
+                Status = ApprovalStatus.Draft
                 //StatusId = model.StatusId,
 
             };
@@ -75,11 +76,24 @@ namespace ScholarshipManagement.Data.Services
         //Apply for Scholarship-New Student
         public async Task<BaseResponse> CreateNewApplicationAsync(CreateApplicationFormRequestModel model, string currentUser)
         {
-
             Student student = await _studentRepository.GetStudentByEmail(currentUser);
 
-            var applicantion = new ApplicationForm
+           // var studentExists = await _studentRepository.ExistsAsync(u =>u.UserId == student.UserId);
+            
+            if (student == null)
             {
+                throw new BadRequestException("This Candidate is Yet To Register as a Student");
+            }
+            var applicantionFormSameLevelExists = await _applicationFormRepository.ExistsAsync(u => (u.AcademicLevel == model.AcademicLevel || u.SchoolSession == model.SchoolSession)
+            && u.StudentId == student.Id);
+
+            if (applicantionFormSameLevelExists)
+            {
+                throw new BadRequestException($"Application form already exist for  '{model.AcademicLevel}' OR {model.SchoolSession}Level.");
+            }
+            ApplicationForm applicantion = new ApplicationForm
+            {
+                UderId = student.UserId,
                 StudentId = student.Id,
                 InstitutionType = model.InstitutionType,
                 NameOfSchool = model.NameOfSchool,
@@ -95,9 +109,9 @@ namespace ScholarshipManagement.Data.Services
                 BankName = model.BankName,
                 BankAccountName = model.BankAccountName,
                 BankAccountNumber = model.BankAccountNumber,
-                LastSchoolResult = model.LastSchoolResult,
+                //LastSchoolResult = model.LastSchoolResult,
                 SchoolBill = model.SchoolBill,
-                Status = ApprovalStatus.Default
+                Status = ApprovalStatus.Draft
                 //StatusId = (int)ApprovalStatus.Default                     //Enum
 
             };
@@ -113,7 +127,7 @@ namespace ScholarshipManagement.Data.Services
 
         }
         //Pending Applications List
-        public async Task<List<PendingApplicationsDto>> PendingApplications()
+        /*public async Task<List<PendingApplicationsDto>> PendingApplications()
         {
             //var student = await _studentRepository.GetStudentByEmail(Email);
             var applications = await _applicationFormRepository.Query()
@@ -157,10 +171,10 @@ namespace ScholarshipManagement.Data.Services
                 return pendingApplicationsList;
             }
 
-        }
+        }*/
 
 
-        public async Task<List<PendingApplicationsDto>> PendingApplicationsByStatus(List<ApprovalStatus> statuses, bool isGlobal, List<int> circuitIds)
+        public async Task<List<PendingApplicationsDto>> PendingApplicationsByStatus(List<ApprovalStatus> statuses, bool isGlobal, List<int> circuitIds, int Id)
         {
 
             var applicationsQuery =  _applicationFormRepository.Query()
@@ -173,10 +187,12 @@ namespace ScholarshipManagement.Data.Services
             {
                applicationsQuery =  applicationsQuery.Where(p => circuitIds.Contains(p.Student.Jamaat.CircuitId));
             }
-
+            /*if(!isGlobal)
+            {
+                applicationsQuery = applicationsQuery.Where(p => Id == p.Student.UserId);
+            }*/
             var applications = await applicationsQuery.ToListAsync();
             if (applications == null)
-
             {
                 throw new NotFoundException("No Pending Application");
             }
@@ -186,19 +202,23 @@ namespace ScholarshipManagement.Data.Services
                 foreach (var application in applications)
                 {
                     var pendingApplication = new PendingApplicationsDto
-                    {
+                    {   
+                                       Id = application.UderId,
                         ApplicationFormId = application.Id,
                         StudentId = application.StudentId,
-                        SurName = application.Student.SurName,
-                        FirstName = application.Student.FirstName,
-                        OtherName = application.Student.OtherName,
+                        SurName = application.Student.SurName +
+                      application.Student.FirstName  + application.Student.OtherName,
+                        //FirstName = application.Student.FirstName,
+                        //OtherName = application.Student.OtherName,
                         AuxiliaryBody = application.Student.AuxiliaryBody,
-                        CircuitId = application.Student.Jamaat.Circuit.CircuitName,
+                        CircuitName = application.Student.Jamaat.Circuit.CircuitName,
                         Jamaat = application.Student.Jamaat.JamaatName,
                         NameOfSchool = application.NameOfSchool,
                         Discipline = application.Discipline,
                         AcademenicLevel = application.AcademicLevel,
                         AmountRequested = application.AmountRequested,
+                        GuardianFullName = application.Student.GuardianFullName,
+                        GuardianPhoneNumber = application.Student.GuardianPhoneNumber,
                         Remarks = application.Remarks,
                         Status = application.Status,
 
@@ -209,139 +229,114 @@ namespace ScholarshipManagement.Data.Services
             }
 
         }
+        public async Task<List<PendingApplicationsDto>> StudentApplicationStatus(int id)
+        {
+            var StatusQuary = _applicationFormRepository.Query()
+                .Include(s => s.Student)
+                .ThenInclude(j => j.Jamaat)
+                .ThenInclude(c => c.Circuit)
+                .Where(p => p.UderId == id)
+                .Where(r => r.UderId == r.Student.UserId);
+                
+                
+
+            var applicationStatus = await StatusQuary.ToListAsync();
 
 
+            List<PendingApplicationsDto> studentStatusList = new List<PendingApplicationsDto>();
+            foreach (var application in applicationStatus)
+            {
+                var studentStatus = new PendingApplicationsDto
+                {
+                    Id = application.UderId,
+                    ApplicationFormId = application.Id,
+                    StudentId = application.StudentId,
+                    SurName = application.Student.SurName +
+                      application.Student.FirstName + application.Student.OtherName,
+                    //FirstName = application.Student.FirstName,
+                    //OtherName = application.Student.OtherName,
+                    AuxiliaryBody = application.Student.AuxiliaryBody,
+                    CircuitName = application.Student.Jamaat.Circuit.CircuitName,
+                    Jamaat = application.Student.Jamaat.JamaatName,
+                    NameOfSchool = application.NameOfSchool,
+                    Discipline = application.Discipline,
+                    AcademenicLevel = application.AcademicLevel,
+                    AmountRequested = application.AmountRequested,
+                    GuardianFullName = application.Student.GuardianFullName,
+                    GuardianPhoneNumber = application.Student.GuardianPhoneNumber,
+                    Remarks = application.Remarks,
+                    Status = application.Status,
+                };
+                studentStatusList.Add(studentStatus);
+            }
+            return (studentStatusList);
+        }
 
-        //Pending Applications Detail
+        //View Pending Application To Edit
         public async Task<ApplicationResponseModel> GetApplication(int id)
         {
             var applicant = await _applicationFormRepository.GetAsync(id);
 
-            if (applicant == null)
+            ApplicationFormDto application = new ApplicationFormDto
             {
-                throw new NotFoundException("Applicant does not exist");
-            }
+
+                InstitutionType = applicant.InstitutionType,
+                NameOfSchool = applicant.NameOfSchool,
+                AcademicLevel = applicant.AcademicLevel,
+                SchoolSession = applicant.SchoolSession,
+                Discipline = applicant.Discipline,
+                Duration = applicant.Duration,
+                DegreeInView = applicant.DegreeInView,
+                YearToGraduate = applicant.YearToGraduate,
+                DateAdmitted = applicant.DateAdmitted,
+                //LetterOfAdmission = applicant.LetterOfAdmission,
+                AmountRequested = applicant.AmountRequested,
+                BankName = applicant.BankName,
+                BankAccountNumber = applicant.BankAccountNumber,
+                BankAccountName = applicant.BankAccountName,
+                //LastSchoolResult = applicant.LastSchoolResult,
+                //SchoolBill = applicant.SchoolBill,
+            };
             return new ApplicationResponseModel
-            {
-                Data = new ApplicationFormDto
-                {
-
-
-                    InstitutionType = applicant.InstitutionType,
-                    NameOfSchool = applicant.NameOfSchool,
-                    AcademicLevel = applicant.AcademicLevel,
-                    SchoolSession = applicant.SchoolSession,
-                    Discipline = applicant.Discipline,
-                    Duration = applicant.Duration,
-                    DegreeInView = applicant.DegreeInView,
-                    YearToGraduate = applicant.YearToGraduate,
-                    LetterOfAdmission = applicant.LetterOfAdmission,
-                    AmountRequested = applicant.AmountRequested,
-                    BankName = applicant.BankName,
-                    BankAccountNumber = applicant.BankAccountNumber,
-                    BankAccountName = applicant.BankAccountName,
-                    LastSchoolResult = applicant.LastSchoolResult,
-                    SchoolBill = applicant.SchoolBill,
-                },
-
-
+            { 
+                Data = application,
                 Status = true,
                 Message = "Successful"
             };
         }
 
-
-        public async Task<BaseResponse> UpdateApplicationAsync(UpdateApplicationRequestModel model)
+        public async Task<BaseResponse> UpdateApplicationAsync(int id, UpdateApplicationRequestModel model)
         {
-            var applicantExists = await _applicationFormRepository.ExistsAsync(u => u.Id != model.StudentId && u.Student.User.MemberCode == model.MemberCode);
 
-            if (applicantExists)
+            ApplicationForm application = await _applicationFormRepository.GetAsync(id);
             {
-                throw new BadRequestException($"Student with MemberCode {model.MemberCode}' already exists.");
-            }
 
-            await _applicationFormRepository.SaveChangesAsync();
+                application.InstitutionType = model.InstitutionType;
+                application.NameOfSchool = model.NameOfSchool;
+                application.AcademicLevel = model.AcademicLevel;
+                application.SchoolSession = model.SchoolSession;
+                application.Discipline = model.Discipline;
+                application.Duration = model.Duration;
+                application.DegreeInView = model.DegreeInView;
+                application.DateAdmitted = model.DateAdmitted;
+                application.YearToGraduate = model.YearToGraduate;
+                //application.LetterOfAdmission = model.LetterOfAdmission;
+                application.AmountRequested = model.AmountRequested;
+                application.BankName = model.BankName;
+                application.BankAccountNumber = model.BankAccountNumber;
+                application.BankAccountName = model.BankAccountName;
+               // application.LastSchoolResult = model.LastSchoolResult;
+                //application.SchoolBill = model.SchoolBill;
+
+                await _applicationFormRepository.UpdateAsync(application);
+                await _applicationFormRepository.SaveChangesAsync();
+            }
 
             return new BaseResponse
             {
                 Status = true,
-                Message = "Approval Given Successfully"
+                Message = "successfully updated"
             };
-        }
-
-        public async Task<ApplicationsResponseModel> GetApplications()
-        {
-            var applicantform = await _applicationFormRepository.Query().Select(r => new ApplicationFormDto
-
-            {
-
-                InstitutionType = r.InstitutionType,
-                NameOfSchool = r.NameOfSchool,
-                AcademicLevel = r.AcademicLevel,
-                SchoolSession = r.SchoolSession,
-                Discipline = r.Discipline,
-                Duration = r.Duration,
-                DegreeInView = r.DegreeInView,
-                YearToGraduate = r.YearToGraduate,
-                LetterOfAdmission = r.LetterOfAdmission,
-                AmountRequested = r.AmountRequested,
-                BankName = r.BankName,
-                BankAccountNumber = r.BankAccountNumber,
-                BankAccountName = r.BankAccountName,
-                LastSchoolResult = r.LastSchoolResult,
-                SchoolBill = r.SchoolBill,
-            }).ToListAsync();
-
-            return new ApplicationsResponseModel
-            {
-                Data = applicantform,
-                Status = true,
-                Message = "Successful"
-            };
-        }
-
-        public async Task<ApplicationsResponseModel> GetApplicationAsync(ApplicationFormViewModel model)
-        {
-            var applicantform = await _applicationFormRepository.Query().Select(r => new ApplicationFormDto
-            {
-
-                InstitutionType = r.InstitutionType,
-                NameOfSchool = r.NameOfSchool,
-                AcademicLevel = r.AcademicLevel,
-                SchoolSession = r.SchoolSession,
-                Discipline = r.Discipline,
-                Duration = r.Duration,
-                DegreeInView = r.DegreeInView,
-                YearToGraduate = r.YearToGraduate,
-                LetterOfAdmission = r.LetterOfAdmission,
-                AmountRequested = r.AmountRequested,
-                BankName = r.BankName,
-                BankAccountNumber = r.BankAccountNumber,
-                BankAccountName = r.BankAccountName,
-                LastSchoolResult = r.LastSchoolResult,
-                SchoolBill = r.SchoolBill,
-            }).ToListAsync();
-
-            return new ApplicationsResponseModel
-            {
-                Data = applicantform,
-                Status = true,
-                Message = "Successful"
-            };
-        }
-
-
-        public Task<BaseResponse> UpdateAsync(UpdateApplicationRequestModel model)
-        {
-            throw new NotImplementedException();
-        }
-        public Task<ApplicationForm> GetApplicationFormAsync(int applicationFormNumber)
-        {
-            throw new NotImplementedException();
-        }
-        public Task<BaseResponse> UpdateApplicationAsync(int id, UpdateApplicationRequestModel model)
-        {
-            throw new NotImplementedException();
 
         }
         public async Task<BaseResponse> UpdateApprovalStatus(int id, int userId)
@@ -351,7 +346,7 @@ namespace ScholarshipManagement.Data.Services
             
             var user = await _userRepository.GetAsync(userId);
 
-            if (application.Status == ApprovalStatus.Default && user.UserType == UserType.Circuit)
+            if (application.Status == ApprovalStatus.Draft && user.UserType == UserType.Circuit)
             {
                 application.Status = ApprovalStatus.Committee;
                 await _applicationFormRepository.UpdateAsync(application);
@@ -378,12 +373,14 @@ namespace ScholarshipManagement.Data.Services
             }
             else if (application.Status == ApprovalStatus.Accounts && user.UserType == UserType.Accounts)
             {
-                application.Status = ApprovalStatus.Disbursement;
+                application.Status = ApprovalStatus.Disbursed;
                 await _applicationFormRepository.UpdateAsync(application);
                 await _applicationFormRepository.SaveChangesAsync();
             }
-
-
+            else
+            {
+                throw new BadRequestException ("You Do Not Have Access Right to this Action");
+            }
             return new BaseResponse
             {
                 Status = true,
@@ -396,7 +393,7 @@ namespace ScholarshipManagement.Data.Services
             var application = await _applicationFormRepository.GetAsync(id);
 
             application.Status = ApprovalStatus.Declined;
-            await _applicationFormRepository.AddAsync(application);
+            await _applicationFormRepository.UpdateAsync(application);
             await _applicationFormRepository.SaveChangesAsync();
 
             return new BaseResponse
@@ -405,6 +402,24 @@ namespace ScholarshipManagement.Data.Services
                 Message = "Application form Declined"
             };
 
+        }
+        public async void DeleteApplication(int id)
+        {
+            
+            var application = await _applicationFormRepository.GetAsync(id);
+
+            /*UserDto r = new UserDto
+            {
+                UserFullName = application.UserFullName,
+                Email = user.Email,
+                PhoneNumber = user.PhoneNumber,
+                MemberCode = user.MemberCode,
+                UserType = user.UserType,
+
+            };*/
+
+            await _userRepository.DeleteAsync(application);
+            await _userRepository.SaveChangesAsync();
         }
     }
 }

@@ -8425,11 +8425,11 @@
   "project": {
     "version": "1.0.0",
     "restore": {
-      "projectUniqueName": "C:\\Users\\ADD. SEC. MA'AL\\Desktop\\FullStackTraining\\CsharpTraining\\ScholarshipManagement13-08-2021\\ScholarshipManagement.Data\\ScholarshipManagement.Data.csproj",
+      "projectUniqueName": "C:\\Users\\ADD. SEC. MA'AL\\Desktop\\FullStackTraining\\CsharpTraining\\ScholarshipManagement\\ScholarshipManagement.Data\\ScholarshipManagement.Data.csproj",
       "projectName": "ScholarshipManagement.Data",
-      "projectPath": "C:\\Users\\ADD. SEC. MA'AL\\Desktop\\FullStackTraining\\CsharpTraining\\ScholarshipManagement13-08-2021\\ScholarshipManagement.Data\\ScholarshipManagement.Data.csproj",
+      "projectPath": "C:\\Users\\ADD. SEC. MA'AL\\Desktop\\FullStackTraining\\CsharpTraining\\ScholarshipManagement\\ScholarshipManagement.Data\\ScholarshipManagement.Data.csproj",
       "packagesPath": "C:\\Users\\ADD. SEC. MA'AL\\.nuget\\packages\\",
-      "outputPath": "C:\\Users\\ADD. SEC. MA'AL\\Desktop\\FullStackTraining\\CsharpTraining\\ScholarshipManagement13-08-2021\\ScholarshipManagement.Data\\obj\\",
+      "outputPath": "C:\\Users\\ADD. SEC. MA'AL\\Desktop\\FullStackTraining\\CsharpTraining\\ScholarshipManagement\\ScholarshipManagement.Data\\obj\\",
       "projectStyle": "PackageReference",
       "fallbackFolders": [
         "C:\\Program Files (x86)\\Microsoft Visual Studio\\Shared\\NuGetPackages"

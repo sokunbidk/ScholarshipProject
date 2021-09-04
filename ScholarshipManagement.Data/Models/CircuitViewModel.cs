@@ -17,6 +17,7 @@ namespace ScholarshipManagement.Data
         public string CircuitName { get; set; }
 
         public string Email { get; set; }
+        public int PresidentId { get; set; }
     }
 
 
@@ -25,6 +26,8 @@ namespace ScholarshipManagement.Data
         public string CircuitName { get; set; }
 
         public string Email { get; set; }
+        public int PresidentId { get; set; }
+
 
     }
     public class UpdateCircuitRequestModel

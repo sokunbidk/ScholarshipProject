@@ -7,13 +7,13 @@ using ScholarshipManagement.Data.DTOs;
 using Microsoft.EntityFrameworkCore;
 using System.IO;
 using Grpc.Core;
+using System.Security.Claims;
 
 namespace ScholarshipManagement.Data.Services
 {
     public class StudentService : IStudentService
     {
         private readonly IStudentRepository _studentRepository;
-
         private readonly IUserRepository _userRepository;
         public StudentService(IStudentRepository studentRepository, IUserRepository userRepository)
         {
@@ -21,27 +21,33 @@ namespace ScholarshipManagement.Data.Services
             _userRepository = userRepository;
         }
         //Create New Student-Bio Data
-        public async Task<BaseResponse> CreateStudentAsync(CreateStudentRequestModel model,string currentUser)
+        public async Task<BaseResponse> CreateStudentAsync(CreateStudentRequestModel model, string currentUser)
         {
             User user = await _userRepository.GetUserAsync(currentUser);
-            
-            //MemberCode is used instead of currentuser just for further authentication
+            Student studentRecord = await _studentRepository.GetStudent(user.Id);
 
             if (user == null || user.MemberCode != model.MemberCode)
             {
-                throw new NotFoundException("User Does Not Exist");
+                throw new BadRequestException("Your Credentials in Invalid");
             }
-           
-            Student student = new()
-
+            /*if (studentRecord.UserId > 0)
             {
+                throw new NotFoundException("Student Already Registered");
+            }*/
+            if (model.SurName == null || model.FirstName == null || model.Address == null || model.GuardianFullName == null || model.GuardianPhoneNumber == null || model.GuardianMemberCode == null || model.Photograph == null)
+            {
+                throw new BadRequestException("You Are missing out important information");
+            }
 
+            Student student = new()
+            {
                 UserId = user.Id,
                 SurName = model.SurName,
                 FirstName = model.FirstName,
                 OtherName = model.OtherName,
                 Address = model.Address,
                 JamaatId = model.JamaatId,
+                CircuitId = model.CircuitId,
                 AuxiliaryBody = model.AuxiliaryBody,
                 PhoneNumber = user.PhoneNumber,
                 EmailAddress = user.Email,
@@ -56,13 +62,13 @@ namespace ScholarshipManagement.Data.Services
 
             };
 
-                await _studentRepository.AddAsync(student);
-                await _studentRepository.SaveChangesAsync();
-            
+            await _studentRepository.AddAsync(student);
+            await _studentRepository.SaveChangesAsync();
+
             return new BaseResponse
             {
                 Status = true,
-                Message = "Student successfully created"
+
             };
 
         }
@@ -107,34 +113,31 @@ namespace ScholarshipManagement.Data.Services
         }
 
 
-        public async Task<BaseResponse> UpdateStudentAsync(int id, UpdateStudentRequestModel model)
+        /*public async Task<BaseResponse> UpdateStudentAsync(int id, UpdateStudentRequestModel model)
         {
             var student = await _studentRepository.GetAsync(id);
 
-            if (student == null)
+            Student Editedstudent = new Student()
             {
-                throw new NotFoundException("Student does not exist");
-            }
+                Address = model.Address,
+                AuxiliaryBody = model.AuxiliaryBody,
+                //DateOfBirth = model.DateOfBirth,
+                FirstName = model.FirstName,
+                GuardianFullName = model.GuardianFullName,
+                GuardianPhoneNumber = model.GuardianPhoneNumber,
+                OtherName = model.OtherName
+            };
 
-            student.Address = model.Address;
-            student.AuxiliaryBody = model.AuxiliaryBody;
-            student.DateOfBirth = model.DateOfBirth;
-            student.FirstName = model.FirstName;
-            student.GuardianFullName = model.GuardianFullname;
-            student.GuardianPhoneNumber = model.GuardianPhone;
-            student.JamaatId = model.JamaatId;
-            student.OtherName = model.OtherName;
-            student.Photograph = model.Photograph;
-
-            await _studentRepository.UpdateAsync(student);
+            await _studentRepository.UpdateAsync(Editedstudent);
             await _studentRepository.SaveChangesAsync();
 
             return new BaseResponse
             {
                 Status = true,
-                Message = "Biodata successfully updated"
+                Message = "Profile successfully updated"
             };
-        }
+        }       */
+        //This gets all Students-Not Used Yet
         public async Task<StudentsResponseModel> GetStudents(StudentsResponseModel model)
         {
             var student = await _studentRepository.Query().Select(r => new StudentDto
@@ -173,6 +176,8 @@ namespace ScholarshipManagement.Data.Services
                 Address = student.Address,
                 CircuitName = student.Jamaat.Circuit.CircuitName,
                 JamaatName = student.Jamaat.JamaatName,
+                JamaatId = student.JamaatId,
+                CircuitId = student.CircuitId,
                 AuxiliaryBody = student.AuxiliaryBody,
                 PhoneNumber = student.PhoneNumber,
                 EmailAddress = student.EmailAddress,
@@ -190,6 +195,33 @@ namespace ScholarshipManagement.Data.Services
                 Data = applicant,
                 Status = true,
                 Message = "Successful"
+            };
+        }
+        public async Task<BaseResponse> UpdateStudentAsync(int id, UpdateStudentRequestModel model)
+        {
+
+            Student student = await _studentRepository.GetAsync(id);
+            {
+                student.SurName = model.SurName;
+                student.FirstName = model.FirstName;
+                student.OtherName = model.OtherName;
+                student.Address = model.Address;
+                //student.CircuitId = model.CircuitId;
+                //student.Jamaat = model.Jamaat;
+                student.AuxiliaryBody = model.AuxiliaryBody;
+                student.GuardianFullName = model.GuardianFullName;
+                student.GuardianPhoneNumber = model.GuardianPhoneNumber;
+                student.GuardianMemberCode = model.GuardianMemberCode;
+
+            }
+
+            await _studentRepository.UpdateAsync(student);
+            await _studentRepository.SaveChangesAsync();
+
+            return new BaseResponse
+            {
+                Status = true,
+                Message = "Updated Successfully"
             };
         }
     }

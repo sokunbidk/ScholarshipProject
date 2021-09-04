@@ -1,0 +1,34 @@
+﻿<h1>Admin</h1>
+@*@if (!string.IsNullOrEmpty(ViewBag.Message))
+{
+    <p class="alert alert-dismissible welcomemsg" role="alert">@ViewBag.Message</p>
+}*@
+
+
+<div class="card">
+    @if (!string.IsNullOrEmpty(ViewBag.Message))
+    {
+        <p class="alert alert-warning alert-dismissible" id="successUser" role="alert">@ViewBag.Message</p>
+    }
+
+    <div class="card-header">
+        <a class="btn btn-success option" asp-controller="Admin" asp-action="PendingApplicationsEdit">Edit Student Profile</a>
+    </div>
+
+    <div class="card-header">
+        <a class="btn btn-success" asp-controller="Circuit" asp-action="Create">Create Circuit</a>
+    </div>
+
+    <div class="card-header">
+        <a class="btn btn-success" asp-controller="Jamaat" asp-action="Create">Create Jamaat</a>
+    </div>
+
+    <div class="card-header">
+        <a class="btn btn-success" asp-controller="Admin" asp-action="FetchUsers">Edit User</a>
+    </div>
+
+</div>
+
+
+
+

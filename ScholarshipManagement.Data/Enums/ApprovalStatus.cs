@@ -8,13 +8,13 @@ namespace ScholarshipManagement.Data.Enums
 {
     public enum ApprovalStatus
     {
-        Default = 1,
+        Draft = 1,
         Committee = 2,
         NaibAmir = 3,
         Amir = 4,
         Approved = 5,
         Accounts = 6,
-        Disbursement = 7,
+        Disbursed = 7,
         Declined = 8,
         Closed = 9
     }

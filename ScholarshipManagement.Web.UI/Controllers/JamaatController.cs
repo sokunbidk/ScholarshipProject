@@ -55,9 +55,18 @@ namespace ScholarshipManagement.Web.UI.Controllers
         [HttpPost]
         public async Task<IActionResult> Create(CreateJamaatRequestModel model)
         {
-            
-            await _jamaatService.CreateJamaatAsync(model);
-            return RedirectToAction ("Index");
+            try
+            {
+                await _jamaatService.CreateJamaatAsync(model);
+                return RedirectToAction("Index");
+            }
+            catch(Exception e)
+            {
+                ViewBag.Message = e.Message;
+            }
+            return ViewBag.Message = "Jamaat Created Successfully";
+
+
         }
 
     }

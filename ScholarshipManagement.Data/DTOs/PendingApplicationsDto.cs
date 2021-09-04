@@ -7,12 +7,14 @@ namespace ScholarshipManagement.Data.DTOs
 {
     public class PendingApplicationsDto
     {
+        public int Id { get; set; }
         public int StudentId { get; set; }
         public int ApplicationFormId { get; set; }
         public string SurName { get; set; }
         public string FirstName { get; set; }
         public string OtherName { get; set; }
         public string Jamaat { get; set; }
+        public string CircuitName { get; set; }
         public string CircuitId { get; set; }
         public string GuardianFullName { get; set; }
         public AuxiliaryBody AuxiliaryBody { get; set; }

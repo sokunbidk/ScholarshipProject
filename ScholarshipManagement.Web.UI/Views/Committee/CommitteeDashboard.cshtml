@@ -1,0 +1,19 @@
+﻿<h1>Committee</h1>
+@*@if (!string.IsNullOrEmpty(ViewBag.Message))
+{
+    <p class="alert alert-dismissible welcomemsg" role="alert">@ViewBag.Message</p>
+}*@
+<div class="card">
+    <div class="card-header">      
+        <div class="card-header">
+            <a class="btn btn-success option" asp-controller="ApplicationForm" asp-action="PendingApplications">View Applications In Progress</a>
+        </div>
+    </div>
+</div>
+<div class="card">
+    <div class="card-header">
+        <div class="card-header">
+            <a class="btn btn-success option" asp-controller="Committee" asp-action="PendingApplicationsFocus">View Pending Applications With Committee</a>
+        </div>
+    </div>
+</div>

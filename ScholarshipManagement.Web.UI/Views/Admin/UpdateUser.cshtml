@@ -1,0 +1,74 @@
+﻿@model ScholarshipManagement.Data.DTOs.UserDto
+
+@{
+    ViewData["Title"] = "Update User";
+}
+
+<div class="row justify-content-center">
+
+    <div class="col-md-7 mt-5">
+        <div class="card formcard">
+            <div class="card-header formheader">
+                <h4 class="text-center formlabel ">@ViewData["Title"]</h4>
+            </div>
+            <div class="card card-body formcard">
+                <a class="text-danger  text-lg-right font-weight-bold" asp-controller="Admin" asp-action="FetchUsers">---Dashboard</a>
+                @if (!string.IsNullOrEmpty(ViewBag.Message))
+                {
+                    <p class="alert alert-warning alert-dismissible" id="successUser" role="alert">@ViewBag.Message</p>
+                }
+                <form method="Post">
+                    <div class="form-row">
+                        <div class="form-group col-lg-6">
+                            <label class="formlabel" asp-for="UserFullName"></label>
+                            <input type="text" id="fullname" asp-for="UserFullName" class="form-control" />
+                            <span asp-validation-for="UserFullName"></span>
+                        </div>
+                        <div class="form-group col-lg-6">
+                            <label class="formlabel" asp-for="Email"></label>
+                            <input type="text" id="fullname" asp-for="Email" class="form-control" />
+                            <span asp-validation-for="Email"></span>
+                        </div>
+
+                    </div>
+                    <div class="form-row">
+                        <div class="form-group col-lg-4">
+                            <label class="formlabel" asp-for="PhoneNumber"></label>
+                            <input type="text" id="fullname" asp-for="PhoneNumber" class="form-control" />
+                            <span asp-validation-for="PhoneNumber"></span>
+                        </div>
+                        <div class="form-group col-lg-4">
+                            <label class="formlabel" asp-for="MemberCode"></label>
+                            <input type="text" id="fullname" asp-for="MemberCode" class="form-control" />
+                            <span asp-validation-for="MemberCode"></span>
+                        </div>
+
+                        <div class="form-group col-lg-4">
+                            <label asp-for="UserType"></label>
+                            <select asp-for="UserType" class="form-control">
+                                <option value="1">Student</option>
+                                <option value="2">Circuit</option>
+                                <option value="3">Committee</option>
+                                <option value="4">NaibAmir</option>
+                                <option value="5">Amir</option>
+                                <option value="6">Accounts</option>
+                                <option value="7">Secretariat</option>
+                                <option value="8">Admin</option>
+                            </select>
+                            <span asp-validation-for="UserType"></span>
+                        </div>
+                    </div>
+                    <div class="form-row justify-content-center">
+                        <input type="submit" id="submitbtn" class="btn btn-success text-white formlabel" value="Save" />
+                    </div>
+
+                </form>
+            </div>
+            
+        </div>
+    </div>
+
+</div>
+
+
+

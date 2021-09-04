@@ -6,6 +6,7 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <Content Remove="Views\Student\EditProfileOLD.cshtml" />
     <Content Remove="Views\Student\Registration.cshtml" />
   </ItemGroup>
 

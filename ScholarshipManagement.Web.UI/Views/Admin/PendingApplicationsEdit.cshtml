@@ -1,0 +1,77 @@
+﻿@model IList<ScholarshipManagement.Data.DTOs.PendingApplicationsDto>
+@{
+    ViewData["Title"] = "Pending List";
+    int count = 0;
+}
+
+
+<h1>Pending List</h1>
+<div>
+    <a class="text-danger  text-lg-right font-weight-bold" asp-controller="Admin" asp-action="AdminDashboard">---Dashboard</a>
+    <div class="card-body">
+        @if (Model.Count() == 0)
+        {
+            <div>
+                <h5 class="text-center text-danger">No Pending Applications!</h5>
+            </div>
+        }
+
+        else
+        {
+            <table class="table  table-responsive-sm table-bordered">
+                <thead class="table-title">
+                    <tr class="text-white">
+                        <th>S/N</th>
+                        <th>Name</th>
+                        <th>Jamaat</th>
+                        <th>AuxiliaryBody</th>
+                        <th>GuardianFullName</th>
+                        <th>NameOfSchool</th>
+                        <th>Status</th>
+                        <th>Discipline</th>
+                        <th>AcademicLevel</th>
+                        <th>AmountRequested</th>
+
+                    </tr>
+                </thead>
+                <tbody>
+                    @foreach (var PendingApplicationsDto in Model)
+                    {
+                    <tr>
+                        <td> @(++count) </td>
+                        <td>@PendingApplicationsDto.SurName </td>
+                        <td>@PendingApplicationsDto.Jamaat </td>
+                        <td> @PendingApplicationsDto.AuxiliaryBody </td>
+                        <td> @PendingApplicationsDto.GuardianFullName </td>
+                        <td> @PendingApplicationsDto.NameOfSchool </td>
+                        <td> @PendingApplicationsDto.Status </td>
+                        <td>@PendingApplicationsDto.Discipline </td>
+                        <td> @PendingApplicationsDto.AcademenicLevel </td>
+                        <td>@PendingApplicationsDto.AmountRequested </td>
+                        <td>
+                            <a asp-action="UpdatePendingStudent" asp-route-id="@PendingApplicationsDto.StudentId" class="btn btn-primary">
+                                Edit Student
+                            </a>
+
+                        </td>
+                        <td>
+                            <a asp-action="UpdatePendingApplication" asp-route-id="@PendingApplicationsDto.ApplicationFormId" class="btn btn-success">
+                                Edit Appliation
+                            </a>
+
+                        </td>
+                        <td>
+                            <a asp-action="DeleteApplication" asp-route-id="@PendingApplicationsDto.ApplicationFormId" class="btn btn-danger">
+                                Delete
+                            </a>
+                        </td>
+
+                    </tr>
+                    }
+                </tbody>
+            </table>
+        }
+
+    </div>
+</div>
+

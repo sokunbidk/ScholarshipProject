@@ -80,7 +80,6 @@ namespace ScholarshipManagement.Data.Migrations
                         .HasColumnType("tinyint(1)");
 
                     b.Property<string>("LastSchoolResult")
-                        .IsRequired()
                         .HasMaxLength(200)
                         .HasColumnType("varchar(200)");
 
@@ -118,6 +117,9 @@ namespace ScholarshipManagement.Data.Migrations
                     b.Property<int>("StudentId")
                         .HasColumnType("int");
 
+                    b.Property<int>("UserId")
+                        .HasColumnType("int");
+
                     b.Property<DateTime>("YearToGraduate")
                         .HasColumnType("datetime");
 
@@ -132,9 +134,6 @@ namespace ScholarshipManagement.Data.Migrations
                 {
                     b.Property<int>("Id")
                         .ValueGeneratedOnAdd()
-                        .HasColumnType("int");
-
-                    b.Property<int>("CircuitId")
                         .HasColumnType("int");
 
                     b.Property<string>("CircuitName")
@@ -192,9 +191,6 @@ namespace ScholarshipManagement.Data.Migrations
 
                     b.Property<bool>("IsDeleted")
                         .HasColumnType("tinyint(1)");
-
-                    b.Property<int>("JamaatId")
-                        .HasColumnType("int");
 
                     b.Property<string>("JamaatName")
                         .HasColumnType("text");
@@ -336,7 +332,7 @@ namespace ScholarshipManagement.Data.Migrations
                     b.Property<int>("AuxiliaryBody")
                         .HasColumnType("int");
 
-                    b.Property<int?>("CircuitId")
+                    b.Property<int>("CircuitId")
                         .HasColumnType("int");
 
                     b.Property<string>("CreatedBy")
@@ -352,6 +348,7 @@ namespace ScholarshipManagement.Data.Migrations
                         .HasColumnType("datetime");
 
                     b.Property<string>("EmailAddress")
+                        .IsRequired()
                         .HasColumnType("text");
 
                     b.Property<string>("FirstName")
@@ -368,6 +365,7 @@ namespace ScholarshipManagement.Data.Migrations
                         .HasColumnType("varchar(150)");
 
                     b.Property<string>("GuardianMemberCode")
+                        .IsRequired()
                         .HasColumnType("text");
 
                     b.Property<string>("GuardianPhoneNumber")
@@ -382,6 +380,7 @@ namespace ScholarshipManagement.Data.Migrations
                         .HasColumnType("int");
 
                     b.Property<string>("MemberCode")
+                        .IsRequired()
                         .HasColumnType("text");
 
                     b.Property<string>("ModifiedBy")
@@ -392,7 +391,9 @@ namespace ScholarshipManagement.Data.Migrations
                         .HasColumnType("varchar(30)");
 
                     b.Property<string>("PhoneNumber")
-                        .HasColumnType("text");
+                        .IsRequired()
+                        .HasMaxLength(11)
+                        .HasColumnType("varchar(11)");
 
                     b.Property<string>("Photograph")
                         .HasColumnType("text");
@@ -409,8 +410,6 @@ namespace ScholarshipManagement.Data.Migrations
                         .HasColumnType("int");
 
                     b.HasKey("Id");
-
-                    b.HasIndex("CircuitId");
 
                     b.HasIndex("JamaatId");
 
@@ -551,10 +550,6 @@ namespace ScholarshipManagement.Data.Migrations
 
             modelBuilder.Entity("ScholarshipManagement.Data.Entities.Student", b =>
                 {
-                    b.HasOne("ScholarshipManagement.Data.Entities.Circuit", "Circuit")
-                        .WithMany()
-                        .HasForeignKey("CircuitId");
-
                     b.HasOne("ScholarshipManagement.Data.Entities.Jamaat", "Jamaat")
                         .WithMany()
                         .HasForeignKey("JamaatId")
@@ -566,8 +561,6 @@ namespace ScholarshipManagement.Data.Migrations
                         .HasForeignKey("UserId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
-
-                    b.Navigation("Circuit");
 
                     b.Navigation("Jamaat");
 

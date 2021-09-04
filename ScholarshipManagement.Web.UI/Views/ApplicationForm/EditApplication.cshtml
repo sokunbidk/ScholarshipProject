@@ -12,6 +12,10 @@
             </div>
 
             <div class="card card-body">
+                @if (!string.IsNullOrEmpty(ViewBag.Message))
+                {
+                    <p class="alert alert-warning alert-dismissible" id="successUser" role="alert">@ViewBag.Message</p>
+                }
                 <form method="get">
 
                     <div class="form-row">
@@ -81,10 +85,10 @@
                             <span asp-validation-for="AmountRequested"></span>
                         </div>
 
-                        
+
                     </div>
 
-                
+
 
                     <div class="form-group">
                         <label asp-for="LastSchoolResult"></label>

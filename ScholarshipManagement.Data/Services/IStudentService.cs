@@ -16,5 +16,6 @@ namespace ScholarshipManagement.Data.Services
         Task<StudentViewModel> GetStudentReturningCandidate(string email);
 
         Task<StudentResponseModel> GetApplicantById(int id);
+        
     }
 }

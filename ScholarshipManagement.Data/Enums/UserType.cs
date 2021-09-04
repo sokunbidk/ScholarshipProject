@@ -14,6 +14,7 @@ namespace ScholarshipManagement.Data.Enums
         NaibAmir = 4,
         Amir = 5,
         Accounts = 6,
-            Secretariat=7
+        Secretariat=7,
+        Admin = 8
     }
 }

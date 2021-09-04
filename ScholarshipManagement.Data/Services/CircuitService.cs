@@ -31,9 +31,10 @@ namespace ScholarshipManagement.Data.Services
             var circuit = new Circuit
             {
                 CircuitName = model.CircuitName,
-                Email = model.Email
-                PresidentId = model.
-               
+                Email = model.Email,
+                PresidentId = model.PresidentId
+
+
             };
             await _circuitRepository.AddAsync(circuit);
             await _circuitRepository.SaveChangesAsync();
@@ -64,6 +65,7 @@ namespace ScholarshipManagement.Data.Services
                 Id = r.Id,
                 CircuitName = r.CircuitName,
                 Email = r.Email,
+                PresidentId = r.PresidentId
 
             }).ToList();
 

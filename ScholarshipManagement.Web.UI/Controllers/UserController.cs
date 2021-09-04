@@ -32,13 +32,13 @@ namespace ScholarshipManagement.Web.UI.Controllers
         {
             return View();
         }
-
+        //Blank User input-Create User
         public IActionResult Create()
         {
             
             return View();
         }
-
+        //Create User
         [HttpPost]
         public async Task<IActionResult> Create(CreateUserRequestModel model)
         {
@@ -48,15 +48,14 @@ namespace ScholarshipManagement.Web.UI.Controllers
             }
             catch (Exception e)
             {
-               // ViewBag.CreateError = e.Message;
-               // _ = e.Message;
-                ViewBag.Message = e.Message;
+               
+                ViewBag.Message = e.Message;          
                 
                 return View();
             }
-            ViewBag.Message = "User successfully created";
-            //return View();
-            return RedirectToAction(nameof(Login));
+            ViewBag.Message = "User Successfully created"; 
+            return View();
+            //return RedirectToAction(nameof(Login));
 
         }
         public IActionResult Login()
@@ -97,30 +96,34 @@ namespace ScholarshipManagement.Web.UI.Controllers
 
                 //var currentUserType = User.FindFirst(ClaimTypes.UserData).Value;
                 //var currentUser = User.Identity.Name;
+                //var currentUser = User.FindFirst("Email").Value;
+                //var currentUserId = int.Parse(User.FindFirst(ClaimTypes.NameIdentifier).Value);
                 var currentUser = principal.FindFirst("Email");
                 
 
-                if (user.UserType == UserType.Secretariat)
+                if (user.UserType == UserType.Admin)
                 {
-                    return RedirectToAction("SecretariatDashboard", "Secretariat");
+                    return RedirectToAction("AdminDashboard", "Admin");
                 }
+                else if (user.UserType == UserType.Committee)
+                {
+                    return RedirectToAction("CommitteeDashboard", "Committee");
+                }
+
 
                 if (user.UserType != UserType.Student)
                 {
-                    return RedirectToAction("AdminDashboard", "Student");
+                    return RedirectToAction("SecretariatDashboard", "Secretariat");
                 }
                 else
                 {
                     var student = _schoolDbContext.Students.FirstOrDefault(p => p.UserId == user.Id);
                     if (student == null)
                     {
-
                         return RedirectToAction("Dashboard", "Student");
-   
                     }
                     else
-                    {
-                       
+                    {                     
                         return RedirectToAction("DashboardReturningStudent", "Student");
                     }
 

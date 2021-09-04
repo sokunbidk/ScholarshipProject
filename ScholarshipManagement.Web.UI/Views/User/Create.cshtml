@@ -17,7 +17,7 @@
             <div class="card card-body formcard">
                 @if (!string.IsNullOrEmpty(ViewBag.Message))
                 {
-                    <p class="alert alert-warning alert-dismissible" id="successUser" role="alert">@ViewBag.Message</p>
+                    <p class="alert alert-warning alert-dismissible text-dark" id="successUser" role="alert">@ViewBag.Message</p>
                 }
                 <form method="POST">
 
@@ -29,7 +29,7 @@
                         </div>
                         <div class="form-group col-lg-4">
                             <label class="formlabel" asp-for="Email"></label>
-                            <input type="email" id="email" asp-for="Email" onblur="validateEmail()" class="form-control" required />
+                            <input type="email" id="email" asp-for="Email"  class="form-control" required />
                             <span asp-validation-for="Email"></span>
                             <div class="text-danger" id="emailerr"></div>
                         </div>
@@ -47,9 +47,6 @@
                             <div class="text-danger" id="codeerr"></div>
                         </div>
                     </div>
-
-
-
                     <div class="form-row">
                         <div class="form-group  col-lg-6">
                             <label class="formlabel"asp-for="Password"></label>
@@ -66,13 +63,13 @@
                     </div>
 
                     <div class="form-row justify-content-center">
-                        <input type="submit"  id="submitbtn" class="btn btn-success text-dark formlabel" value="Submit" />
+                        <input type="submit"  id="submitbtn" class="btn btn-success text-white formlabel" value="Submit" />
                     </div>
 
                 </form>
             </div>
             <div class="card-footer formlabel formfooter">
-                Already have an account? <a asp-controller="User" asp-action="Login">Sign In</a>
+                Already have an account? <a asp-controller="User"  class="text-white align-content-center"   asp-action="Login">Sign In</a>
             </div>
         </div>
     </div>

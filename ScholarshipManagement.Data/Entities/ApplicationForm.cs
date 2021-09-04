@@ -7,7 +7,7 @@ namespace ScholarshipManagement.Data.Entities
 {
     public class ApplicationForm : BaseEntity
     {
-        //public int ApplicationFormNumber { get; set; }
+        public int UderId { get; set; }
 
         public int StudentId { get; set; } //Foreign Key
 
@@ -39,7 +39,7 @@ namespace ScholarshipManagement.Data.Entities
         [StringLength(200)]
         public string LetterOfAdmission { get; set; }
 
-        [Required, MaxLength(50)]
+        [Required,MaxLength(50)]
         public string SchoolBill { get; set; }
 
         [Required, MaxLength(50)]
@@ -57,7 +57,7 @@ namespace ScholarshipManagement.Data.Entities
         [Required, MaxLength(90)]
         public string BankAccountName { get; set; }
 
-        [Required, StringLength(200)]
+        [StringLength(200)]
         public string LastSchoolResult { get; set; }
         public string Remarks { get; set; }
         //public int StatusId { get; set; }

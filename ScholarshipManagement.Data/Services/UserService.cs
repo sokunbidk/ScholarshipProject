@@ -8,6 +8,9 @@ using System.Linq;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Cryptography.KeyDerivation;
 using System.Security.Cryptography;
+using System.Collections.Generic;
+using System.Web.WebPages.Html;
+
 
 namespace ScholarshipManagement.Data.Services
 {
@@ -26,7 +29,7 @@ namespace ScholarshipManagement.Data.Services
 
             if (userExists)
             {
-                throw new BadRequestException($"User already exist!");
+                throw new BadRequestException($"User With {model.PhoneNumber} OR {model.Email} OR {model.MemberCode} already exist!");
             }
 
             if(model.Password != model.ConfirmPassword)
@@ -57,7 +60,7 @@ namespace ScholarshipManagement.Data.Services
             return new BaseResponse
             {
                 Status = true,
-                Message = "User successfully created"
+                
             };
         }
 
@@ -70,6 +73,7 @@ namespace ScholarshipManagement.Data.Services
             {
                 return null;
             }
+            
             return new UserDto
             {
                 Id = user.Id,
@@ -79,7 +83,19 @@ namespace ScholarshipManagement.Data.Services
                 PhoneNumber = user.PhoneNumber,
                 UserType = user.UserType
             };
-
+        }
+        public async Task<UserDto> GetUserAsync(string email)
+        {
+            User user = await _userRepository.GetUserAsync(email);
+            UserDto Newuser = new UserDto()
+            {
+                Id = user.Id,
+                UserFullName = user.UserFullName,
+                MemberCode = user.MemberCode,
+                Email = user.Email,
+                PhoneNumber = user.PhoneNumber,
+                UserType = user.UserType
+            };return Newuser;
         }
 
         public async Task<BaseResponse> UpdateUserAsync(int id, UpdateUserRequestModel model)
@@ -89,42 +105,45 @@ namespace ScholarshipManagement.Data.Services
             {
                 throw new BadRequestException($"Phone number: '{model.PhoneNumber}' already exists.");
             }
-            var user = await _userRepository.GetAsync(id);
+            User user = await _userRepository.GetAsync(id);
+           
             if (user == null)
             {
-                throw new NotFoundException("User does not exist");
+                throw new NotFoundException("User With this Identity Does Not exist");
             }
-
+            
+            
             user.PhoneNumber = model.PhoneNumber;
-
+            user.UserFullName = model.UserFullName;
+            user.Email = model.Email;
+            user.MemberCode = model.MemberCode;
+            user.UserType = model.UserType;
+            
             await _userRepository.UpdateAsync(user);
             await _userRepository.SaveChangesAsync();
 
             return new BaseResponse
             {
                 Status = true,
-                Message = "Phone number successfully updated"
+                Message = "successfully updated"
             };
         }
 
-        public async Task<UsersResponseModel> GetUser()
+        public async Task<List<UserDto>> GetUser()
         {
-            var users = await _userRepository.Query().Select(r => new UserDto
+            List<UserDto> users = await _userRepository.Query().Select(r => new UserDto
             {
                 Id = r.Id,
+                UserFullName = r.UserFullName,
                 Email = r.Email,
                 PhoneNumber = r.PhoneNumber,
-                MemberCode = r.MemberCode
+                MemberCode = r.MemberCode,
+                UserType = r.UserType
             }).ToListAsync();
 
-            return new UsersResponseModel
-            {
-                Data = users,
-                Status = true,
-                Message = "Successful"
-            };
+            return users;
+           
         }
-
         public async Task<UserResponseModel> GetUser(int id)
         {
             var user = await _userRepository.GetAsync(id);
@@ -136,6 +155,7 @@ namespace ScholarshipManagement.Data.Services
             {
                 Data = new UserDto
                 {
+                    UserFullName = user.UserFullName,
                     Email = user.Email,
                     PhoneNumber = user.PhoneNumber,
                     MemberCode = user.MemberCode,
@@ -144,8 +164,14 @@ namespace ScholarshipManagement.Data.Services
                 },
                 Status = true,
                 Message = "Successful"
-            };
+            }; 
         }
+        public List<UserDto> GetUserType()
+        {
+            return _userRepository.GetUserType();
+            //return userType;
+        }
+
 
         private string GenerateSalt()
         {
@@ -179,5 +205,26 @@ namespace ScholarshipManagement.Data.Services
         {
             return _userRepository.GetUserCircuit(id);
         }
+       
+        public async void DeleteUser(int id)
+        {
+            //Task<User> user = _userRepository.GetAsync(id);
+            var user = await _userRepository.GetAsync(id);
+
+            UserDto r = new UserDto
+            {
+                UserFullName = user.UserFullName,
+                Email = user.Email,
+                PhoneNumber = user.PhoneNumber,
+                MemberCode = user.MemberCode,
+                UserType = user.UserType,
+
+            };
+            
+                await _userRepository.DeleteAsync(user);
+                await _userRepository.SaveChangesAsync();
+        }
+        
+
     }
 }

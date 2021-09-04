@@ -17,6 +17,7 @@ namespace ScholarshipManagement.Data
         public string PhoneNumber { get; set; }
 
         public DateTime CreatedAt { get; set; }
+        public string FullName { get; set; }
     }
 
     public class CreateUserRequestModel
@@ -44,19 +45,45 @@ namespace ScholarshipManagement.Data
 
     public class LoginUserRequestModel
     {
+        [Display(Name = "User Full Name")]
+        public string UserFullName { get; set; }
+
         [Display(Name = "Email Address")]
         public string Email { get; set; }
 
         [Display(Name = "Password")]
         public string Password { get; set; }
+
+
+        [Display(Name = "Phone Number")]
+        public string PhoneNumber { get; set; }
+
+        [Display(Name = "Member Code")]
+        public string MemberCode { get; set; }
+
+        [Display(Name = "User Type")]
+        public UserType UserType { get; set; }
+
     }
 
     public class UpdateUserRequestModel
     {
         public int Id { get; set; }
 
+        [Display(Name = "User Full Name")]
+        public string UserFullName { get; set; }
+
+        [Display(Name = "Email Address")]
+        public string Email { get; set; }
+
         [Display(Name = "Phone Number")]
         public string PhoneNumber { get; set; }
+
+        [Display(Name = "Member Code")]
+        public string MemberCode { get; set; }
+
+        [Display(Name = "User Type")]
+        public UserType UserType { get; set; }
     }
 
     public class UsersResponseModel : BaseResponse
