@@ -1,4 +1,5 @@
-﻿using System;
+﻿using ScholarshipManagement.Data.Enums;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -8,33 +9,19 @@ namespace ScholarshipManagement.Data.DTOs
 {
     public class PaymentDto
     {
-        public int Id { get; set; }
-
-        public int ApplicationFormId { get; set; }
-
-        public int ApplicationFormNumber { get; set; }
-
-        public string memberCode { get; set; }
-
-        public string Surname { get; set; }
-
-        public string FirstName { get; set; }
-
-        public double AmountRecommended { get; set; }
-
-        public double AmountApprovedAndGranted { get; set; }
-
-        public DateTime DateApproved { get; set; }
-
-        public bool ConfirmPayment { get; set; }
-
+        public int ApplicationId { get; set; }
+        public int StudentId { get; set; }
+        public int UserId { get; set; }
+        public decimal AmountApproved { get; set; }
         public DateTime DatePaid { get; set; }
-
-        public string ApprovedBy { get; set; }
+        public ApprovalStatus Status { get; set; }
+        public string Names { get; set; }
+        public string NameOfSchool { get; set; }
         public string BankName { get; set; }
         public string BankAccountNumber { get; set; }
-
-        public string ProofOfChandaPmt { get; set; }
+        public string BankAccountName { get; set; }
+        public int AcademicLevel { get; set; }
+        public string SchoolSession { get; set; }
 
     }
 }

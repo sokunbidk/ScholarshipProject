@@ -49,9 +49,16 @@ namespace ScholarshipManagement.Data.Repositories
         }
         public Task<Circuit> GetUserCircuit(int id)
         {
-            return DbContext.Circuits.SingleOrDefaultAsync(p => p.PresidentId == id);
+            //return DbContext.Circuits.SingleOrDefaultAsync(p => p.PresidentId == id);
+            throw new NotImplementedException();
+        } 
+
+        public List<User> GetUsers()
+        {
+            return DbContext.Users.OrderBy(u => u.MemberCode).ToList();
         }
         
+
     }   
 }
 

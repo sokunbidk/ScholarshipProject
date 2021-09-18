@@ -25,6 +25,14 @@ namespace ScholarshipManagement.Data
         [Display(Name = "Full Name")]
         public string FullName { get; set; }
 
+        [Required(ErrorMessage = "Jamaat is required")]
+        [Display(Name = "Select Jamaat")]
+        public int JamaatId { get; set; }
+
+        [Required(ErrorMessage = "Circuit is required")]
+        [Display(Name = "Select Circuit")]
+        public int CircuitId { get; set; }
+
         [Display(Name = "Member Code")]
         public string MemberCode { get; set; }
 

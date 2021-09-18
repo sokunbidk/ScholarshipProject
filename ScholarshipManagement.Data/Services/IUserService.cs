@@ -5,6 +5,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using System.Web.Mvc;
 
 namespace ScholarshipManagement.Data.Services
 {
@@ -23,5 +24,7 @@ namespace ScholarshipManagement.Data.Services
         public Task<UserDto> GetUserAsync(string email);
         //public void Task<UserResponseModel> DeleteUser(int id);
         public void DeleteUser(int id);
+        //public IEnumerable<SelectListItem> GetPresidentList();
+        //public IEnumerable<System.Web.Mvc.SelectListItem> IUserService.GetPresidentList();
     }
 }

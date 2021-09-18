@@ -1,4 +1,6 @@
-﻿using System;
+﻿using ScholarshipManagement.Data.DTOs;
+using ScholarshipManagement.Data.Enums;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -13,5 +15,7 @@ namespace ScholarshipManagement.Data.Services
 
         Task<PaymentsResponseModel> GetPayments();
         Task<PaymentResponseModel> GetPayment(int id);
+        //public Task<BaseResponse> CreatePaymentByApprovedApplicationAsync(List<ApprovalStatus> statuses,  int Id);
+        public Task<BaseResponse> CreatePaymentByApprovedApplicationAsync(PendingApplicationsDto model, int id);
     }
 }

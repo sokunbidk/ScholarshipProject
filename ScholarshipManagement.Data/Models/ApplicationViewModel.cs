@@ -35,6 +35,8 @@ namespace ScholarshipManagement.Data
         public string AcademenicLevel { get; set; }
 
         public decimal AmountRequested { get; set; }
+        
+        public decimal AmountRecommended { get; set; }
 
         public string BankAccount { get; set; }
 
@@ -56,12 +58,12 @@ namespace ScholarshipManagement.Data
         [Display(Name = "Institution Type")]
         public InstitutionType InstitutionType { get; set; }
 
-        [Required(ErrorMessage = "NameOfSchool is required")]
-        [Display(Name = "NameOfSchool")]
+        [Required(ErrorMessage = "Name Of School is required")]
+        [Display(Name = "Name Of School")]
         public string NameOfSchool { get; set; }
 
         [Required(ErrorMessage = "What Level Are You")]
-        [Display(Name = "AcademicLevel")]
+        [Display(Name = "Academic Level")]
         public string AcademicLevel { get; set; }
 
         [Required(ErrorMessage = "School Session is required")]
@@ -77,8 +79,9 @@ namespace ScholarshipManagement.Data
         public int Duration { get; set; }
 
         [Required(ErrorMessage = "DegreeInView is required")]
-        [Display(Name = "DegreeInView")]
+        [Display(Name = "Degree InView")]
         public string DegreeInView { get; set; }
+
         [Required(ErrorMessage = "DateAdmitted is required")]
         [Display(Name = "Date Admitted")]
         public DateTime DateAdmitted { get; set; }
@@ -86,16 +89,20 @@ namespace ScholarshipManagement.Data
         [Display(Name = "YearToGraduate")]
         public DateTime YearToGraduate { get; set; }
         
-        [Display(Name = "LetterOfAdmission")]
+        [Display(Name = "Letter Of Admission")]
         public string LetterOfAdmission { get; set; }
 
-        [Required(ErrorMessage = "SchoolBill is required")]
-        [Display(Name = "SchoolBill")]
+        [Required(ErrorMessage = "School Bill is required")]
+        [Display(Name = "School Bill")]
         public string SchoolBill { get; set; }
 
         [Required(ErrorMessage = "You Must State Amount")]
-        [Display(Name = "AmountRequested")]
+        [Display(Name = "Amount Requested")]
         public int AmountRequested { get; set; }
+
+        [Required(ErrorMessage = "You Must State Amount")]
+        [Display(Name = "Amount Recommended")]
+        public int AmountRecommended { get; set; }
 
         [Required(ErrorMessage = "Name Of Bank is required")]
         [Display(Name = "Name of Bank")]
@@ -106,9 +113,10 @@ namespace ScholarshipManagement.Data
         public string BankAccountNumber { get; set; }
 
         [Required(ErrorMessage = "Bank Account Name is required")]
+        [Display(Name = "Bank Account Name")]
         public string BankAccountName { get; set; }
         
-        [Required, Display(Name = "LastSchoolResult")]
+        [Required, Display(Name = "Last School Result")]
         public string LastSchoolResult { get; set; }
     }
     public class UpdateApplicationRequestModel
@@ -121,10 +129,10 @@ namespace ScholarshipManagement.Data
         [Display(Name = "Institution Type")]
         public InstitutionType InstitutionType { get; set; }
 
-        [Display(Name = "NameOfSchool")]
+        [Display(Name = "Name Of School")]
         public string NameOfSchool { get; set; }
 
-        [Display(Name = "AcademicLevel")]
+        [Display(Name = "Academic Level")]
         public string AcademicLevel { get; set; }
 
         [Display(Name = "School Session")]
@@ -145,7 +153,7 @@ namespace ScholarshipManagement.Data
         [Required, Display(Name = "YearToGraduate")]
         public DateTime YearToGraduate { get; set; }
 
-        [Display(Name = "LetterOfAdmission")]
+        [Display(Name = "Letter Of Admission")]
         public string LetterOfAdmission { get; set; }
 
         [Display(Name = "Name of Bank")]
@@ -154,14 +162,20 @@ namespace ScholarshipManagement.Data
         [Required, Display(Name = "Bank Account Number")]
         public string BankAccountNumber { get; set; }
 
+        [Required, Display(Name = "Bank Account Name")]
         public string BankAccountName { get; set; }
 
-        [Display(Name = "SchoolBill")]
+        [Display(Name = "School Bill")]
         public string SchoolBill { get; set; }
 
         [Column(TypeName = "decimal(18, 2)"), Display(Name = "Amount Requested")]
         public decimal AmountRequested { get; set; }
 
+        [Required(ErrorMessage = "You Must State Amount")]
+        [Display(Name = "Amount Recommended")]
+        public int AmountRecommended { get; set; }
+
+        [Display(Name = "Last School Result")]
         public string LastSchoolResult { get; set; }
 
         public bool CircuitConsent { get; set; } = false;

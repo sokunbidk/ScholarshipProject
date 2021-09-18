@@ -5,30 +5,26 @@
 }
 <h1>Pending List</h1>
 <div>
-    <a class="text-danger  text-lg-right font-weight-bold" asp-controller="Committee" asp-action="CommitteeDashboard">---Dashboard</a>
+    <a class="text-danger  text-lg-right font-weight-bold" asp-controller="Student" asp-action="DashboardReturningStudent">---Dashboard</a>
 
     <div class="card-body">
-        @if (Model.Count() == 0)
+        @if (Model.Count() >= 0)
         {
             <div>
-                <h5 class="text-center text-danger">No Pending Applications!</h5>
+                <h5 class="text-center text-danger">Your Application Is In Progress</h5>
             </div>
         }
         else
         {
-
-
             <table class="table  table-responsive-sm table-bordered">
                 <thead class="table-title">
                     <tr class="text-white">
                         <th>S/N</th>
-                        <th>SurName</th>
-                        <th>NameOfSchool</th>
+                        <th>Name</th>
+                        <th>Name Of School</th>
                         <th>Status</th>
                         <th>Discipline</th>
-                        <th>Recommendation</th>
-                       
-                        
+                        <th>Request</th>  
                     </tr>
                 </thead>
                 <tbody>
@@ -36,7 +32,7 @@
                     {
                     <tr>
                         <td> @(++count) </td>
-                        <td>@PendingApplicationsDto.SurName </td>
+                        <td>@PendingApplicationsDto.Names </td>
                         <td> @PendingApplicationsDto.NameOfSchool </td>
                         
                         <td>

@@ -6,6 +6,8 @@ namespace ScholarshipManagement.Data.DTOs
     {
         public int Id { get; set; }
         public string UserFullName { get; set; }
+        public int CircuitId { get; set; }
+        public int JamaatId { get; set; }
 
         public string Email { get; set; }
 

@@ -1,15 +1,11 @@
-﻿using Microsoft.AspNetCore.Http;
-using Microsoft.AspNetCore.Mvc;
+﻿using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Rendering;
 using ScholarshipManagement.Data;
 using ScholarshipManagement.Data.DTOs;
-using ScholarshipManagement.Data.Entities;
-using ScholarshipManagement.Data.Exceptions;
 using ScholarshipManagement.Data.Interfaces;
 using ScholarshipManagement.Data.Services;
 using System;
 using System.Collections.Generic;
-using System.Linq;
 using System.Threading.Tasks;
 //using System.Web.Mvc;
 
@@ -30,7 +26,6 @@ namespace ScholarshipManagement.Web.UI.Controllers
         //Projects from Db to View
         public ActionResult Index()
         {
-
             var circuit = _circuitService.GetCircuits();
             return View(circuit);
         }
@@ -38,21 +33,13 @@ namespace ScholarshipManagement.Web.UI.Controllers
         [HttpGet]
         public IActionResult Create()
         {
-            List<UserDto> circuitusers = _userService.GetUserType();
-            List<SelectListItem> listItems = new List<SelectListItem>();
-            foreach (UserDto user in circuitusers)
-            {
-                SelectListItem item = new SelectListItem(user.UserFullName, user.Id.ToString());
-                listItems.Add(item);
-            }
-            ViewBag.PresidentId = listItems;
+          
             return View();
         }
 
         //Creat Circuit- inputs from User
         [HttpPost]
         public async Task<IActionResult> Create(CreateCircuitRequestModel model)
-
         {
             try
             {
@@ -73,12 +60,50 @@ namespace ScholarshipManagement.Web.UI.Controllers
             ViewBag.Message = "Circuit successfull created"; //success message
 
         }
+        //Get Circuit To be Update
+        [HttpGet]
+        public async Task<IActionResult> UpdateCircuit(int id)
+        {
+            /*List<UserDto> circuitusers = _userService.GetUserType();
+            List<SelectListItem> listItems = new List<SelectListItem>();
+            foreach (UserDto user in circuitusers)
+            {
+                SelectListItem item = new SelectListItem
+                    (user.UserFullName, user.Id.ToString());
+                listItems.Add(item);
+            }
+            ViewBag.PresidentId = listItems;*/
 
-        
-        
+            CircuitResponseModel circuit = await _circuitService.GetCircuit(id);
 
-        
+            CircuitDto circuitDto = circuit.Data;
 
-   
+            return View(circuitDto);
+        }
+        [HttpPost]
+        public IActionResult UpdateCircuit(int id, UpdateCircuitRequestModel model)
+        {
+            try 
+            { 
+                _circuitService.UpdateCircuitAsync(id, model);
+                return RedirectToAction("Index");
+            }
+            catch (Exception e)
+            {
+                ViewBag.Message = e.Message;
+                return View();
+            }
+            ViewBag.Message = "Updated Successfully";
+
+           
+
+        }
+
+
+
+
+
+
+
     }
 }

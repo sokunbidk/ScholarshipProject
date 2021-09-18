@@ -12,6 +12,10 @@
     }
 
     <div class="card-header">
+        <a class="btn btn-success" asp-controller="Admin" asp-action="FetchUsers">User List</a>
+    </div>
+
+    <div class="card-header">
         <a class="btn btn-success option" asp-controller="Admin" asp-action="PendingApplicationsEdit">Edit Student Profile</a>
     </div>
 
@@ -22,10 +26,14 @@
     <div class="card-header">
         <a class="btn btn-success" asp-controller="Jamaat" asp-action="Create">Create Jamaat</a>
     </div>
-
     <div class="card-header">
-        <a class="btn btn-success" asp-controller="Admin" asp-action="FetchUsers">Edit User</a>
+        <a class="btn btn-success" asp-controller="Circuit" asp-action="Index">Circuit List</a>
     </div>
+    <div class="card-header">
+        <a class="btn btn-success" asp-controller="Jamaat" asp-action="Index">Jamaat List</a>
+    </div>
+
+
 
 </div>
 

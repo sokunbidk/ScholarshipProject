@@ -15,10 +15,12 @@ namespace ScholarshipManagement.Data.Services
     public class CircuitService : ICircuitService
     {
         private readonly ICircuitRepository _circuitRepository;
+        private readonly IUserRepository _userRepository;
 
-        public CircuitService(ICircuitRepository circuitRepository)
+        public CircuitService(ICircuitRepository circuitRepository, IUserRepository userRepository)
         {
             _circuitRepository = circuitRepository;
+            _userRepository = userRepository;
         }
         public async Task<BaseResponse> CreateCircuitAsync(CreateCircuitRequestModel model)
         {
@@ -32,7 +34,7 @@ namespace ScholarshipManagement.Data.Services
             {
                 CircuitName = model.CircuitName,
                 Email = model.Email,
-                PresidentId = model.PresidentId
+               
 
 
             };
@@ -47,10 +49,27 @@ namespace ScholarshipManagement.Data.Services
 
         }
 
-        public Task<CircuitResponseModel> GetCircuit(int id)
+        public async Task<CircuitResponseModel> GetCircuit(int id)
         {
-            throw new NotImplementedException();
+            var circuit = await _circuitRepository.GetAsync(id);
+            if (circuit == null)
+            {
+                throw new NotFoundException("Circuit does not exist");
+            }
+            return new CircuitResponseModel
+            {
+                Data = new CircuitDto
+                {
+                    CircuitName = circuit.CircuitName,
+                    Email = circuit.Email,
+                  
+                    
+                },
+                Status = true,
+                Message = "Successful"
+            };
         }
+       
 
         public Task<CircuitResponseModel> GetCircuitByName(string circuitName)
         {
@@ -65,7 +84,7 @@ namespace ScholarshipManagement.Data.Services
                 Id = r.Id,
                 CircuitName = r.CircuitName,
                 Email = r.Email,
-                PresidentId = r.PresidentId
+               
 
             }).ToList();
 
@@ -77,7 +96,34 @@ namespace ScholarshipManagement.Data.Services
             return _circuitRepository.GetAllCircuits();
         }
 
-        public Task<BaseResponse> UpdateCircuitAsync(int id, UpdateCircuitRequestModel model)
+        public async Task<BaseResponse> UpdateCircuitAsync(int id, UpdateCircuitRequestModel model)
+        {
+            var circuitExists = await _circuitRepository.ExistsAsync(u => u.CircuitName != model.CircuitName || u.Email != model.Email);
+            if (!circuitExists)
+            {
+                throw new BadRequestException($"Circuit With this Identity: '{model.CircuitName}' already exists.");
+            }
+
+            Circuit circuit = await _circuitRepository.GetAsync(id);
+            //Circuit circuit = new Circuit()
+            {
+                circuit.CircuitName = model.CircuitName;
+                circuit.Email = model.Email;
+
+                
+            };
+            await _circuitRepository.AddAsync(circuit);
+            await _circuitRepository.SaveChangesAsync();
+
+            return new BaseResponse
+            {
+                Status = true,
+                Message = "Updated Successfully"
+
+            };
+        }
+
+        public IEnumerable<SelectListItem> GetUserList()
         {
             throw new NotImplementedException();
         }

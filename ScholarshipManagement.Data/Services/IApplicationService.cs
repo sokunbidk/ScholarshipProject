@@ -27,11 +27,14 @@ namespace ScholarshipManagement.Data.Services
         
         //public Task<List<PendingApplicationsDto>> PendingApplications();
 
-        public Task<List<PendingApplicationsDto>> PendingApplicationsByStatus(List<ApprovalStatus> statuses, bool isGlobal, List<int> circuitIds, int Id);
+        public Task<List<PendingApplicationsDto>> PendingApplicationsByStatus(List<ApprovalStatus> statuses,bool isGlobal, List<int> circuitIds, int Id);
         public Task<BaseResponse> UpdateApprovalStatus(int id, int userId);
         public Task<BaseResponse> DeclineApprovalStatus(int id);
         public Task<BaseResponse> UpdateApplicationAsync(int id, UpdateApplicationRequestModel model);
         public void DeleteApplication(int id);
         public Task<List<PendingApplicationsDto>> StudentApplicationStatus(int id);
+        public Task<List<PendingApplicationsDto>> StudentApplicationHistory(int id);
+        public Task<List<PendingApplicationsDto>> StudentPaymentHistory(int id);
+       
     }
 }

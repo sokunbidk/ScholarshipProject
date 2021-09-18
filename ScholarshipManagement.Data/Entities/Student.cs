@@ -59,7 +59,6 @@ namespace ScholarshipManagement.Data.Entities
         [Required(ErrorMessage = "GuardianMemberCode is required")]
         public string GuardianMemberCode { get; set; }
 
-        
         public string Photograph { get; set; }
 
         public ICollection<ApplicationForm> ApplicationForms { get; set; } = new HashSet<ApplicationForm>();

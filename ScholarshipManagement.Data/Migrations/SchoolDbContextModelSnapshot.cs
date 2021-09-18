@@ -28,6 +28,9 @@ namespace ScholarshipManagement.Data.Migrations
                         .HasMaxLength(50)
                         .HasColumnType("varchar(50)");
 
+                    b.Property<decimal>("AmountRecommended")
+                        .HasColumnType("decimal(18, 2)");
+
                     b.Property<decimal>("AmountRequested")
                         .HasColumnType("decimal(18, 2)");
 
@@ -157,9 +160,6 @@ namespace ScholarshipManagement.Data.Migrations
                     b.Property<string>("ModifiedBy")
                         .HasColumnType("text");
 
-                    b.Property<int>("PresidentId")
-                        .HasColumnType("int");
-
                     b.Property<byte[]>("RowVersion")
                         .HasColumnType("varbinary(4000)");
 
@@ -217,35 +217,17 @@ namespace ScholarshipManagement.Data.Migrations
                         .ValueGeneratedOnAdd()
                         .HasColumnType("int");
 
-                    b.Property<int>("AcademicLeve")
-                        .HasColumnType("int");
-
-                    b.Property<decimal>("AmountApprovedAndGranted")
+                    b.Property<decimal>("AmountApproved")
                         .HasColumnType("decimal(18, 2)");
 
-                    b.Property<decimal>("AmountRecommended")
-                        .HasColumnType("decimal(18, 2)");
-
-                    b.Property<int>("ApplicationFormId")
+                    b.Property<int?>("ApplicationFormId")
                         .HasColumnType("int");
 
-                    b.Property<string>("ApprovedBy")
-                        .HasColumnType("text");
-
-                    b.Property<string>("BankAccountNumber")
-                        .HasColumnType("text");
-
-                    b.Property<string>("BankName")
-                        .HasColumnType("text");
-
-                    b.Property<bool>("ConfirmPayment")
-                        .HasColumnType("tinyint(1)");
+                    b.Property<int>("ApplicationId")
+                        .HasColumnType("int");
 
                     b.Property<string>("CreatedBy")
                         .HasColumnType("text");
-
-                    b.Property<DateTime>("DateApproved")
-                        .HasColumnType("datetime");
 
                     b.Property<DateTime>("DateCreated")
                         .HasColumnType("datetime");
@@ -262,17 +244,17 @@ namespace ScholarshipManagement.Data.Migrations
                     b.Property<string>("ModifiedBy")
                         .HasColumnType("text");
 
-                    b.Property<string>("ProofOfChandaPmt")
-                        .HasColumnType("text");
-
-                    b.Property<string>("Remarks")
-                        .HasColumnType("text");
-
                     b.Property<byte[]>("RowVersion")
                         .HasColumnType("varbinary(4000)");
 
+                    b.Property<int>("Status")
+                        .HasColumnType("int");
+
                     b.Property<int>("StudentId")
                         .HasColumnType("int");
+
+                    b.Property<string>("StudentNames")
+                        .HasColumnType("text");
 
                     b.HasKey("Id");
 
@@ -424,6 +406,9 @@ namespace ScholarshipManagement.Data.Migrations
                         .ValueGeneratedOnAdd()
                         .HasColumnType("int");
 
+                    b.Property<int>("CircuitId")
+                        .HasColumnType("int");
+
                     b.Property<string>("CreatedBy")
                         .HasColumnType("text");
 
@@ -441,6 +426,9 @@ namespace ScholarshipManagement.Data.Migrations
 
                     b.Property<bool>("IsDeleted")
                         .HasColumnType("tinyint(1)");
+
+                    b.Property<int>("JamaatId")
+                        .HasColumnType("int");
 
                     b.Property<string>("MemberCode")
                         .HasColumnType("text");
@@ -464,6 +452,8 @@ namespace ScholarshipManagement.Data.Migrations
                         .HasColumnType("int");
 
                     b.HasKey("Id");
+
+                    b.HasIndex("JamaatId");
 
                     b.ToTable("Users");
                 });
@@ -533,9 +523,7 @@ namespace ScholarshipManagement.Data.Migrations
                 {
                     b.HasOne("ScholarshipManagement.Data.Entities.ApplicationForm", "ApplicationForm")
                         .WithMany()
-                        .HasForeignKey("ApplicationFormId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
+                        .HasForeignKey("ApplicationFormId");
 
                     b.HasOne("ScholarshipManagement.Data.Entities.Student", "Student")
                         .WithMany()
@@ -565,6 +553,17 @@ namespace ScholarshipManagement.Data.Migrations
                     b.Navigation("Jamaat");
 
                     b.Navigation("User");
+                });
+
+            modelBuilder.Entity("ScholarshipManagement.Data.Entities.User", b =>
+                {
+                    b.HasOne("ScholarshipManagement.Data.Entities.Jamaat", "Jamaat")
+                        .WithMany()
+                        .HasForeignKey("JamaatId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.Navigation("Jamaat");
                 });
 
             modelBuilder.Entity("ScholarshipManagement.Data.Entities.UserRole", b =>

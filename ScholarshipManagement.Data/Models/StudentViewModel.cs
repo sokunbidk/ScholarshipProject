@@ -9,35 +9,37 @@ namespace ScholarshipManagement.Data
 {
     public class StudentViewModel
     {
+        [Display(Name = "Sur Name")]
         public int StudentId { get; set; }
+        [Display(Name = "Member Code")]
         public string MemberCode { get; set; }
         public int UserId { get; set; }
-
+        [Display(Name = "Sur Name")]
         public string SurName { get; set; }
-
+        [Display(Name = "First Name")]
         public string FirstName { get; set; }
-
+        [Display(Name = "Other Name")]
         public string OtherName { get; set; }
-       
+        [Display(Name = "Address")]
         public string Address { get; set; }
-        
         public string Jamaat { get; set; }
-       
+        [Display(Name = "Circuit")]
         public string Circuit { get; set; }
-        
+        [Display(Name = "Phone Number")]
         public string PhoneNumber { get; set; }
-       
+        [Display(Name = "Email")]
         public string EmailAddress { get; set; }
-        
+        [Display(Name = "Gender")]
         public Gender Gender { get; set; }
-     
+        [Display(Name = "Date Of Birth")]
         public DateTime DateOfBirth { get; set; }
-       
+        [Display(Name = "Auxiliary")]
         public AuxiliaryBody AuxiliaryBody { get; set; }
-       
+        [Display(Name = "Guardian Name")]
         public string GuardianFullName { get; set; }
+        [Display(Name = "Guardian MemberCode")]
         public string GuardianMemberCode { get; set; }
-
+        [Display(Name = "Guardian Phone No")]
         public string GuardianPhoneNumber { get; set; }
         
         public string Photograph { get; set; }
@@ -49,35 +51,22 @@ namespace ScholarshipManagement.Data
         public int UserId { get; set; }
   
         [Required(ErrorMessage = "Surname is required")]
-        [Display(Name = "Surname")]
+        [Display(Name = "Sur name")]
         public string SurName { get; set; }
-
-        public string MemberCode { get; set; }
 
         [Required(ErrorMessage = "Firstname is required")]
         [Display(Name = "First Name")]
         public string FirstName { get; set; }
 
         [Display(Name = "Other Name")]
-
         public string OtherName { get; set; }
+
         [Required(ErrorMessage = "Address is required")]
         [Display(Name = "Address")]
         public string Address { get; set; }
 
         [Display(Name = "Email Address")]
         public string EmailAddress { get; set; }
-
-        [Display(Name = "Phone Number")]
-        public string PhoneNumber { get; set; }
-
-        [Required(ErrorMessage = "Jamaat is required")]
-        [Display(Name = "Select Jamaat")]
-        public int JamaatId { get; set; }
-
-        [Required(ErrorMessage = "Circuit is required")]
-        [Display(Name = "Select Circuit")]
-        public int CircuitId { get; set; }
 
         [Required, Display(Name = "Select Auxiliary Body")]
         public AuxiliaryBody AuxiliaryBody { get; set; }
@@ -113,14 +102,14 @@ namespace ScholarshipManagement.Data
         public string MemberCode { get; set; }
 
         [Required(ErrorMessage = "Surname is required")]
-        [Display(Name = "Surname")]
+        [Display(Name = "Sur name")]
         public string SurName { get; set; }
 
         [Required(ErrorMessage = "Firstname is required")]
-        [Display(Name = "FirstName")]
+        [Display(Name = "Firs tName")]
         public string FirstName { get; set; }
 
-        [Display(Name = "OtherName")]
+        [Display(Name = "Other Name")]
         public string OtherName { get; set; }
 
         [Display(Name = "Address")]
@@ -134,10 +123,10 @@ namespace ScholarshipManagement.Data
         [Display(Name = "Choose Circuit")]
         public int CircuitId { get; set; }
         
-        [Display(Name = "AuxiliaryBody")]
+        [Display(Name = "Auxiliary Body")]
         public AuxiliaryBody AuxiliaryBody { get; set; }
 
-        [Display(Name = "PhoneNo")]
+        [Display(Name = "Phone Number")]
         public string PhoneNumber { get; set; }
 
         [Display(Name = "Email")]
@@ -147,13 +136,13 @@ namespace ScholarshipManagement.Data
         [Display(Name = "Gender")]
         public Gender Gender { get; set; }
 
-        [Display(Name = "DateOfBirth")]
+        [Display(Name = "Date Of Birth")]
         public DateTime DateOfBirth { get; set; }
 
         [Required, Display(Name = "Guardian")]
         public string GuardianFullName { get; set; }
 
-        [Required, Display(Name = "Guardian Phone")]
+        [Required, Display(Name = "Guardian Phone No")]
         public string GuardianPhoneNumber { get; set; }
 
         [Required, Display(Name = "Guardian MemberCode")]

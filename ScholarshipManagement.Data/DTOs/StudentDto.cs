@@ -37,6 +37,7 @@ namespace ScholarshipManagement.Data.DTOs
 
         public AuxiliaryBody AuxiliaryBody { get; set; }
 
+
         public string GuardianFullName { get; set; }
 
         public string GuardianPhoneNumber { get; set; }

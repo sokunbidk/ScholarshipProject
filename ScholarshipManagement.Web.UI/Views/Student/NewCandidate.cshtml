@@ -16,19 +16,11 @@
                 {
                 <p class="alert alert-warning alert-dismissible text-white btn btn-danger" id="successUser" role="alert">@ViewBag.Message</p>
                 }
-                <a class="text-danger  text-lg-right font-weight-bold" asp-controller="Student" asp-action="Dashboard">---Dashboard</a>
+                <a class="text-primary  text-lg-right font-weight-bold" asp-controller="Student" asp-action="Dashboard">---Dashboard</a>
                 
                 <form method="POST" enctype="multipart/form-data">
 
-                    <div class="form-row">
-
-                        <div class="form-group col-lg-4">
-                            <label class="formlabel" asp-for="MemberCode"></label>
-                            <input type="text" asp-for="MemberCode" required class="form-control" />
-                            <span asp-validation-for="MemberCode"></span>
-                        </div>
-                    </div>
-
+                   
                     <div class="form-row">
                         <div class="form-group col-lg-4">
                             <label class="formlabel" asp-for="SurName"></label>
@@ -56,21 +48,9 @@
                     </div>
 
                     <div class="form-row">
-                        <div class="form-group col-lg-4">
-                            <label class="formlabel" asp-for="JamaatId"></label>
-                            <select asp-for="JamaatId" required class="form-control" asp-items="ViewBag.Jamaats">
-                                <option selected >-- Select Jamaat --</option>
-                            </select>
-                            <span asp-validation-for="JamaatId"></span>
-                        </div>
 
-                        <div class="form-group col-lg-4">
-                            <label class="formlabel" asp-for="CircuitId"></label>
-                            <select asp-for="CircuitId" required class="form-control" asp-items="ViewBag.Circuits">
-                                <option selected>-- Select Circuit --</option>
-                            </select>
-                            <span asp-validation-for="CircuitId"></span>
-                        </div>
+                    </div>
+                    <div class="form-row">
 
                         <div class="form-group col-lg-4">
                             <label class="formlabel" asp-for="AuxiliaryBody"></label>
@@ -84,11 +64,8 @@
                             </select>
                             <span asp-validation-for="AuxiliaryBody"></span>
                         </div>
-                    </div>
-                    <div class="form-row">
-                        <div class="form-group col-lg-6">
+                        <div class="form-group col-lg-4">
                             <label class="formlabel" asp-for="Gender"></label>
-
                             <select asp-for="Gender" required class="form-control">
                                 <option value="1">Male</option>
                                 <option value="2">Female</option>
@@ -96,7 +73,7 @@
                             <span asp-validation-for="Gender"></span>
                         </div>
 
-                        <div class="form-group col-lg-6">
+                        <div class="form-group col-lg-4">
                             <label class="formlabel" asp-for="DateOfBirth"></label>
                             <input class="form-control" required type="date" asp-for="DateOfBirth" />
                             <span asp-validation-for="DateOfBirth"></span>
@@ -109,27 +86,28 @@
                             <input class="form-control" required type="text" asp-for="GuardianFullName" />
                             <span asp-validation-for="GuardianFullName"></span>
                         </div>
-                        <div class="form-group col-lg-6">
-                            <label class="formlabel" asp-for="GuardianPhoneNumber"></label>
-                            <input class="form-control" required type="text" asp-for="GuardianPhoneNumber" />
+                        <div class="form-group col-lg-3">
+                            <label class="formlabel" for="GPhone">Guardian GSM</label>
+                            <input class="form-control" required id="GPhone" type="text" asp-for="GuardianPhoneNumber" />
                             <span asp-validation-for="GuardianPhoneNumber"></span>
+                        </div>
+                        <div class="form-group col-lg-3">
+                            <label class="formlabel" for="GCode">Guardian M.Code</label>
+                            <input class="form-control" id="GCode" required type="text" asp-for="GuardianMemberCode" />
+                            <span asp-validation-for="GuardianMemberCode"></span>
                         </div>
 
                     </div>
-                    <div class="form-row">
-                        <div class="form-group col-lg-6">
-                            <label class="formlabel" asp-for="GuardianMemberCode"></label>
-                            <input class="form-control" required type="text" asp-for="GuardianMemberCode" />
-                            <span asp-validation-for="GuardianMemberCode"></span>
-                        </div>
+                    
+
                         <div class="form-group col-lg-6">
                             <label class="formlabel" for="userphoto">Choose Photo</label>
                             <input class="form-control" required type="file" id="userphoto" name="files" />
                         </div>
-                    </div>
+                       
 
-                    <input type="submit" class="btn btn-success" value="Submit" />
-                    <a class="btn btn-success option" asp-controller="ApplicationForm" asp-action="CreateApplicationNewStudent">Continue</a>
+                    <input type="submit" class="btn btn-success" value="Submit and Continue" />
+                   @*<a class="btn btn-success option" asp-controller="ApplicationForm" asp-action="CreateApplicationNewStudent">Next->></a>*@
                 </form>
             </div>
         </div>

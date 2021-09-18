@@ -20,7 +20,7 @@ namespace ScholarshipManagement.Data.Services
 
         public List<Circuit> GetCircuitList();
 
-        Task<CircuitResponseModel> GetCircuit(int id);
+        public Task<CircuitResponseModel> GetCircuit(int id);
 
         //Task<IList<CircuitDto>> GetAllCircuitsAsync();
 

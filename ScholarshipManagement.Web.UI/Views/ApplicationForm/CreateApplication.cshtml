@@ -11,6 +11,8 @@
                 <h4 class="text-center">@ViewData["Title"]</h4>
             </div>
             <div class="card card-body">
+                <a class="text-primary  text-lg-right font-weight-bold" asp-controller="Student" asp-action="ReturningCandidateRegView">---DashBoard</a>
+                <a class="text-primary  text-lg-right font-weight-bold" asp-controller="User" asp-action="Logout">---LogOut</a>
                 @if (!string.IsNullOrEmpty(ViewBag.Message))
                 {
                     <p class="alert alert-warning alert-dismissible" id="successUser" role="alert">@ViewBag.Message</p>
@@ -19,16 +21,16 @@
                     <div class="form-row">
 
                         <div class="form-group col-lg-4">
-                                <label class="formlabel" asp-for="InstitutionType"></label>
-                                <select asp-for="InstitutionType" required class="form-control">
-                                    <option value="1">University</option>
-                                    <option value="2">Polytechnic</option>
-                                    <option value="3">College</option>
-                                    <option value="4">Secondary</option>
-                                    <option value="5">Primary</option>
-                                    <option value="6">Artisan</option>
-                                </select>
-                                <span asp-validation-for="InstitutionType"></span>
+                            <label class="formlabel" asp-for="InstitutionType"></label>
+                            <select asp-for="InstitutionType" required class="form-control">
+                                <option value="1">University</option>
+                                <option value="2">Polytechnic</option>
+                                <option value="3">College</option>
+                                <option value="4">Secondary</option>
+                                <option value="5">Primary</option>
+                                <option value="6">Artisan</option>
+                            </select>
+                            <span asp-validation-for="InstitutionType"></span>
                         </div>
                         <div class="form-group col-lg-4">
                             <label class="formlabel" asp-for="NameOfSchool"></label>
@@ -80,11 +82,7 @@
 
                     </div>
                     <div class="form-row">
-                        @*<div class="form-group col-lg-3">
-            <label class="formlabel" for="letterOfAdmission">Admission Letter</label>
-            <input class="form-control" type="file" id="letterOfAdmission" name="files" />
-            <span asp-validation-for="LetterOfAdmission"></span>
-        </div>*@
+                      
                         <div class="form-group col-lg-4">
                             <label class="formlabel" asp-for="AmountRequested"></label>
                             <input class="form-control" type="text" asp-for="AmountRequested" />
@@ -124,7 +122,7 @@
 
                     </div>
 
-                    <input type="submit" class="btn btn-success" value="Save" />
+                    <input type="submit" class="btn btn-success" value="SUBMIT" />
                 </form>
             </div>
         </div>

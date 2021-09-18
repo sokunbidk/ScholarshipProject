@@ -1,25 +1,27 @@
 {
   "format": 1,
   "restore": {
-    "C:\\Users\\ADD. SEC. MA'AL\\Desktop\\FullStackTraining\\CsharpTraining\\ScholarshipManagement\\ScholarshipManagement.Data\\ScholarshipManagement.Data.csproj": {}
+    "C:\\Project\\ScholarshipManagement04-09-2021\\ScholarshipManagement.Data\\ScholarshipManagement.Data.csproj": {}
   },
   "projects": {
-    "C:\\Users\\ADD. SEC. MA'AL\\Desktop\\FullStackTraining\\CsharpTraining\\ScholarshipManagement\\ScholarshipManagement.Data\\ScholarshipManagement.Data.csproj": {
+    "C:\\Project\\ScholarshipManagement04-09-2021\\ScholarshipManagement.Data\\ScholarshipManagement.Data.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "C:\\Users\\ADD. SEC. MA'AL\\Desktop\\FullStackTraining\\CsharpTraining\\ScholarshipManagement\\ScholarshipManagement.Data\\ScholarshipManagement.Data.csproj",
+        "projectUniqueName": "C:\\Project\\ScholarshipManagement04-09-2021\\ScholarshipManagement.Data\\ScholarshipManagement.Data.csproj",
         "projectName": "ScholarshipManagement.Data",
-        "projectPath": "C:\\Users\\ADD. SEC. MA'AL\\Desktop\\FullStackTraining\\CsharpTraining\\ScholarshipManagement\\ScholarshipManagement.Data\\ScholarshipManagement.Data.csproj",
-        "packagesPath": "C:\\Users\\ADD. SEC. MA'AL\\.nuget\\packages\\",
-        "outputPath": "C:\\Users\\ADD. SEC. MA'AL\\Desktop\\FullStackTraining\\CsharpTraining\\ScholarshipManagement\\ScholarshipManagement.Data\\obj\\",
+        "projectPath": "C:\\Project\\ScholarshipManagement04-09-2021\\ScholarshipManagement.Data\\ScholarshipManagement.Data.csproj",
+        "packagesPath": "C:\\Users\\Add. Ma'al Sec\\.nuget\\packages\\",
+        "outputPath": "C:\\Project\\ScholarshipManagement04-09-2021\\ScholarshipManagement.Data\\obj\\",
         "projectStyle": "PackageReference",
         "fallbackFolders": [
-          "C:\\Program Files (x86)\\Microsoft Visual Studio\\Shared\\NuGetPackages"
+          "C:\\Program Files (x86)\\Microsoft Visual Studio\\Shared\\NuGetPackages",
+          "C:\\Program Files (x86)\\Microsoft\\Xamarin\\NuGet\\"
         ],
         "configFilePaths": [
-          "C:\\Users\\ADD. SEC. MA'AL\\AppData\\Roaming\\NuGet\\NuGet.Config",
+          "C:\\Users\\Add. Ma'al Sec\\AppData\\Roaming\\NuGet\\NuGet.Config",
           "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.FallbackLocation.config",
-          "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.Offline.config"
+          "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.Offline.config",
+          "C:\\Program Files (x86)\\NuGet\\Config\\Xamarin.Offline.config"
         ],
         "originalTargetFrameworks": [
           "net5.0"
@@ -94,7 +96,7 @@
               "privateAssets": "all"
             }
           },
-          "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\5.0.302\\RuntimeIdentifierGraph.json"
+          "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\5.0.401\\RuntimeIdentifierGraph.json"
         }
       }
     }

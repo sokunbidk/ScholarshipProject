@@ -1,0 +1,93 @@
+﻿@model IList<ScholarshipManagement.Data.DTOs.PendingApplicationsDto>
+@{
+    ViewData["Title"] = "Pending List";
+    int count = 0;
+}
+
+
+<h1>Pending List</h1>
+<div>
+    <div class="card-body">
+        <a class="text-primary  text-lg-right font-weight-bold" asp-controller="User" asp-action="Logout">---LogOut</a>
+
+      @*  @if (Model.Count() == 0)
+        {
+            <div>
+                <h5 class="text-center text-danger">No Approved Applications!</h5>
+            </div>
+        }
+        else*@
+        {
+            <table class="table  table-responsive-sm table-bordered">
+                <thead class="table-title">
+                    <tr class="text-white">
+                        <th>S/N</th>
+                        <th>Name</th>
+                        <th>Jamaat</th>
+                        <th>Auxiliary Body</th>
+                        <th>Guardian FullName</th>
+                        <th>Name Of School</th>
+                        <th>Status</th>
+                        <th>Discipline</th>
+                        <th>Academic Level</th>
+                        <th>Amount Requested</th>
+                        <th>View Student</th>
+                        <th>View Request</th>
+                        <th>Action</th>
+                        <th>Remarks</th>
+                        <th>Decline</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    @foreach (var PendingApplicationsDto in Model)
+                    {
+                        <tr>
+                            <td> @(++count) </td>
+                            <td>@PendingApplicationsDto.Names </td>
+                            <td>@PendingApplicationsDto.Jamaat </td>
+                            <td> @PendingApplicationsDto.AuxiliaryBody </td>
+                            <td> @PendingApplicationsDto.GuardianFullName </td>
+                            <td> @PendingApplicationsDto.NameOfSchool </td>
+                            <td> @PendingApplicationsDto.Status </td>
+                            <td>@PendingApplicationsDto.Discipline </td>
+                            <td> @PendingApplicationsDto.AcademicLevel </td>
+                            <td>@PendingApplicationsDto.AmountRequested </td>
+
+                            <td>
+                                <a asp-action="PendingStudentsDetail" asp-route-id="@PendingApplicationsDto.StudentId" class="btn btn-primary">
+                                    ViewApplicant
+                                </a>
+
+                            </td>
+                            <td>
+                                <a asp-action="PendingApplicationsDetail" asp-route-id="@PendingApplicationsDto.ApplicationFormId" class="btn btn-success">
+                                    ViewAppliation
+                                </a>
+                            </td>
+                            <td>
+                                <a asp-action="UpdateApprovalStatus" asp-route-id="@PendingApplicationsDto.ApplicationFormId" class="btn btn-danger">
+                                    Approval
+                                </a>
+                            </td>
+                            <td>
+                                <a asp-action="Comment" asp-route-id="@PendingApplicationsDto.ApplicationFormId" class="btn btn- btn-primary">
+                                    Remarks
+                                </a>
+                            </td>
+                            <td>
+                                <a asp-action="DeclineApprovalStatus" asp-route-id="@PendingApplicationsDto.ApplicationFormId" class="btn btn- btn-primary">
+                                    Decline
+                                </a>
+                            </td>
+
+
+
+                        </tr>
+                    }
+                </tbody>
+            </table>
+        }
+
+    </div>
+</div>
+

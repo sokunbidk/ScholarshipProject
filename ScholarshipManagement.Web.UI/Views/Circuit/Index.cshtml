@@ -10,6 +10,7 @@
 <div class="card">
     <div class=" card-header">
         <a class="btn btn-success" asp-controller="Circuit" asp-action="Create">Add Circuit</a>
+        <a class="text-danger  text-lg-right font-weight-bold" asp-controller="Admin" asp-action="AdminDashboard">---Dashboard</a>
     </div>
 
     <div class="card-body">
@@ -37,14 +38,10 @@
                             <td> @(++count) </td>
                             <td> @circuit.CircuitName </td>
                             <td> @circuit.Email </td>
-                            
                             <td>
                                 <div class="btn-group">
-                                    <a asp-action="Detail" asp-route-id="@circuit.Id" class="btn btn-primary">
-                                        View
-                                    </a>
-                                    <a asp-action="Update" asp-route-id="@circuit.Id" class="btn btn-success">
-                                        Edit
+                                    <a asp-action="UpdateCircuit" asp-route-id="@circuit.Id" class="btn btn-success">
+                                        View/Update
                                     </a>
                                     <a asp-action="Delete" asp-route-id="@circuit.Id" class="btn btn-danger">
                                         Delete

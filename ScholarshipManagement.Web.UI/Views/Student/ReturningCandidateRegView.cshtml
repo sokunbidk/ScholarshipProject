@@ -11,27 +11,23 @@
                 <h4 class="text-center">@ViewData["Title"]</h4>
             </div>
             <div class="card card-body">
+                <a class="text-primary  text-lg-left font-weight-bold" asp-controller="Student" asp-action="DashboardReturningStudent">---DashBoard</a>
                 <form method="GET">
                     <div class="form-row">
 
                         <div class="form-group col-lg-4">
-                            <label class="formlabel" asp-for="MemberCode"></label>
+                            <label class="formlabel" asp-for="MemberCode">Member Code</label>
                             <input type="text" asp-for="MemberCode" readonly class="form-control" />
                             <span asp-validation-for="MemberCode"></span>
                         </div>
-                        <div class="form-group col-lg-4">
-                            <label class="formlabel" asp-for="StudentId">Registration No</label>
-                            <input type="text" asp-for="StudentId" readonly class="form-control" />
-                            <span asp-validation-for="StudentId"></span>
-                        </div>
 
-                        <div style="width: 100px; height: 100px; overflow:hidden">
-                            <img src="/UploadedFiles/Photograph/@Model.Photograph" width="100%" />
+                        <div style="width: 100px; height: 100px; overflow: hidden; margin-left: 290px">
+                            <img src="/UploadedFiles/Photograph/@Model.Photograph" width="100" />
                         </div>
                     </div>
                     <div class="form-row">
                         <div class="form-group col-lg-4">
-                            <label class="formlabel" asp-for="SurName"></label>
+                            <label class="formlabel" asp-for="SurName">Sur Name</label>
                             <input type="text" asp-for="SurName" readonly class="form-control" />
                             <span asp-validation-for="SurName"></span>
                         </div>
@@ -98,12 +94,12 @@
                             <span asp-validation-for="GuardianMemberCode"></span>
                         </div>
                     </div>
-                        
 
-                        <div>
-                            <a asp-controller="ApplicationForm" class=" btn btn-success justify-content-right" asp-action="CreateApplication">Click Here To Apply For Scholarship</a>
-                        </div>
-                        @*<input type="submit" class="btn btn-success" value="Submit" />*@
+
+                    <div>
+                        <a asp-controller="ApplicationForm" class=" btn btn-success justify-content-right" asp-action="CreateApplication">Click Here To Apply For Scholarship</a>
+                    </div>
+                    @*<input type="submit" class="btn btn-success" value="Submit" />*@
                 </form>
             </div>
         </div>

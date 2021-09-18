@@ -11,25 +11,27 @@
                 <h4 class="text-center">@ViewData["Title"]</h4>
             </div>
             <div class="card card-body">
-                <form method="POST">
+                <a class="text-danger  text-lg-right font-weight-bold" asp-controller="ApplicationForm" asp-action="PendingApplications">---CLOSE</a>
+                <form method="GET">
+
                     <div class="form-row">
-                        <div class="form-group col-lg-4">  
+                        <div class="form-group col-lg-4">
                         </div>
                         <div class=" form-row">
                             <div class="form-group col-lg-4">
-                                <label asp-for="NameOfSchool"></label>
+                                <label class="formlabel" asp-for="NameOfSchool">Name Of School</label>
                                 <input type="text" readonly asp-for="NameOfSchool" class="form-control" />
                                 <span asp-validation-for="NameOfSchool"></span>
-                                
+
                             </div>
 
                             <div class="form-group col-lg-4">
-                                <label asp-for="AcademicLevel"></label>
+                                <label class="formlabel" asp-for="AcademicLevel">Academic Level</label>
                                 <input readonly type="text" asp-for="AcademicLevel" class="form-control" />
                                 <span asp-validation-for="AcademicLevel"></span>
                             </div>
                             <div class="form-group col-lg-4">
-                                <label asp-for="SchoolSession"></label>
+                                <label class="formlabel" asp-for="SchoolSession">School Session</label>
                                 <input class="form-control" readonly type="text" asp-for="SchoolSession" />
                                 <span asp-validation-for="SchoolSession"></span>
                             </div>
@@ -37,17 +39,17 @@
                     </div>
                     <div class="form-row">
                         <div class="form-group col-lg-4">
-                            <label asp-for="Discipline"></label>
+                            <label class="formlabel" asp-for="Discipline">Discipline</label>
                             <input class="form-control" readonly type="text" asp-for="Discipline" />
                             <span asp-validation-for="Discipline"></span>
                         </div>
                         <div class="form-group col-lg-4">
-                            <label asp-for="Duration"></label>
+                            <label class="formlabel" asp-for="Duration">Duration</label>
                             <input class="form-control" readonly type="text" asp-for="Duration" />
                             <span asp-validation-for="Duration"></span>
                         </div>
                         <div class="form-group col-lg-4">
-                            <label asp-for="DegreeInView"></label>
+                            <label class="formlabel" asp-for="DegreeInView">Degree InView</label>
                             <input class="form-control" readonly type="text" asp-for="DegreeInView" />
                             <span asp-validation-for="DegreeInView"></span>
                         </div>
@@ -56,58 +58,55 @@
                     <div class="form-row">
 
                         <div class="form-group col-lg-4">
-                            <label asp-for="DateAdmitted"></label>
+                            <label class="formlabel" asp-for="DateAdmitted">Date Admitted</label>
                             <input class="form-control" readonly type="date" asp-for="DateAdmitted" />
                             <span asp-validation-for="DateAdmitted"></span>
                         </div>
                         <div class="form-group col-lg-4">
-                            <label asp-for="YearToGraduate"></label>
+                            <label class="formlabel" asp-for="YearToGraduate">YearToGraduate</label>
                             <input class="form-control" type="date" readonly asp-for="YearToGraduate" />
                             <span asp-validation-for="YearToGraduate"></span>
                         </div>
                         <div class="form-group col-lg-4">
-                            <label asp-for="AmountRequested"></label>
+                            <label class="formlabel" asp-for="AmountRequested">Amount Requested</label>
                             <input class="form-control" type="text" readonly asp-for="AmountRequested" />
                             <span asp-validation-for="AmountRequested"></span>
                         </div>
-                        
                     </div>
-                    
                     <div class="form-row">
                         <div class="form-group col-lg-4">
-                            <label asp-for="SchoolBill">School Bill</label>
+                            <label class="formlabel" asp-for="SchoolBill">School Bill</label>
                             <a href="/UploadedFiles/SchBill/@Model.SchoolBill" target="_blank">Open</a>
                         </div>
                         <div class="form-group col-lg-4">
-                            <label asp-for="LetterOfAdmission">Letter of Admission</label>
+                            <label class="formlabel" asp-for="LetterOfAdmission">Admission Letter</label>
                             <a href="/UploadedFiles/AdmissionLetter/@Model.LetterOfAdmission" target="_blank">Open</a>
                         </div>
 
                         <div class="form-group col-lg-4">
-                            <label asp-for="LastSchoolResult">Last School Result</label>
+                            <label class="formlabel" asp-for="LastSchoolResult">Last School Result</label>
                             <a href="/UploadedFiles/SchResult/@Model.LastSchoolResult" target="_blank">Open</a>
                         </div>
                     </div>
-                    
                     <div class="form-row">
                         <div class="form-group col-lg-4">
-                            <label asp-for="BankAccountNumber"></label>
+                            <label class="formlabel" asp-for="BankAccountNumber">Bank Account Number</label>
                             <input class="form-control" id="bankacct" onkeyup="checkLength(event)" type="text" readonly asp-for="BankAccountNumber" maxlength="10" />
                             <span readonly asp-validation-for="BankAccountNumber"></span>
                         </div>
 
                         <div class="form-group col-lg-4">
-                            <label readonly asp-for="BankAccountName"></label>
+                            <label class="formlabel" readonly asp-for="BankAccountName">Bank Account Name</label>
                             <input class="form-control" readonly type="text" asp-for="BankAccountName" />
                             <span asp-validation-for="BankAccountName"></span>
                         </div>
                         <div class="form-group col-lg-4">
-                            <label asp-for="BankName"></label>
+                            <label class="formlabel" asp-for="BankName">Bank Name</label>
                             <input class="form-control" readonly type="text" asp-for="BankName" />
                             <span asp-validation-for="BankName"></span>
                         </div>
                     </div>
-                </form>
+                </form>   
             </div>
         </div>
     </div>

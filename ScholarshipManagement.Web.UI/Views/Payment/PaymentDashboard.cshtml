@@ -1,0 +1,11 @@
+﻿<h1>Accounts</h1>
+@*@if (!string.IsNullOrEmpty(ViewBag.Message))
+{
+    <p class="alert alert-dismissible welcomemsg" role="alert">@ViewBag.Message</p>
+}*@
+
+<div class="card">
+         <div class="card-header">
+            <a class="btn btn-success option" asp-controller="Payment" asp-action="ApprovedApplications">View Approved Applications</a>
+        </div>
+</div>

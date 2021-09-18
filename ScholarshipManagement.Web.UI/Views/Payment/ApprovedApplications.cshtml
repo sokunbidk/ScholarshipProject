@@ -1,0 +1,67 @@
+﻿@model IList<ScholarshipManagement.Data.DTOs.PendingApplicationsDto>
+@{
+    ViewData["Title"] = "Approved Payment";
+    int count = 0;
+}
+<h1>Approved Payment</h1>
+<div>
+    <a class="text-danger  text-lg-right font-weight-bold" asp-controller="Payment" asp-action="PaymentDashboard">---Dashboard</a>
+
+    <div class="card-body">
+        @if (Model.Count() == 0)
+        {
+            <div>
+                <h5 class="text-center text-danger">No Approved Payment!</h5>
+            </div>
+        }
+        else
+        {
+            <table class="table  table-responsive-sm table-bordered">
+                <thead class="table-title">
+                    <tr class="text-white">
+                        <th>S/N</th>
+                        <th>Ref</th>
+                        <th>Names</th>
+                        <th>Name Of School</th>
+                        <th>Academic Level</th>
+                        <th>Session</th>
+                        <th>Status</th>
+                        <th>Amount Approved</th>
+                        <th>Bank</th>
+                        @*<th>DateDisbursed</th>*@
+                    </tr>
+                </thead>
+                <tbody>
+                    @foreach (var PendingApplicationsDto in Model)
+                    {
+                    <tr>
+                        <td> @(++count) </td>
+                        <td>@PendingApplicationsDto.ApplicationFormId </td>
+                        <td>@PendingApplicationsDto.Names </td>
+                        <td> @PendingApplicationsDto.NameOfSchool </td>
+                        <td>@PendingApplicationsDto.AcademicLevel </td>
+                        <td> @PendingApplicationsDto.SchoolSession </td>
+                        <td>
+                            <input type="text" asp-for="@PendingApplicationsDto.Status" class="form-control btn btn-primary " />
+                        </td>
+                        <td>@PendingApplicationsDto.AmountRecommended </td>
+                        <td>@PendingApplicationsDto.BankAccountName</td>
+                        @*<td>@PendingApplicationsDto.DateApproved </td>*@           @*ddate approved by Amir*@
+                        <td>
+                            <a asp-action="CreatePayment" asp-route-id="@PendingApplicationsDto.ApplicationFormId" class="btn btn-primary">
+                                Make Payment
+                            </a>
+
+                        </td>
+
+
+
+                    </tr>
+                    }
+                </tbody>
+            </table>
+        }
+
+    </div>
+</div>
+

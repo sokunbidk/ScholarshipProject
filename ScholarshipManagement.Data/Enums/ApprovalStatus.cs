@@ -8,7 +8,7 @@ namespace ScholarshipManagement.Data.Enums
 {
     public enum ApprovalStatus
     {
-        Draft = 1,
+        Submitted = 1,
         Committee = 2,
         NaibAmir = 3,
         Amir = 4,

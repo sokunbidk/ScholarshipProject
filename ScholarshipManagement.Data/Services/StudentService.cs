@@ -24,16 +24,16 @@ namespace ScholarshipManagement.Data.Services
         public async Task<BaseResponse> CreateStudentAsync(CreateStudentRequestModel model, string currentUser)
         {
             User user = await _userRepository.GetUserAsync(currentUser);
-            Student studentRecord = await _studentRepository.GetStudent(user.Id);
+            //var StudentExist = await _studentRepository.ExistsAsync(u => u.UserId.Equals user.Id);
+            var StudentExist = await _studentRepository.ExistsAsync(user.Id);
 
-            if (user == null || user.MemberCode != model.MemberCode)
-            {
-                throw new BadRequestException("Your Credentials in Invalid");
-            }
-            /*if (studentRecord.UserId > 0)
+
+
+            if (StudentExist == true)                                        
             {
                 throw new NotFoundException("Student Already Registered");
-            }*/
+            }
+
             if (model.SurName == null || model.FirstName == null || model.Address == null || model.GuardianFullName == null || model.GuardianPhoneNumber == null || model.GuardianMemberCode == null || model.Photograph == null)
             {
                 throw new BadRequestException("You Are missing out important information");
@@ -46,8 +46,8 @@ namespace ScholarshipManagement.Data.Services
                 FirstName = model.FirstName,
                 OtherName = model.OtherName,
                 Address = model.Address,
-                JamaatId = model.JamaatId,
-                CircuitId = model.CircuitId,
+                CircuitId = user.CircuitId,
+                JamaatId = user.JamaatId,
                 AuxiliaryBody = model.AuxiliaryBody,
                 PhoneNumber = user.PhoneNumber,
                 EmailAddress = user.Email,
@@ -68,6 +68,7 @@ namespace ScholarshipManagement.Data.Services
             return new BaseResponse
             {
                 Status = true,
+               Message = "Submitted.Click Next To Apply for Scholarship"
 
             };
 

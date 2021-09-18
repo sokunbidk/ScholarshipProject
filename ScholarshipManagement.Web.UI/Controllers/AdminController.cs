@@ -40,10 +40,9 @@ namespace ScholarshipManagement.Web.UI.Controllers
 
             return View();
         }
-        //Return
+        //Return List of Users
         public async Task<IActionResult> FetchUsers()
         {
-
             List<UserDto> users = await _userService.GetUser();
             return View(users);
         }
@@ -51,7 +50,6 @@ namespace ScholarshipManagement.Web.UI.Controllers
         [HttpGet]
         public async Task<IActionResult> UpdateUser(int id)
         {
-
             UserResponseModel user = await _userService.GetUser(id);
 
             UserDto userDto = user.Data;
@@ -65,7 +63,7 @@ namespace ScholarshipManagement.Web.UI.Controllers
             try
             {
                 _userService.UpdateUserAsync(id, model);
-                return View();
+                return RedirectToAction("FetchUsers");
             }
             catch (Exception e)
             {
@@ -102,26 +100,16 @@ namespace ScholarshipManagement.Web.UI.Controllers
             var userDto = userResponseModel.Data;
 
 
-            List<ApprovalStatus> status = new List<ApprovalStatus>() { ApprovalStatus.Draft }; //Assign Default to status automatically
+            List<ApprovalStatus> status = new List<ApprovalStatus>() { ApprovalStatus.Submitted }; //Assign Default to status automatically
             var isGlobal = true;
             List<int> circuitIds = null;
-            switch (userDto.UserType)
-            {
-                case UserType.Circuit:
 
-                    status = new List<ApprovalStatus>() { ApprovalStatus.Draft };
-                    isGlobal = false;
-                    circuitIds = new List<int>();
-                    var circuit = await _userService.GetUserCircuit(userDto.Id); //find Circuit,criteria user id
-                    if (circuit != null)
-                    {
-                        circuitIds.Add(circuit.Id);
-                    }
-                    break;
-                case UserType.Admin:
-                    status = new List<ApprovalStatus>() { ApprovalStatus.NaibAmir, ApprovalStatus.Amir, ApprovalStatus.Accounts, ApprovalStatus.Committee, ApprovalStatus.Draft, ApprovalStatus.Disbursed };
-                    break;
+            if (userDto.UserType == UserType.Admin)
+
+            {
+                status = new List<ApprovalStatus>() { ApprovalStatus.NaibAmir, ApprovalStatus.Amir, ApprovalStatus.Accounts, ApprovalStatus.Committee, ApprovalStatus.Submitted, ApprovalStatus.Disbursed };
             }
+
             var pendingApplications = await _applicationService.PendingApplicationsByStatus(status, isGlobal, circuitIds, userDto.Id);
 
             return View(pendingApplications);

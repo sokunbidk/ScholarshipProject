@@ -42,7 +42,7 @@ namespace ScholarshipManagement.Data.Services
             }
             var applicantion = new ApplicationForm
             {
-                UderId = student.UserId,
+                UserId = student.UserId,
                 StudentId = student.Id,
                 InstitutionType = model.InstitutionType,
                 NameOfSchool = model.NameOfSchool,
@@ -60,7 +60,7 @@ namespace ScholarshipManagement.Data.Services
                 BankAccountName = model.BankAccountName,
                 LastSchoolResult = model.LastSchoolResult,
                 SchoolBill = model.SchoolBill,
-                Status = ApprovalStatus.Draft
+                Status = ApprovalStatus.Submitted
                 //StatusId = model.StatusId,
 
             };
@@ -93,7 +93,7 @@ namespace ScholarshipManagement.Data.Services
             }
             ApplicationForm applicantion = new ApplicationForm
             {
-                UderId = student.UserId,
+                UserId = student.UserId,
                 StudentId = student.Id,
                 InstitutionType = model.InstitutionType,
                 NameOfSchool = model.NameOfSchool,
@@ -111,7 +111,7 @@ namespace ScholarshipManagement.Data.Services
                 BankAccountNumber = model.BankAccountNumber,
                 //LastSchoolResult = model.LastSchoolResult,
                 SchoolBill = model.SchoolBill,
-                Status = ApprovalStatus.Draft
+                Status = ApprovalStatus.Submitted
                 //StatusId = (int)ApprovalStatus.Default                     //Enum
 
             };
@@ -174,10 +174,10 @@ namespace ScholarshipManagement.Data.Services
         }*/
 
 
-        public async Task<List<PendingApplicationsDto>> PendingApplicationsByStatus(List<ApprovalStatus> statuses, bool isGlobal, List<int> circuitIds, int Id)
+        public async Task<List<PendingApplicationsDto>> PendingApplicationsByStatus(List<ApprovalStatus> statuses, bool isGlobal,List<int> circuitIds, int Id)
         {
 
-            var applicationsQuery =  _applicationFormRepository.Query()
+            var applicationsQuery = _applicationFormRepository.Query()
                 .Include(d => d.Student)
                 .ThenInclude(c => c.Jamaat)
                 .ThenInclude(j => j.Circuit)
@@ -185,7 +185,7 @@ namespace ScholarshipManagement.Data.Services
 
             if (!isGlobal)
             {
-               applicationsQuery =  applicationsQuery.Where(p => circuitIds.Contains(p.Student.Jamaat.CircuitId));
+                applicationsQuery = applicationsQuery.Where(p => circuitIds.Contains(p.Student.Jamaat.CircuitId));
             }
             /*if(!isGlobal)
             {
@@ -203,24 +203,24 @@ namespace ScholarshipManagement.Data.Services
                 {
                     var pendingApplication = new PendingApplicationsDto
                     {   
-                                       Id = application.UderId,
+                        Id = application.UserId,
                         ApplicationFormId = application.Id,
                         StudentId = application.StudentId,
-                        SurName = application.Student.SurName +
-                      application.Student.FirstName  + application.Student.OtherName,
-                        //FirstName = application.Student.FirstName,
-                        //OtherName = application.Student.OtherName,
+                        Names = $"{application.Student.SurName}, {application.Student.FirstName }  {application.Student.OtherName}",
                         AuxiliaryBody = application.Student.AuxiliaryBody,
                         CircuitName = application.Student.Jamaat.Circuit.CircuitName,
                         Jamaat = application.Student.Jamaat.JamaatName,
                         NameOfSchool = application.NameOfSchool,
                         Discipline = application.Discipline,
-                        AcademenicLevel = application.AcademicLevel,
+                        AcademicLevel = application.AcademicLevel,
+                        SchoolSession = application.SchoolSession,
                         AmountRequested = application.AmountRequested,
+                        AmountRecommended = application.AmountRecommended,
                         GuardianFullName = application.Student.GuardianFullName,
                         GuardianPhoneNumber = application.Student.GuardianPhoneNumber,
                         Remarks = application.Remarks,
                         Status = application.Status,
+                        
 
                     };
                     pendingApplicationsList.Add(pendingApplication);
@@ -235,39 +235,144 @@ namespace ScholarshipManagement.Data.Services
                 .Include(s => s.Student)
                 .ThenInclude(j => j.Jamaat)
                 .ThenInclude(c => c.Circuit)
-                .Where(p => p.UderId == id)
-                .Where(r => r.UderId == r.Student.UserId);
-                
-                
+                .Where(p => p.UserId == id)
+                .Where(r => r.UserId == r.Student.UserId);
+                //.Where(T => T.Status == ApprovalStatus.Submitted);
 
             var applicationStatus = await StatusQuary.ToListAsync();
-
-
             List<PendingApplicationsDto> studentStatusList = new List<PendingApplicationsDto>();
             foreach (var application in applicationStatus)
             {
-                var studentStatus = new PendingApplicationsDto
+                if(applicationStatus == null)
                 {
-                    Id = application.UderId,
-                    ApplicationFormId = application.Id,
-                    StudentId = application.StudentId,
-                    SurName = application.Student.SurName +
-                      application.Student.FirstName + application.Student.OtherName,
-                    //FirstName = application.Student.FirstName,
-                    //OtherName = application.Student.OtherName,
-                    AuxiliaryBody = application.Student.AuxiliaryBody,
-                    CircuitName = application.Student.Jamaat.Circuit.CircuitName,
-                    Jamaat = application.Student.Jamaat.JamaatName,
-                    NameOfSchool = application.NameOfSchool,
-                    Discipline = application.Discipline,
-                    AcademenicLevel = application.AcademicLevel,
-                    AmountRequested = application.AmountRequested,
-                    GuardianFullName = application.Student.GuardianFullName,
-                    GuardianPhoneNumber = application.Student.GuardianPhoneNumber,
-                    Remarks = application.Remarks,
-                    Status = application.Status,
-                };
-                studentStatusList.Add(studentStatus);
+                    throw new NotFoundException("You Do Not Have Any Pending Application");
+                }
+               
+                else 
+ 
+                {
+                    if(application.Status == ApprovalStatus.Committee || application.Status == ApprovalStatus.NaibAmir || application.Status == ApprovalStatus.Amir || application.Status == ApprovalStatus.Accounts)
+                        {
+                       
+                            var studentStatus = new PendingApplicationsDto
+
+                            {
+
+                                Id = application.UserId,
+                                ApplicationFormId = application.Id,
+                                StudentId = application.StudentId,
+                                Names = $"{application.Student.SurName}, {application.Student.FirstName }  {application.Student.OtherName}",
+                                AuxiliaryBody = application.Student.AuxiliaryBody,
+                                CircuitName = application.Student.Jamaat.Circuit.CircuitName,
+                                Jamaat = application.Student.Jamaat.JamaatName,
+                                NameOfSchool = application.NameOfSchool,
+                                Discipline = application.Discipline,
+                                AcademicLevel = application.AcademicLevel,
+                                SchoolSession = application.SchoolSession,
+                                AmountRequested = application.AmountRequested,
+                                GuardianFullName = application.Student.GuardianFullName,
+                                GuardianPhoneNumber = application.Student.GuardianPhoneNumber,
+                                Remarks = application.Remarks,
+                                Status = application.Status,
+                            };
+                            studentStatusList.Add(studentStatus);
+                        //}
+                        
+                    }
+                }
+            }
+            return (studentStatusList);
+        }
+        public async Task<List<PendingApplicationsDto>> StudentApplicationHistory(int id)
+        {
+            var StatusQuary = _applicationFormRepository.Query()
+                .Include(s => s.Student)
+                .ThenInclude(j => j.Jamaat)
+                .ThenInclude(c => c.Circuit)
+                .Where(p => p.UserId == id)
+                .Where(r => r.UserId == r.Student.UserId);
+            //.Where(T => T.Status == ApprovalStatus.Submitted);
+
+            var applicationStatus = await StatusQuary.ToListAsync();
+            List<PendingApplicationsDto> studentStatusList = new List<PendingApplicationsDto>();
+            foreach (var application in applicationStatus)
+            {
+                if (applicationStatus == null)
+                {
+                    throw new NotFoundException("You Do Not Have Any Pending Application");
+                }
+                else
+                {
+                    if (application.Status == ApprovalStatus.Submitted || application.Status == ApprovalStatus.Approved || application.Status == ApprovalStatus.Disbursed || application.Status == ApprovalStatus.Declined)
+                    {
+                        var studentStatus = new PendingApplicationsDto
+                        {
+                            Id = application.UserId,
+                            ApplicationFormId = application.Id,
+                            StudentId = application.StudentId,
+                            Names = $"{application.Student.SurName}, {application.Student.FirstName }  {application.Student.OtherName}",
+                            AuxiliaryBody = application.Student.AuxiliaryBody,
+                            CircuitName = application.Student.Jamaat.Circuit.CircuitName,
+                            Jamaat = application.Student.Jamaat.JamaatName,
+                            NameOfSchool = application.NameOfSchool,
+                            Discipline = application.Discipline,
+                            AcademicLevel = application.AcademicLevel,
+                            SchoolSession = application.SchoolSession,
+                            AmountRequested = application.AmountRequested,
+                            GuardianFullName = application.Student.GuardianFullName,
+                            GuardianPhoneNumber = application.Student.GuardianPhoneNumber,
+                            Remarks = application.Remarks,
+                            Status = application.Status,
+                        };
+                        studentStatusList.Add(studentStatus);
+                    }
+                }
+            }
+            return (studentStatusList);
+        }
+        public async Task<List<PendingApplicationsDto>> StudentPaymentHistory(int id)
+        {
+            var StatusQuary = _applicationFormRepository.Query()
+                .Include(s => s.Student)
+                .ThenInclude(j => j.Jamaat)
+                .ThenInclude(c => c.Circuit)
+                .Where(p => p.StudentId == id)
+                .Where(r => r.Status == ApprovalStatus.Disbursed);
+            //.Where(T => T.Status == ApprovalStatus.Submitted);
+
+            var applicationStatus = await StatusQuary.ToListAsync();
+            List<PendingApplicationsDto> studentStatusList = new List<PendingApplicationsDto>();
+            foreach (var application in applicationStatus)
+            {
+                if (applicationStatus == null)
+                {
+                    throw new NotFoundException("No Payment History");
+                }
+                else
+                {
+                        var studentStatus = new PendingApplicationsDto
+                        {
+                            Id = application.UserId,
+                            ApplicationFormId = application.Id,
+                            StudentId = application.StudentId,
+                            Names = $"{application.Student.SurName}, {application.Student.FirstName }  {application.Student.OtherName}",
+                            AuxiliaryBody = application.Student.AuxiliaryBody,
+                            CircuitName = application.Student.Jamaat.Circuit.CircuitName,
+                            Jamaat = application.Student.Jamaat.JamaatName,
+                            NameOfSchool = application.NameOfSchool,
+                            Discipline = application.Discipline,
+                            AcademicLevel = application.AcademicLevel,
+                            SchoolSession = application.SchoolSession,
+                            AmountRequested = application.AmountRequested,
+                            GuardianFullName = application.Student.GuardianFullName,
+                            GuardianPhoneNumber = application.Student.GuardianPhoneNumber,
+                            Remarks = application.Remarks,
+                            Status = application.Status,
+                            BankAccountName = application.BankAccountName
+                        };
+                        studentStatusList.Add(studentStatus);
+                    
+                }
             }
             return (studentStatusList);
         }
@@ -289,13 +394,14 @@ namespace ScholarshipManagement.Data.Services
                 DegreeInView = applicant.DegreeInView,
                 YearToGraduate = applicant.YearToGraduate,
                 DateAdmitted = applicant.DateAdmitted,
-                //LetterOfAdmission = applicant.LetterOfAdmission,
+                LetterOfAdmission = applicant.LetterOfAdmission,
                 AmountRequested = applicant.AmountRequested,
+                AmountRecommended = applicant.AmountRecommended,
                 BankName = applicant.BankName,
                 BankAccountNumber = applicant.BankAccountNumber,
                 BankAccountName = applicant.BankAccountName,
-                //LastSchoolResult = applicant.LastSchoolResult,
-                //SchoolBill = applicant.SchoolBill,
+                LastSchoolResult = applicant.LastSchoolResult,
+                SchoolBill = applicant.SchoolBill,
             };
             return new ApplicationResponseModel
             { 
@@ -322,6 +428,7 @@ namespace ScholarshipManagement.Data.Services
                 application.YearToGraduate = model.YearToGraduate;
                 //application.LetterOfAdmission = model.LetterOfAdmission;
                 application.AmountRequested = model.AmountRequested;
+                application.AmountRecommended = model.AmountRecommended;
                 application.BankName = model.BankName;
                 application.BankAccountNumber = model.BankAccountNumber;
                 application.BankAccountName = model.BankAccountName;
@@ -346,32 +453,32 @@ namespace ScholarshipManagement.Data.Services
             
             var user = await _userRepository.GetAsync(userId);
 
-            if (application.Status == ApprovalStatus.Draft && user.UserType == UserType.Circuit)
+            if (application.Status == ApprovalStatus.Submitted && user.UserType == UserType.Circuit)
             {
                 application.Status = ApprovalStatus.Committee;
                 await _applicationFormRepository.UpdateAsync(application);
                 await _applicationFormRepository.SaveChangesAsync();
 
             }
-            else if (application.Status == ApprovalStatus.Committee && user.UserType == UserType.Committee)
+            if (application.Status == ApprovalStatus.Committee && user.UserType == UserType.Committee)
             {
                 application.Status = ApprovalStatus.NaibAmir;
                 await _applicationFormRepository.UpdateAsync(application);
                 await _applicationFormRepository.SaveChangesAsync();
             }
-            else if (application.Status == ApprovalStatus.NaibAmir && user.UserType == UserType.NaibAmir)
+            if (application.Status == ApprovalStatus.NaibAmir && user.UserType == UserType.NaibAmir)
             {
                 application.Status = ApprovalStatus.Amir;
                 await _applicationFormRepository.UpdateAsync(application);
                 await _applicationFormRepository.SaveChangesAsync();
             }
-            else if (application.Status == ApprovalStatus.Amir && user.UserType == UserType.Amir)
+            if (application.Status == ApprovalStatus.Amir && user.UserType == UserType.Amir)
             {
                 application.Status = ApprovalStatus.Accounts;
                 await _applicationFormRepository.UpdateAsync(application);
                 await _applicationFormRepository.SaveChangesAsync();
             }
-            else if (application.Status == ApprovalStatus.Accounts && user.UserType == UserType.Accounts)
+            if (application.Status == ApprovalStatus.Accounts && user.UserType == UserType.Accounts)
             {
                 application.Status = ApprovalStatus.Disbursed;
                 await _applicationFormRepository.UpdateAsync(application);
@@ -420,6 +527,17 @@ namespace ScholarshipManagement.Data.Services
 
             await _userRepository.DeleteAsync(application);
             await _userRepository.SaveChangesAsync();
+        }
+        public async Task<IList<ApplicationFormDto>> GetStudentApplicationFormsAsync(string memberCode)
+        {
+
+            return await DbContext.Applications
+                .Include(uc => uc.Student)
+                .Where(u => u.Student.User.MemberCode == memberCode)
+                .Select(uc => new ApplicationFormDto
+                {
+                   
+                }).ToListAsync();
         }
     }
 }

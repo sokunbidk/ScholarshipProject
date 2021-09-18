@@ -54,13 +54,11 @@ namespace ScholarshipManagement.Data.Repositories
                 .AddAsync(entity);
             return entity;
         }
-
         public Task<T> UpdateAsync(T entity)
         {
             DbContext.Entry(entity).State = EntityState.Modified;
             return Task.FromResult(entity);
         }
-
         public Task DeleteAsync(int id)
         {
             var entity = new T
@@ -71,7 +69,6 @@ namespace ScholarshipManagement.Data.Repositories
             DbContext.Entry(entity).State = EntityState.Deleted;
             return Task.CompletedTask;
         }
-
         public Task DeleteAsync(T entity)
         {
             DbContext.Entry(entity).State = EntityState.Deleted;

@@ -1,4 +1,5 @@
 ﻿using Microsoft.AspNetCore.Mvc;
+using ScholarshipManagement.Data;
 using ScholarshipManagement.Data.Entities;
 using ScholarshipManagement.Data.Enums;
 using ScholarshipManagement.Data.Interfaces;
@@ -45,32 +46,153 @@ namespace ScholarshipManagement.Web.UI.Controllers
             var userDto = userResponseModel.Data;
 
 
-            List<ApprovalStatus> status = new List<ApprovalStatus>() { ApprovalStatus.Draft }; //Assign Default to status automatically
+            List<ApprovalStatus> status = new List<ApprovalStatus>() { ApprovalStatus.Submitted };
             var isGlobal = true;
             List<int> circuitIds = null;
-            switch (userDto.UserType)
-            {
-                case UserType.Circuit:
+            if (userDto.UserType == UserType.Committee)
 
-                    status = new List<ApprovalStatus>() { ApprovalStatus.Draft };
-                    isGlobal = false;
-                    circuitIds = new List<int>();
-                    var circuit = await _userService.GetUserCircuit(userDto.Id); //find Circuit,criteria user id
-                    if (circuit != null)
-                    {
-                        circuitIds.Add(circuit.Id);
-                    }
-                    break;
-                case UserType.Committee:
-                    status = new List<ApprovalStatus>() { ApprovalStatus.Committee };
-                    break;
+            {
+
+                status = new List<ApprovalStatus>() { ApprovalStatus.Committee };
+
             }
+           
+
             var pendingApplications = await _applicationService.PendingApplicationsByStatus(status, isGlobal, circuitIds, userDto.Id);
 
             return View(pendingApplications);
 
         }
+        //updates Application Status
+        [HttpGet]
+        public IActionResult UpdateApprovalStatus(int id)
+        {
+            try
+            {
+                var currentUserId = int.Parse(User.FindFirst(ClaimTypes.NameIdentifier).Value);
 
+                _applicationService.UpdateApprovalStatus(id, currentUserId);
+                return RedirectToAction("PendingApplicationsFocus");
+            }
+
+            catch (Exception e)
+            {
+                ViewBag.Message = e.Message;
+
+                return View();
+            }
+            ViewBag.Message = "Delivered To the Next Level";
+
+
+        }
+        //updates Application Status-Decline
+        [HttpGet]
+        public IActionResult DeclineApprovalStatus(int id)
+        {
+            try
+            {
+                _applicationService.DeclineApprovalStatus(id);
+                return RedirectToAction("PendingApplications");
+            }
+            catch (Exception e)
+            {
+                ViewBag.Message -= "Cannot Declined!";
+            }
+            return ViewBag.Message -= "Application Declined!";
+
+
+
+        }
+        [HttpGet]
+       /* public async Task<IActionResult> PendingApplicationsDetail(int id)
+        {
+
+            ApplicationResponseModel response = await _applicationService.GetApplication(id);
+
+            var pendingApplication = response.Data;
+
+            return View(pendingApplication);
+        }
+        public async Task<IActionResult> PendingStudentsDetail(int id)
+        {
+
+            var response = await _studentService.GetApplicantById(id);
+
+            var pendingStudent = response.Data;
+
+            return View(pendingStudent);
+        }*/
+        //View Student Profile To Edit
+        [HttpGet]
+        public async Task<IActionResult> UpdatePendingStudent(int id)
+        {
+
+            var response = await _studentService.GetApplicantById(id);
+
+            var pendingStudent = response.Data;
+
+            return View(pendingStudent);
+        }
+        [HttpPost]
+        //Edit Student Profile
+        public IActionResult UpdatePendingStudent(int id, UpdateStudentRequestModel model)
+        {
+            try
+            {
+                _studentService.UpdateStudentAsync(id, model);
+                return RedirectToAction("UpdatePendingStudent");
+
+            }
+            catch (Exception e)
+            {
+                ViewBag.Message = e.Message;
+                return View();
+            }
+            
+
+        }
+        //View Application To Edit
+        [HttpGet]
+        public async Task<IActionResult> UpdatePendingApplication(int id)
+        {
+
+            ApplicationResponseModel response = await _applicationService.GetApplication(id);
+
+            var pendingApplication = response.Data;
+
+            return View(pendingApplication);
+        }
+        //Edit Applicaation
+        [HttpPost]
+        public IActionResult UpdatePendingApplication(int id, UpdateApplicationRequestModel model)
+        {
+            try
+            {
+                _applicationService.UpdateApplicationAsync(id, model);
+                return RedirectToAction("UpdatePendingApplication");
+            }
+            catch (Exception e)
+            {
+                ViewBag.Message = e.Message;
+                return View();
+            }
+
+
+        }
+        public async Task<IActionResult> StudentPaymentHistory(int id)
+        {
+            try
+            {
+              
+                var applicationStatus = await _applicationService.StudentPaymentHistory(id);
+                return View(applicationStatus);
+            }
+            catch (Exception e)
+            {
+
+                ViewBag.Message = e.Message;
+            }
+            return View(ViewBag.Message);
+        }
     }
-    
 }

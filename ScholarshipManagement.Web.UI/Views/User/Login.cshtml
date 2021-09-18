@@ -28,25 +28,18 @@
                         <div class="form-group row">
                             <label class="formlabel col col-5 font-weight-bold" asp-for="Password"></label>
                             <input type="password" id="password" required asp-for="Password" class="form-control col col-7 font-weight-normal"  placeholder="Password" />
-                            <span asp-validation-for="Password"></span>
-                         
+                            <span asp-validation-for="Password"></span>                  
                         </div>
-
                         <div class="form-group text-center">
                             <input type="submit" class="btn btn-success" value="Sign In" />
                         </div>
                     </form>
                 </div>
-
                 <div class="card-footer formlabel">
-                    New User? <a asp-controller="User" asp-action="Create">Sign Up</a>
+                    New User? <a asp-controller="User" class="text-success align-content-center" asp-action="Create">Sign Up</a>
                 </div>
             </div>
         </div>
-   
-    
-    
-
 </div>
 
 

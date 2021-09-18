@@ -105,8 +105,8 @@ namespace ScholarshipManagement.Web.UI.Controllers
 
                 return View();
             }
-            ViewBag.Message = "Submitted Successfully";
-            return View();
+            
+            return RedirectToAction("StudentApplicationStatus", "Student");
 
         }
         //New Candidate Application, after Registration
@@ -163,7 +163,7 @@ namespace ScholarshipManagement.Web.UI.Controllers
 
 
                 ViewBag.Message = _applicationService.CreateNewApplicationAsync(model, currentUser);
-   
+                
             }
             catch (Exception e)
             {
@@ -172,9 +172,7 @@ namespace ScholarshipManagement.Web.UI.Controllers
                 return View();
                 
             }
-            ViewBag.Message = "Application Submitted";
-            return View();
-            
+            return RedirectToAction("StudentApplicationStatus", "Student");
         }
 
         
@@ -188,24 +186,29 @@ namespace ScholarshipManagement.Web.UI.Controllers
             var userDto = userResponseModel.Data;
             
 
-            List<ApprovalStatus> status = new List<ApprovalStatus>() { ApprovalStatus.Draft };
+            List<ApprovalStatus> status = new List<ApprovalStatus>() { ApprovalStatus.Submitted };
             var isGlobal = true;
             List<int> circuitIds = null;
+            //int circuitId = 0;
             switch (userDto.UserType)
             {
                 case UserType.Circuit:
 
-                    status = new List<ApprovalStatus>() { ApprovalStatus.Draft, ApprovalStatus.Committee };
-                    isGlobal = false;
-                    circuitIds = new List<int>();
-                    var circuit = await _userService.GetUserCircuit(userDto.Id);
+                    status = new List<ApprovalStatus>() { ApprovalStatus.Submitted, ApprovalStatus.Committee };
+                     isGlobal = false;
+                     circuitIds = new List<int>();
+                    /*var circuit = await _userService.GetUserCircuit(userDto.Id);
                     if (circuit != null)
                     {
                         circuitIds.Add(circuit.Id);
-                    }
+
+                    }*/
+                    circuitIds.Add(userDto.CircuitId);
+                    //circuitId = userDto.CircuitId;
+
                     break;
                 case UserType.Admin:
-                    status = new List<ApprovalStatus>() { ApprovalStatus.NaibAmir, ApprovalStatus.Amir, ApprovalStatus.Accounts, ApprovalStatus.Committee, ApprovalStatus.Draft, ApprovalStatus.Disbursed };
+                    status = new List<ApprovalStatus>() { ApprovalStatus.NaibAmir, ApprovalStatus.Amir, ApprovalStatus.Accounts, ApprovalStatus.Committee, ApprovalStatus.Submitted, ApprovalStatus.Disbursed };
                     break;
                 case UserType.Committee:
                     status = new List<ApprovalStatus>() { ApprovalStatus.NaibAmir, ApprovalStatus.Amir, ApprovalStatus.Accounts, ApprovalStatus.Disbursed };
@@ -223,7 +226,7 @@ namespace ScholarshipManagement.Web.UI.Controllers
                     status = new List<ApprovalStatus>() { ApprovalStatus.Accounts, ApprovalStatus.Disbursed};
                     break;     
             }
-            var pendingApplications = await _applicationService.PendingApplicationsByStatus(status,isGlobal,circuitIds,userDto.Id);
+            var pendingApplications = await _applicationService.PendingApplicationsByStatus(status, isGlobal,circuitIds, userDto.Id);
 
             return View(pendingApplications);
         }
@@ -286,11 +289,6 @@ namespace ScholarshipManagement.Web.UI.Controllers
 
             return View(pendingStudent);
         }
-
-       
-       
-       
-        
-        
+ 
     }
 }

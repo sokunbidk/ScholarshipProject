@@ -8,6 +8,9 @@ namespace ScholarshipManagement.Data.Entities
     {
         public string Email { get; set; }
         public string UserFullName { get; set; }
+        public int CircuitId { get; set; }
+        public int JamaatId { get; set; }
+        public Jamaat Jamaat { get; set; }
 
         public string PasswordHash { get; set; }
 
@@ -18,7 +21,6 @@ namespace ScholarshipManagement.Data.Entities
         public string MemberCode { get; set; }
 
         public string PhoneNumber { get; set; }
-        //public string CircuitId { get; set; }
 
         public ICollection<UserRole> UserRoles { get; set; } = new HashSet<UserRole>();
     }

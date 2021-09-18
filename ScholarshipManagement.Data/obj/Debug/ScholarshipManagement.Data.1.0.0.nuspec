@@ -1,0 +1,24 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<package xmlns="http://schemas.microsoft.com/packaging/2012/06/nuspec.xsd">
+  <metadata>
+    <id>ScholarshipManagement.Data</id>
+    <version>1.0.0</version>
+    <authors>ScholarshipManagement.Data</authors>
+    <description>Package Description</description>
+    <dependencies>
+      <group targetFramework="net5.0">
+        <dependency id="Grpc.Core" version="2.38.1" exclude="Build,Analyzers" />
+        <dependency id="Microsoft.AspNet.Mvc" version="5.2.7" exclude="Build,Analyzers" />
+        <dependency id="Microsoft.AspNetCore.Cryptography.KeyDerivation" version="5.0.7" exclude="Build,Analyzers" />
+        <dependency id="Microsoft.AspNetCore.Mvc.Razor" version="2.2.0" exclude="Build,Analyzers" />
+        <dependency id="Microsoft.EntityFrameworkCore" version="5.0.7" exclude="Build,Analyzers" />
+        <dependency id="MySql.EntityFrameworkCore" version="5.0.3.1" exclude="Build,Analyzers" />
+        <dependency id="SendGrid" version="9.24.1" exclude="Build,Analyzers" />
+      </group>
+    </dependencies>
+  </metadata>
+  <files>
+    <file src="C:\Project\ScholarshipManagement04-09-2021\ScholarshipManagement.Data\bin\Debug\net5.0\ScholarshipManagement.Data.runtimeconfig.json" target="lib\net5.0\ScholarshipManagement.Data.runtimeconfig.json" />
+    <file src="C:\Project\ScholarshipManagement04-09-2021\ScholarshipManagement.Data\bin\Debug\net5.0\ScholarshipManagement.Data.dll" target="lib\net5.0\ScholarshipManagement.Data.dll" />
+  </files>
+</package>

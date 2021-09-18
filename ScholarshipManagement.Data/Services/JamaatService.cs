@@ -65,9 +65,30 @@ namespace ScholarshipManagement.Data.Services
             return jamaats;
         }
 
-        public Task<JamaatResponseModel> GetJamaat(int id)
+        public async Task<JamaatResponseModel> GetJamaat(int id)
         {
-            throw new NotImplementedException();
+            var jamaat =  await _jamaatRepository.GetAsync(id);
+            if (jamaat == null)
+            {
+                throw new NotFoundException("Jamaat does not exist");
+            }
+            return new JamaatResponseModel
+
+            {
+                
+                Data = new JamaatDto
+
+                {   
+                    Id = jamaat.Id,
+                    Name = jamaat.JamaatName,
+                    Email = jamaat.Email,
+                    PhoneNumber = jamaat.PhoneNumber,
+
+
+                },
+                Status = true,
+                Message = "Successful"
+            };
         }
 
         public Task<JamaatResponseModel> GetJamaatByName(string jamaatName)
@@ -76,9 +97,31 @@ namespace ScholarshipManagement.Data.Services
         }
 
 
-        public Task<BaseResponse> UpdateJamaatAsync(int id, UpdateJamaatRequestModel model)
+        public async Task<BaseResponse> UpdateJamaatAsync(int id, UpdateJamaatRequestModel model)
         {
-            throw new NotImplementedException();
+            var jamaatExists = await _jamaatRepository.ExistsAsync(u => u.JamaatName != model.Name || u.Email != model.Email);
+            if (!jamaatExists)
+            {
+                throw new BadRequestException($"Jamaat With this Identity: '{model.Name}' already exists.");
+            }
+
+            Jamaat jamaat = await _jamaatRepository.GetAsync(id);
+            //var jamaat = new Jamaat();
+            {
+                jamaat.CircuitId = model.Circuitid;
+                jamaat.JamaatName = model.Name;
+                jamaat.Email = model.Email;
+                
+            };
+            await _jamaatRepository.UpdateAsync(jamaat);
+            await _jamaatRepository.SaveChangesAsync();
+
+            return new BaseResponse
+            {
+                Status = true,
+                Message = "Updated Successfully"
+
+            };
         }
     }
 }

@@ -11,28 +11,48 @@
             <div class="card-header formheader">
                 <h4 class="text-center formlabel ">@ViewData["Title"]</h4>
             </div>
-
-
-
             <div class="card card-body formcard">
                 @if (!string.IsNullOrEmpty(ViewBag.Message))
                 {
                     <p class="alert alert-warning alert-dismissible text-dark" id="successUser" role="alert">@ViewBag.Message</p>
                 }
                 <form method="POST">
-
+                    
                     <div class="form-row">
-                        <div class="form-group col-lg-12">
+                        <div class="form-group col-lg-4">
                             <label class="formlabel" asp-for="FullName"></label>
-                            <input type="text" id="fullname" asp-for="FullName" class="form-control" required/>
+                            <input type="text" id="fullname" asp-for="FullName" class="form-control" required />
                             <span asp-validation-for="FullName"></span>
                         </div>
                         <div class="form-group col-lg-4">
-                            <label class="formlabel" asp-for="Email"></label>
-                            <input type="email" id="email" asp-for="Email"  class="form-control" required />
-                            <span asp-validation-for="Email"></span>
-                            <div class="text-danger" id="emailerr"></div>
+                            <label class="formlabel" asp-for="JamaatId"></label>
+                            <select asp-for="JamaatId" required class="form-control" asp-items="ViewBag.Jamaats">
+                                <option selected>-- Select Jamaat --</option>
+                            </select>
+                            <span asp-validation-for="JamaatId"></span>
                         </div>
+
+                        <div class="form-group col-lg-4">
+                            <label class="formlabel" asp-for="CircuitId"></label>
+                            <select asp-for="CircuitId" required class="form-control" asp-items="ViewBag.Circuits">
+                                <option selected>-- Select Circuit --</option>
+                            </select>
+                            <span asp-validation-for="CircuitId"></span>
+                        </div>
+
+
+                    </div>
+                    
+
+                    <div class="form-row">
+                       
+                        <div class="form-group col-lg-4">
+                            <label class="formlabel" asp-for="Email"></label>
+                             <input  id="email" asp-for="Email"  class="form-control" required />
+                             <span asp-validation-for="Email"></span>
+                             <div class="text-danger" id="emailerr"></div>
+                        </div>
+                        
 
                         <div class="form-group col-lg-4">
                             <label class="formlabel" asp-for="PhoneNumber"></label>
@@ -41,8 +61,8 @@
                         </div>
 
                         <div class="form-group col-lg-4">
-                            <label class="formlabel"asp-for="MemberCode"></label>
-                            <input class="form-control"onkeyup="validateMemberCode()" id="membercode" type="text" asp-for="MemberCode" required/>
+                            <label class="formlabel" asp-for="MemberCode"></label>
+                            <input class="form-control" onkeyup="validateMemberCode()" id="membercode" type="text" asp-for="MemberCode" required />
                             <span asp-validation-for="MemberCode"></span>
                             <div class="text-danger" id="codeerr"></div>
                         </div>

@@ -22,15 +22,16 @@
                 <thead class="table-title">
                     <tr class="text-white">
                         <th>S/N</th>
-                        <th>SurName</th>
+                        <th>Name</th>
                         <th>Jamaat</th>
-                        <th>AuxiliaryBody</th>
-                        <th>GuardianFullName</th>
-                        <th>NameOfSchool</th>
+                        <th>Auxiliary Body</th>
+                        <th>Guardian FullName</th>
+                        <th>Name Of School</th>
                         <th>Status</th>
                         <th>Discipline</th>
-                        <th>AcademicLevel</th>
-                        <th>AmountRequested</th>
+                        <th>Academic Level</th>
+                        <th>Amount Requested</th>
+                        <th>Recomm endation</th>
                         <th>View Student</th>
                         <th>View Request</th>
                         <th>Action</th>
@@ -40,28 +41,34 @@
                 </thead>
                 <tbody>
                     @foreach (var PendingApplicationsDto in Model)
-                    {
+                     {
                     <tr>
                         <td> @(++count) </td>
-                        <td>@PendingApplicationsDto.SurName </td>
+                        <td>@PendingApplicationsDto.Names </td>
                         <td>@PendingApplicationsDto.Jamaat </td>
                         <td> @PendingApplicationsDto.AuxiliaryBody </td>
                         <td> @PendingApplicationsDto.GuardianFullName </td>
                         <td> @PendingApplicationsDto.NameOfSchool </td>
                         <td> @PendingApplicationsDto.Status </td>
                         <td>@PendingApplicationsDto.Discipline </td>
-                        <td> @PendingApplicationsDto.AcademenicLevel </td>
+                        <td> @PendingApplicationsDto.AcademicLevel </td>
                         <td>@PendingApplicationsDto.AmountRequested </td>
+                        <td>@PendingApplicationsDto.AmountRecommended </td>
 
                         <td>
-                            <a asp-action="PendingStudentsDetail" asp-route-id="@PendingApplicationsDto.StudentId" class="btn btn-primary">
+                            <a asp-action="UpdatePendingStudent" asp-route-id="@PendingApplicationsDto.StudentId" class="btn btn-primary">
                                 ViewApplicant
                             </a>
 
                         </td>
                         <td>
-                            <a asp-action="PendingApplicationsDetail" asp-route-id="@PendingApplicationsDto.ApplicationFormId" class="btn btn-success">
-                                ViewAppliation
+                            <a asp-action="UpdatePendingApplication" asp-route-id="@PendingApplicationsDto.ApplicationFormId" class="btn btn-success">
+                                View\Recommend
+                            </a>
+                        </td>
+                        <td>
+                            <a asp-action="StudentPaymentHistory" asp-route-id="@PendingApplicationsDto.StudentId" class="btn btn-success">
+                                PaymentHIst
                             </a>
                         </td>
                         <td>
@@ -75,7 +82,7 @@
                             </a>
                         </td>
                         <td>
-                            <a asp-action="DeclineApprovalStatus" asp-route-id="@PendingApplicationsDto.ApplicationFormId" class="btn btn- btn-primary">
+                            <a asp-action="DeclineApprovalStatus" asp-route-id="@PendingApplicationsDto.ApplicationFormId" class="btn btn- btn-danger">
                                 Decline
                             </a>
                         </td>
@@ -83,7 +90,7 @@
 
 
                     </tr>
-                    }
+                     }
                 </tbody>
             </table>
         }

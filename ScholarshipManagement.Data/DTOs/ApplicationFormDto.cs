@@ -39,6 +39,8 @@ namespace ScholarshipManagement.Data.DTOs
 
         public decimal AmountRequested { get; set; }
 
+        public decimal AmountRecommended { get; set; }
+
         public string BankAccountNumber { get; set; }
 
         public string BankName { get; set; }
@@ -48,5 +50,6 @@ namespace ScholarshipManagement.Data.DTOs
         public string LastSchoolResult { get; set; }
 
         public string FirstName { get; set; }
+        public DateTime DateApproved { get; set; }   //Date Approved by Amir
     }
 }

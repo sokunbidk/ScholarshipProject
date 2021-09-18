@@ -14,6 +14,7 @@ using System.Security.Claims;
 using System;
 using System.Linq;
 using ScholarshipManagement.Data.DTOs;
+using ScholarshipManagement.Data.Exceptions;
 
 namespace ScholarshipManagement.Web.UI.Controllers
 {
@@ -55,25 +56,6 @@ namespace ScholarshipManagement.Web.UI.Controllers
         [HttpGet]
         public IActionResult NewCandidate()
         {
-           
-
-            List<Circuit> circuits = _circuitService.GetCircuitList();
-            List<SelectListItem> listItems = new List<SelectListItem>();
-            foreach (Circuit circuit in circuits)
-            {
-                SelectListItem item = new SelectListItem(circuit.CircuitName, circuit.Id.ToString());
-                listItems.Add(item);
-            }
-            ViewBag.Circuits = listItems;
-
-            List<Jamaat> jamaats = _jamaatService.GetJamaatList();
-            List<SelectListItem> jamaatList = new List<SelectListItem>();
-            foreach (Jamaat jamaat in jamaats)
-            {
-                SelectListItem item = new SelectListItem(jamaat.JamaatName, jamaat.Id.ToString());
-                jamaatList.Add(item);
-            }
-            ViewBag.Jamaats = jamaatList;
             return View();
         }
         //Register New Student Method
@@ -110,8 +92,7 @@ namespace ScholarshipManagement.Web.UI.Controllers
                 ViewBag.Message = e.Message;
 
             }
-            ViewBag.Message = "Submitted.Click Next To Apply for Scholarship";
-            return View();
+            return RedirectToAction("CreateApplicationNewStudent", "ApplicationForm");
             
         }
 
@@ -139,54 +120,45 @@ namespace ScholarshipManagement.Web.UI.Controllers
         }
         public async Task<IActionResult> StudentApplicationStatus()
         {
-            /*var currentUserId = int.Parse(User.FindFirst(ClaimTypes.NameIdentifier).Value);
-
-            var userResponseModel = await _userService.GetUser(currentUserId);
-
-            var userDto = userResponseModel.Data;
-
-
-            List<ApprovalStatus> status = new List<ApprovalStatus>() { ApprovalStatus.Draft }; 
-            var isGlobal = true;
-            List<int> circuitIds = null;
-            switch (userDto.UserType)
+            try
             {
-                case UserType.Circuit:
+                var currentUserId = int.Parse(User.FindFirst(ClaimTypes.NameIdentifier).Value);
 
-                    status = new List<ApprovalStatus>() { ApprovalStatus.Draft };
-                    isGlobal = false;
-                    circuitIds = new List<int>();
-                    var circuit = await _userService.GetUserCircuit(userDto.Id); //find Circuit,criteria user id
-                    if (circuit != null)
-                    {
-                        circuitIds.Add(circuit.Id);
-                    }
-                    break;
-                case UserType.Student:
-                    status = new List<ApprovalStatus>() {ApprovalStatus.NaibAmir, ApprovalStatus.Amir, ApprovalStatus.Accounts, ApprovalStatus.Committee, ApprovalStatus.Draft, ApprovalStatus.Disbursed};
-                    break;
+                var userResponseModel = await _userService.GetUser(currentUserId);
+
+                var userDto = userResponseModel.Data;
+
+                //List<PendingApplicationsDto> applicationStatus = await _applicationService.StudentApplicationStatus();
+                var applicationStatus = await _applicationService.StudentApplicationStatus(currentUserId);
+                return View(applicationStatus);
             }
-            var pendingApplications = await _applicationService.PendingApplicationsByStatus(status, isGlobal, circuitIds, currentUserId);
+            catch (Exception e)
+            {
 
-            //Student StatusQuery = (Student)pendingApplications.Where(p => currentUserId.Contains(p.Id));
-
-            //Student StatusQuery = (Student)pendingApplications.Where(p => p.Id == currentUserId);
-
-            return View(StatusQuery);*/
-
-            var currentUserId = int.Parse(User.FindFirst(ClaimTypes.NameIdentifier).Value);
-
-            var userResponseModel = await _userService.GetUser(currentUserId);
-
-            var userDto = userResponseModel.Data;
-
-            //List<PendingApplicationsDto> applicationStatus = await _applicationService.StudentApplicationStatus();
-            var applicationStatus = await _applicationService.StudentApplicationStatus(currentUserId);
-
-            return View(applicationStatus);
+                ViewBag.Message = e.Message;
+            }
+            //ViewBag.Message = "Your Application is in Progress";
+            return View(ViewBag.Message);
         }
-        
+        public async Task<IActionResult> StudentApplicationHistory()
+        {
+            try
+            {
+                var currentUserId = int.Parse(User.FindFirst(ClaimTypes.NameIdentifier).Value);
 
+                var userResponseModel = await _userService.GetUser(currentUserId);
 
+                var userDto = userResponseModel.Data;
+
+                var applicationStatus = await _applicationService.StudentApplicationHistory(currentUserId);
+                return View(applicationStatus);
+            }
+            catch (Exception e)
+            {
+
+                ViewBag.Message = e.Message;
+            }
+            return View(ViewBag.Message);
+        }
     }
 }

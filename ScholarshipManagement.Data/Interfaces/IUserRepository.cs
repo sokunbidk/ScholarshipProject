@@ -12,9 +12,10 @@ namespace ScholarshipManagement.Data.Interfaces
     {
         Task<User> GetUserAsync(string email);
         Task<User> GetUser(int id);
-        public List<UserDto> GetUserType();
+        List<UserDto> GetUserType();
         Task<User> GetUserByMemberCodeAsync(string memberCode);
-        Task<Circuit?> GetUserCircuit(int id); 
+        Task<Circuit> GetUserCircuit(int id);
+        List<User> GetUsers();
 
     }
 }

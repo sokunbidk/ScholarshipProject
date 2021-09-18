@@ -10,18 +10,23 @@ using Microsoft.AspNetCore.Cryptography.KeyDerivation;
 using System.Security.Cryptography;
 using System.Collections.Generic;
 using System.Web.WebPages.Html;
-
+using ScholarshipManagement.Data.ApplicationContext;
 
 namespace ScholarshipManagement.Data.Services
 {
     public class UserService : IUserService
     {
         private readonly IUserRepository _userRepository;
+        private readonly SchoolDbContext _dbContext;
 
-        public UserService(IUserRepository userRepository)
+
+        public UserService(IUserRepository userRepository, SchoolDbContext context)
         {
             _userRepository = userRepository;
+            _dbContext = context;
         }
+
+       
 
         public async Task<BaseResponse> CreateUserAsync(CreateUserRequestModel model)
         {
@@ -51,6 +56,8 @@ namespace ScholarshipManagement.Data.Services
                 HashSalt = salt,
                 PasswordHash = hashedPassword,
                 CreatedBy = model.FullName,
+                JamaatId = model.JamaatId,
+                CircuitId = model.CircuitId
 
             };
 
@@ -60,6 +67,7 @@ namespace ScholarshipManagement.Data.Services
             return new BaseResponse
             {
                 Status = true,
+                Message = "Submitted Successfully"
                 
             };
         }
@@ -82,6 +90,8 @@ namespace ScholarshipManagement.Data.Services
                 Email = user.Email,
                 PhoneNumber = user.PhoneNumber,
                 UserType = user.UserType
+                
+                
             };
         }
         public async Task<UserDto> GetUserAsync(string email)
@@ -157,6 +167,8 @@ namespace ScholarshipManagement.Data.Services
                 {
                     UserFullName = user.UserFullName,
                     Email = user.Email,
+                    CircuitId = user.CircuitId,
+                    JamaatId = user.JamaatId,
                     PhoneNumber = user.PhoneNumber,
                     MemberCode = user.MemberCode,
                     UserType = user.UserType,
@@ -210,8 +222,7 @@ namespace ScholarshipManagement.Data.Services
         {
             //Task<User> user = _userRepository.GetAsync(id);
             var user = await _userRepository.GetAsync(id);
-
-            UserDto r = new UserDto
+           /* UserDto r = new UserDto
             {
                 UserFullName = user.UserFullName,
                 Email = user.Email,
@@ -219,12 +230,39 @@ namespace ScholarshipManagement.Data.Services
                 MemberCode = user.MemberCode,
                 UserType = user.UserType,
 
-            };
-            
-                await _userRepository.DeleteAsync(user);
-                await _userRepository.SaveChangesAsync();
+            };*/
+                //await _userRepository.DeleteAsync(id);
+                    _dbContext.Users.Remove(user);
+            await _userRepository.SaveChangesAsync();
         }
-        
+       
 
+        /*public IEnumerable<SelectListItem> GetPresidentList()
+        {
+            return _userRepository.GetUsers().Select(u => new SelectListItem()
+            {
+                Text = u.UserFullName,
+                Value = u.Id.ToString()
+            });
+        }*/
+
+        /* public IEnumerable<System.Web.Mvc.SelectListItem> IUserService.GetPresidentList()
+         {
+             var list = _userRepository.GetUsers().Select(u => new SelectListItem()
+             {
+                 Text = u.UserFullName,
+                 Value = u.Id.ToString()
+             });
+             return View(list); 
+         }*/
+        /* public IEnumerable<SelectListItem> IUserService.GetPresidentList()
+         {
+             var list = _userRepository.GetUsers().Select(u => new SelectListItem()
+             {
+                 Text = u.UserFullName,
+                 Value = u.Id.ToString()
+             });
+             return (list);
+         }*/
     }
 }

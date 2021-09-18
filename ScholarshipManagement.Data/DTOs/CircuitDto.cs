@@ -16,6 +16,11 @@ namespace ScholarshipManagement.Data.DTOs
 
         public string Email { get; set; }
 
-        public IList<JamaatDto> Jamaats { get; set; }
+        public static implicit operator CircuitDto(JamaatDto v)
+        {
+            throw new NotImplementedException();
+        }
+
+        //public IList<JamaatDto> Jamaats { get; set; }
     }
 }

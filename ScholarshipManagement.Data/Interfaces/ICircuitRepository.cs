@@ -14,8 +14,6 @@ namespace ScholarshipManagement.Data.Interfaces
 
         public List<Circuit> GetAllCircuits();
 
-
-
         Task<Circuit> GetCircuitAsync(int circuitId);
 
         Task<Circuit> GetCircuitByName(string circuitName);
