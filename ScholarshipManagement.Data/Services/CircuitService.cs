@@ -54,7 +54,7 @@ namespace ScholarshipManagement.Data.Services
             var circuit = await _circuitRepository.GetAsync(id);
             if (circuit == null)
             {
-                throw new NotFoundException("Circuit does not exist");
+                throw new NotFoundException("Circuit does not Exist");
             }
             return new CircuitResponseModel
             {
@@ -62,8 +62,6 @@ namespace ScholarshipManagement.Data.Services
                 {
                     CircuitName = circuit.CircuitName,
                     Email = circuit.Email,
-                  
-                    
                 },
                 Status = true,
                 Message = "Successful"
@@ -95,7 +93,7 @@ namespace ScholarshipManagement.Data.Services
         {
             return _circuitRepository.GetAllCircuits();
         }
-
+        //Update
         public async Task<BaseResponse> UpdateCircuitAsync(int id, UpdateCircuitRequestModel model)
         {
             var circuitExists = await _circuitRepository.ExistsAsync(u => u.CircuitName != model.CircuitName || u.Email != model.Email);
@@ -109,10 +107,8 @@ namespace ScholarshipManagement.Data.Services
             {
                 circuit.CircuitName = model.CircuitName;
                 circuit.Email = model.Email;
-
-                
             };
-            await _circuitRepository.AddAsync(circuit);
+            await _circuitRepository.UpdateAsync(circuit);
             await _circuitRepository.SaveChangesAsync();
 
             return new BaseResponse

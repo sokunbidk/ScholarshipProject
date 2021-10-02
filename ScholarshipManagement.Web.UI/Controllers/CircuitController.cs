@@ -44,48 +44,33 @@ namespace ScholarshipManagement.Web.UI.Controllers
             try
             {
                 {
-                    await _circuitService.CreateCircuitAsync(model);
-                    
+                    BaseResponse circuitCreate = await _circuitService.CreateCircuitAsync(model);
+                    ViewBag.Message = circuitCreate.Message;
                     return RedirectToAction("Index");
                 }
             }
             catch (Exception e)
             {
-
-                
-                ViewBag.Message = e.Message;          //Exception message in the method
-
+                ViewBag.Message = e.Message;        
                 return View();
-            }
-            ViewBag.Message = "Circuit successfull created"; //success message
-
+            }          
         }
         //Get Circuit To be Update
         [HttpGet]
         public async Task<IActionResult> UpdateCircuit(int id)
         {
-            /*List<UserDto> circuitusers = _userService.GetUserType();
-            List<SelectListItem> listItems = new List<SelectListItem>();
-            foreach (UserDto user in circuitusers)
-            {
-                SelectListItem item = new SelectListItem
-                    (user.UserFullName, user.Id.ToString());
-                listItems.Add(item);
-            }
-            ViewBag.PresidentId = listItems;*/
-
             CircuitResponseModel circuit = await _circuitService.GetCircuit(id);
-
             CircuitDto circuitDto = circuit.Data;
 
             return View(circuitDto);
         }
         [HttpPost]
-        public IActionResult UpdateCircuit(int id, UpdateCircuitRequestModel model)
+        public async Task<IActionResult> UpdateCircuit(int id, UpdateCircuitRequestModel model)
         {
             try 
             { 
-                _circuitService.UpdateCircuitAsync(id, model);
+                BaseResponse circuitUpdate = await _circuitService.UpdateCircuitAsync(id, model);
+                ViewBag.Message = circuitUpdate.Message;
                 return RedirectToAction("Index");
             }
             catch (Exception e)
@@ -93,10 +78,6 @@ namespace ScholarshipManagement.Web.UI.Controllers
                 ViewBag.Message = e.Message;
                 return View();
             }
-            ViewBag.Message = "Updated Successfully";
-
-           
-
         }
 
 

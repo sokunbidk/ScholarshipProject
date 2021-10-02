@@ -1,9 +1,9 @@
 ﻿@model IList<ScholarshipManagement.Data.DTOs.PendingApplicationsDto>
 @{
-    ViewData["Title"] = "Application Status";
+    ViewData["Title"] = "Students Payment History";
     int count = 0;
 }
-<h1>Pending List</h1>
+<h2>Payments History</h2>
 <div>
     <a class="text-danger  text-lg-right font-weight-bold" asp-controller="Student" asp-action="DashboardReturningStudent">---Dashboard</a>
 
@@ -22,9 +22,11 @@
                         <th>S/N</th>
                         <th>Name</th>
                         <th>Name Of School</th>
+                        <th>Academic Level</th>
+                        <th>School Session</th>
                         <th>Status</th>
-                        <th>Discipline</th>
-                        <th>Request</th>  
+                        <th>Amount Granted</th>
+                        <th>Date Paid</th>
                     </tr>
                 </thead>
                 <tbody>
@@ -34,16 +36,15 @@
                         <td> @(++count) </td>
                         <td>@PendingApplicationsDto.Names </td>
                         <td> @PendingApplicationsDto.NameOfSchool </td>
-                        
-                        <td>
-                            <input type="text" asp-for="@PendingApplicationsDto.Status"   class="form-control btn btn-primary " />
+                        <td>@PendingApplicationsDto.AcademicLevel </td>
+                        <td> @PendingApplicationsDto.SchoolSession </td>
+                        <td class="form-group col-1">
+                            <div class="form-control bg-success text-white">@PendingApplicationsDto.Status</div>
                         </td>
-                        
+                        <td>@PendingApplicationsDto.AmountGranted </td>
+                        <td>@PendingApplicationsDto.DateDisbursed </td>
 
-                        <td>@PendingApplicationsDto.Discipline </td>
-                        <td>@PendingApplicationsDto.AmountRequested </td>
 
-                       
 
                     </tr>
                     }

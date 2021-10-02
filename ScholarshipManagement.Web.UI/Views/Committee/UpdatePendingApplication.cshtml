@@ -1,4 +1,4 @@
-﻿@model ScholarshipManagement.Data.DTOs.ApplicationFormDto
+﻿@model ScholarshipManagement.Data.DTOs.ApplicationDto
 @{
     ViewData["Title"] = "Edit Application Details";
 }
@@ -12,28 +12,31 @@
             </div>
             <div class="card card-body">
                 <a class="text-primary  text-lg-right font-weight-bold" asp-controller="Committee" asp-action="PendingApplicationsFocus">---Dashboard</a>
-              
+                <a asp-action="UpdatePendingStudent" asp-route-id="@Model.StudentId" class="btn btn-success">
+                    View Student Details
+                </a>
+                <label class="text-danger  text-lg-center font-weight-bold">You Can only Change These Data if You MUST !!</label>
                 <form method="POST">
                     <div class="form-row">
-                        
-                        
-                            <div class="form-group col-lg-4">
-                                <label class="formlabel" for="NoS">Name Of School</label>
-                                <input type="text" id="NoS" asp-for="NameOfSchool" class="form-control" />
-                                <span asp-validation-for="NameOfSchool"></span>
 
-                            </div>
-                            <div class="form-group col-lg-4">
-                                <label class="formlabel" asp-for="AcademicLevel">Academic Level</label>
-                                <input type="text" asp-for="AcademicLevel" class="form-control" />
-                                <span asp-validation-for="AcademicLevel"></span>
-                            </div>
-                            <div class="form-group col-lg-4">
-                                <label asp-for="SchoolSession">School Session</label>
-                                <input class="form-control" type="text" asp-for="SchoolSession" />
-                                <span asp-validation-for="SchoolSession"></span>
-                            </div>
-                        
+
+                        <div class="form-group col-lg-4">
+                            <label class="formlabel" for="NoS">Name Of School</label>
+                            <input type="text" id="NoS" asp-for="NameOfSchool" class="form-control" />
+                            <span asp-validation-for="NameOfSchool"></span>
+
+                        </div>
+                        <div class="form-group col-lg-4">
+                            <label class="formlabel" asp-for="AcademicLevel">Academic Level</label>
+                            <input type="text" asp-for="AcademicLevel" class="form-control" />
+                            <span asp-validation-for="AcademicLevel"></span>
+                        </div>
+                        <div class="form-group col-lg-4">
+                            <label class=" formlabel" asp-for="SchoolSession">School Session</label>
+                            <input class="form-control" type="text" asp-for="SchoolSession" />
+                            <span asp-validation-for="SchoolSession"></span>
+                        </div>
+
                     </div>
                     <div class="form-row">
                         <div class="form-group col-lg-4">
@@ -71,10 +74,18 @@
                             <span asp-validation-for="AmountRequested"></span>
                         </div>
                         <div class="form-group col-lg-3">
-                            <label class="formlabel" asp-for="AmountRecommended">Amount Recom'd</label>
-                            <input class="form-control text-primary"  type="text" asp-for="AmountRecommended" />
-                            <span asp-validation-for="AmountRecommended"></span>
+                            <label class="formlabel" asp-for="InstitutionType"></label>
+                            <select asp-for="InstitutionType" required class="form-control">
+                                <option value="1">University</option>
+                                <option value="2">Polytechnic</option>
+                                <option value="3">College</option>
+                                <option value="4">Secondary</option>
+                                <option value="5">Primary</option>
+                                <option value="6">Artisan</option>
+                            </select>
+                            <span asp-validation-for="InstitutionType"></span>
                         </div>
+
                     </div>
                     <div class="form-row">
                         <div class="form-group col-lg-4">
@@ -88,7 +99,7 @@
 
                         <div class="form-group col-lg-4">
                             <label class="formlabel" asp-for="LastSchoolResult">Last School Result</label>
-                            <a href="/UploadedFiles/SchResult/@Model.LastSchoolResult"  target="_blank">Open</a>
+                            <a href="/UploadedFiles/SchResult/@Model.LastSchoolResult" target="_blank">Open</a>
                         </div>
                     </div>
 

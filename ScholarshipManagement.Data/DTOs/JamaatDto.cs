@@ -11,7 +11,8 @@ namespace ScholarshipManagement.Data.DTOs
     {
         public int Id { get; set; }
         public int Circuitid { get; set; }
-        public string Name { get; set; }
+        public string CircuitName { get; set; }
+        public string JamaatName { get; set; }
 
         public string Email { get; set; }
 

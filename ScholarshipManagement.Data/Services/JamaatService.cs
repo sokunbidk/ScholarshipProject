@@ -21,15 +21,15 @@ namespace ScholarshipManagement.Data.Services
         }
         public async Task<BaseResponse> CreateJamaatAsync(CreateJamaatRequestModel model)
         {
-            var jamaatExist = await _jamaatRepository.ExistsAsync(c => c.JamaatName == model.Name || c.Email == model.Email);
+            var jamaatExist = await _jamaatRepository.ExistsAsync(c => c.JamaatName == model.JamaatName || c.Email == model.Email);
             if (jamaatExist)
             {
-                throw new BadRequestException ($" Jamaat with name '{model.Name}' or email '{model.Email}' already exist");
+                throw new BadRequestException ($" Jamaat with name '{model.JamaatName}' or email '{model.Email}' already exist");
             }
 
             var jamaat = new Jamaat
             {
-                JamaatName = model.Name,
+                JamaatName = model.JamaatName,
                 Email = model.Email,
                 CircuitId = model.CircuitId,    //foreign Key
                 PhoneNumber = model.PhoneNumber
@@ -56,7 +56,7 @@ namespace ScholarshipManagement.Data.Services
             var jamaats = _jamaatRepository.GetJamaats().Select(r => new JamaatViewModel
             {
                 Id = r.Id,
-                Name = r.JamaatName,
+                JamaatName = r.JamaatName,
                 Email = r.Email,
                 PhoneNumber = r.PhoneNumber,
                 Circuitid = r.CircuitId,
@@ -64,7 +64,7 @@ namespace ScholarshipManagement.Data.Services
             }).ToList();
             return jamaats;
         }
-
+        //Get
         public async Task<JamaatResponseModel> GetJamaat(int id)
         {
             var jamaat =  await _jamaatRepository.GetAsync(id);
@@ -80,7 +80,9 @@ namespace ScholarshipManagement.Data.Services
 
                 {   
                     Id = jamaat.Id,
-                    Name = jamaat.JamaatName,
+                    Circuitid = jamaat.CircuitId,
+                    CircuitName = jamaat.Circuit.CircuitName,
+                    JamaatName = jamaat.JamaatName,
                     Email = jamaat.Email,
                     PhoneNumber = jamaat.PhoneNumber,
 
@@ -96,22 +98,22 @@ namespace ScholarshipManagement.Data.Services
             throw new NotImplementedException();
         }
 
-
+        //post
         public async Task<BaseResponse> UpdateJamaatAsync(int id, UpdateJamaatRequestModel model)
         {
-            var jamaatExists = await _jamaatRepository.ExistsAsync(u => u.JamaatName != model.Name || u.Email != model.Email);
+            var jamaatExists = await _jamaatRepository.ExistsAsync(u => u.JamaatName != model.JamaatName || u.Email != model.Email);
             if (!jamaatExists)
             {
-                throw new BadRequestException($"Jamaat With this Identity: '{model.Name}' already exists.");
+                throw new BadRequestException($"Jamaat With this Identity: '{model.JamaatName}' already exists.");
             }
 
             Jamaat jamaat = await _jamaatRepository.GetAsync(id);
             //var jamaat = new Jamaat();
             {
                 jamaat.CircuitId = model.Circuitid;
-                jamaat.JamaatName = model.Name;
+                jamaat.JamaatName = model.JamaatName;
                 jamaat.Email = model.Email;
-                
+                jamaat.PhoneNumber = model.PhoneNumber;  
             };
             await _jamaatRepository.UpdateAsync(jamaat);
             await _jamaatRepository.SaveChangesAsync();

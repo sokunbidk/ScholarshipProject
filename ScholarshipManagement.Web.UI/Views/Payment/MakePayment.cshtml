@@ -1,0 +1,88 @@
+﻿@model ScholarshipManagement.Data.DTOs.ApplicationDto
+@{
+    ViewData["Title"] = "Payment Details";
+}
+<div class="row justify-content-center mt-5">
+
+    <div class="col-md-7">
+        <div class="card">
+            <div class="card-header">
+                <h4 class="text-center">@ViewData["Title"]</h4>
+            </div>
+            <div class="card card-body">
+                <a class="text-danger  text-lg-right font-weight-bold" asp-controller="Payment" asp-action="ApprovedApplications">---CLOSE</a>
+                @if (!string.IsNullOrEmpty(ViewBag.Message))
+                {
+                    <p class="alert alert-warning alert-dismissible text-white bg-danger text-white text-center" id="successUser" role="alert">@ViewBag.Message</p>
+                }
+                <form method="POST">
+                    <div class=" form-row">
+                        <div class="form-group col-lg-1">
+                            <label class="formlabel" asp-for="ApplicationId">Appl</label>
+                            <input type="text" readonly asp-for="ApplicationId" class="form-control" />
+                            <span asp-validation-for="ApplicationId"></span>
+                        </div>
+                        <div class="form-group col-lg-1">
+                            <label class="formlabel" asp-for="StudentId">Stdnt</label>
+                            <input readonly type="text" asp-for="StudentId" class="form-control" />
+                            <span asp-validation-for="StudentId"></span>
+                        </div>
+                        <div class="form-group col-lg-6">
+                            <label class="formlabel" asp-for="Names">Student Name</label>
+                            <input class="form-control" readonly type="text" asp-for="Names" />
+                            <span asp-validation-for="Names"></span>
+                        </div>
+                        <div class="form-group col-lg-2">
+                            <label class="formlabel" asp-for="Status">Status</label>
+                            <input class="form-control" readonly type="text" asp-for="Status" />
+                            <span asp-validation-for="Status"></span>
+                        </div>
+                        <div class="form-group col-lg-2">
+                            <label class="formlabel" asp-for="AmountRecommended">Approval</label>
+                            <input class="form-control" readonly type="text" asp-for="AmountRecommended" />
+                            <span asp-validation-for="AmountRecommended"></span>
+                        </div>
+                    </div>
+                    <div class="form-row">
+                        <div class="form-group col-lg-2">
+                            <label class="formlabel" asp-for="DateApproved">Date Paid</label>
+                            <input class="form-control" readonly type="text" asp-for="DateApproved" />
+                            <span asp-validation-for="DateApproved"></span>
+                        </div>
+                        <div class="form-group col-lg-4">
+                            <label class="formlabel" asp-for="BankName">Bank Name</label>
+                            <input class="form-control" type="text" asp-for="BankName" />
+                            <span asp-validation-for="BankName"></span>
+                        </div>
+                        <div class="form-group col-lg-3">
+                            <label class="formlabel" asp-for="BankAccountNumber">Account No</label>
+                            <input class="form-control" type="text" asp-for="BankAccountNumber" />
+                            <span asp-validation-for="BankAccountNumber"></span>
+                        </div>
+                        <div class="form-group col-lg-3">
+                            <label class="formlabel" asp-for="BankAccountName">Account Name</label>
+                            <input class="form-control" type="text" asp-for="BankAccountName" />
+                            <span asp-validation-for="BankAccountName"></span>
+                        </div>
+                    </div>
+                    <div class="form-row justify-content-center">
+                        <input type="submit" id="submitbtn" class="btn btn-success text-white formlabel" value="PAY" />
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
+<script>
+    function checkLength(event) {
+        let bank = document.getElementById('bankacct');
+        if (typeof bank.value != Number) {
+            document.getElementById('err').innerHTML = "Bank account can't contain alphabets";
+        }
+        if (bank.value.length > 10) {
+            document.getElementById('err').innerHTML = "Bank account can't be greater than 10";
+            event.preventDefault();
+        }
+
+    }
+</script>

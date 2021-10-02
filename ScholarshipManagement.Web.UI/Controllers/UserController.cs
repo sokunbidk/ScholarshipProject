@@ -63,8 +63,16 @@ namespace ScholarshipManagement.Web.UI.Controllers
             }
             ViewBag.Jamaats = jamaatList;
             return View();
+            /*public IEnumerable<SelectListItem> GetPresidentList()
+            {
+                return _userRepository.GetUsers().Select(u => new SelectListItem()
+                {
+                    Text = u.UserFullName,
+                    Value = u.Id.ToString()
+                });
+            }*/
 
-            
+
         }
         //Create User
         [HttpPost]
@@ -72,14 +80,13 @@ namespace ScholarshipManagement.Web.UI.Controllers
         {
             try
             {
-                await _userService.CreateUserAsync(model);
-                return RedirectToAction("Login");
+                UserEntityResponseModel user =  await _userService.CreateUserAsync(model);
+                ViewBag.Message = user.Message;
+                return RedirectToAction("Login");  
             }
             catch (Exception e)
-            {
-               
-                ViewBag.Message = e.Message;          
-                
+            {               
+                ViewBag.Message = e.Message;                          
                 return View();
             }
             //return RedirectToAction(nameof(Login));
@@ -95,10 +102,12 @@ namespace ScholarshipManagement.Web.UI.Controllers
         {
             try
             {
-                var user = await _userService.LoginUserAsync(model);
+                UserResponseModel logNew = await _userService.LoginUserAsync(model);
+                ViewBag.Message = logNew.Message;
+                var user = logNew.Data;
                 if (user == null)
                 {
-                    ViewBag.Message = "Invalid Username/Password";
+                    ViewBag.Message = logNew.Message;
 
                     return View();
                 }
@@ -167,7 +176,7 @@ namespace ScholarshipManagement.Web.UI.Controllers
                         {
                             return RedirectToAction("DashboardReturningStudent", "Student");
                         }
-
+                        
                     }
 
                 }

@@ -15,13 +15,12 @@
                 <form method="GET">
                     <div class="form-row">
 
-                        <div class="form-group col-lg-4">
+                        <div class="form-group col-lg-3">
                             <label class="formlabel" asp-for="MemberCode">Member Code</label>
                             <input type="text" asp-for="MemberCode" readonly class="form-control" />
                             <span asp-validation-for="MemberCode"></span>
                         </div>
-
-                        <div style="width: 100px; height: 100px; overflow: hidden; margin-left: 290px">
+                        <div style="width: 100px; height: 100px; overflow:hidden; margin-left:320px;">
                             <img src="/UploadedFiles/Photograph/@Model.Photograph" width="100" />
                         </div>
                     </div>
@@ -32,74 +31,93 @@
                             <span asp-validation-for="SurName"></span>
                         </div>
                         <div class="form-group col-lg-4">
-                            <label class="formlabel" asp-for="FirstName"></label>
+                            <label class="formlabel" asp-for="FirstName">First Name</label>
                             <input type="text" asp-for="FirstName" readonly class="form-control" />
                             <span asp-validation-for="FirstName"></span>
                         </div>
+
                         <div class="form-group col-lg-4">
-                            <label class="formlabel" asp-for="OtherName"></label>
+                            <label class="formlabel" asp-for="OtherName">Other Name</label>
                             <input class="form-control" readonly type="text" asp-for="OtherName" />
                             <span asp-validation-for="OtherName"></span>
                         </div>
                     </div>
+
                     <div class="form-row">
-                        <div class="form-group col-lg-8">
-                            <label class="formlabel" asp-for="Address"></label>
+
+                        <div class="form-group col-lg-6">
+                            <label class="formlabel" asp-for="Address">Address</label>
                             <input class="form-control" readonly type="text" asp-for="Address" />
                             <span asp-validation-for="Address"></span>
                         </div>
-                        <div class="form-group col-lg-4">
-                            <label class="formlabel" asp-for="AuxiliaryBody"></label>
-                            <input class="form-control" readonly type="text" asp-for="AuxiliaryBody" />
-                            <span asp-validation-for="AuxiliaryBody"></span>
-                        </div>
-                    </div>
-                    <div class="form-row">
+
                         <div class="form-group col-lg-3">
-                            <label class="formlabel" asp-for="Jamaat"></label>
+                            <label class="formlabel" asp-for="Jamaat">Jamaat</label>
                             <input class="form-control" readonly type="text" asp-for="Jamaat" />
                             <span asp-validation-for="Jamaat"></span>
                         </div>
 
-                        <div class="form-group col-lg-4">
-                            <label class="formlabel" asp-for="Circuit"></label>
+                        <div class="form-group col-lg-3">
+                            <label class="formlabel" asp-for="Circuit">Circuit</label>
                             <input class="form-control" readonly type="text" asp-for="Circuit" />
                             <span asp-validation-for="Circuit"></span>
                         </div>
+
+                    </div>
+                    <div class="form-row">
+
+                        <div class="form-group col-lg-4">
+                            <label class="formlabel" asp-for="AuxiliaryBody">Auxiliary Body</label>
+                            <input class="form-control" readonly type="text" asp-for="AuxiliaryBody" />
+                            <span asp-validation-for="AuxiliaryBody"></span>
+                        </div>
                         <div class="form-group col-lg-2">
-                            <label class="formlabel" asp-for="Gender"></label>
+                            <label class="formlabel" asp-for="Gender">Gender</label>
                             <input class="form-control" readonly type="text" asp-for="Gender" />
                             <span asp-validation-for="Gender"></span>
                         </div>
+
                         <div class="form-group col-lg-3">
-                            <label class="formlabel" asp-for="DateOfBirth"></label>
-                            <input class="form-control" readonly type="date" asp-for="DateOfBirth" />
+                            <label class="formlabel" asp-for="DateOfBirth">Date Of Birth</label>
+                            <input class="form-control" readonly type="text" asp-for="DateOfBirth" />
                             <span asp-validation-for="DateOfBirth"></span>
                         </div>
+                        <div class="form-group col-lg-3">
+                            <label class="formlabel" asp-for="PhoneNumber">Phone No</label>
+                            <input class="form-control" readonly type="text" asp-for="PhoneNumber" />
+                            <span asp-validation-for="PhoneNumber"></span>
+                        </div>
+
                     </div>
+
                     <div class="form-row">
-                        <div class="form-group col-lg-4">
-                            <label class="formlabel" asp-for="GuardianFullName"></label>
+                        <div class="form-group col-lg-3">
+                            <label class="formlabel" asp-for="EmailAddress">Email Address</label>
+                            <input class="form-control" readonly type="text" asp-for="EmailAddress" />
+                            <span asp-validation-for="EmailAddress"></span>
+                        </div>
+                        <div class="form-group col-lg-3">
+                            <label class="formlabel" asp-for="GuardianFullName">Guardian Name</label>
                             <input class="form-control" readonly type="text" asp-for="GuardianFullName" />
                             <span asp-validation-for="GuardianFullName"></span>
                         </div>
-                        <div class="form-group col-lg-4">
-                            <label class="formlabel" asp-for="GuardianPhoneNumber"></label>
+                        <div class="form-group col-lg-3">
+                            <label class="formlabel" asp-for="GuardianPhoneNumber">Guardian Phone</label>
                             <input class="form-control" readonly type="text" asp-for="GuardianPhoneNumber" />
                             <span asp-validation-for="GuardianPhoneNumber"></span>
                         </div>
-                        <div class="form-group col-lg-4">
-                            <label class="formlabel" asp-for="GuardianMemberCode"></label>
+
+                        <div class="form-group col-lg-3">
+                            <label class="formlabel" asp-for="GuardianMemberCode">Guardian Code</label>
                             <input class="form-control" readonly type="text" asp-for="GuardianMemberCode" />
                             <span asp-validation-for="GuardianMemberCode"></span>
                         </div>
-                    </div>
 
 
-                    <div>
-                        <a asp-controller="ApplicationForm" class=" btn btn-success justify-content-right" asp-action="CreateApplication">Click Here To Apply For Scholarship</a>
-                    </div>
-                    @*<input type="submit" class="btn btn-success" value="Submit" />*@
+                        <div>
+                            <a asp-controller="Application" class=" btn btn-success justify-content-right" asp-action="CreateApplication">Click Here To Apply For Scholarship</a>
+                        </div>
+                        @*<input type="submit" class="btn btn-success" value="Submit" />*@
                 </form>
             </div>
         </div>

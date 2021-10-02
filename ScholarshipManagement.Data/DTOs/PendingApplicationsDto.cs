@@ -9,7 +9,7 @@ namespace ScholarshipManagement.Data.DTOs
     {
         public int Id { get; set; }
         public int StudentId { get; set; }
-        public int ApplicationFormId { get; set; }
+        public int ApplicationId { get; set; }
         public string Names { get; set; }
         public string Jamaat { get; set; }
         public string CircuitName { get; set; }
@@ -18,6 +18,7 @@ namespace ScholarshipManagement.Data.DTOs
         public string NameOfSchool { get; set; }
         public decimal AmountRequested { get; set; }
         public decimal AmountRecommended { get; set; }
+        public decimal AmountGranted { get; set; }
         public string Discipline { get; set; }
         public string Remarks { get; set; }
         public ApprovalStatus Status { get; set; }

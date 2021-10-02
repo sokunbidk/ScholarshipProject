@@ -1,9 +1,9 @@
 ﻿@model IList<ScholarshipManagement.Data.DTOs.PendingApplicationsDto>
 @{
-    ViewData["Title"] = "Pending List";
+    ViewData["Title"] = "Awaiting Consideration";
     int count = 0;
 }
-<h1>Pending List</h1>
+<h2>Awaiting Consideration</h2>
 <div>
     <a class="text-danger  text-lg-right font-weight-bold" asp-controller="Committee" asp-action="CommitteeDashboard">---Dashboard</a>
 
@@ -35,8 +35,7 @@
                         <th>View Student</th>
                         <th>View Request</th>
                         <th>Action</th>
-                        <th>Remarks</th>
-                        <th>Decline</th>
+                       
                     </tr>
                 </thead>
                 <tbody>
@@ -56,36 +55,32 @@
                         <td>@PendingApplicationsDto.AmountRecommended </td>
 
                         <td>
-                            <a asp-action="UpdatePendingStudent" asp-route-id="@PendingApplicationsDto.StudentId" class="btn btn-primary">
-                                ViewApplicant
+                            <a asp-action="UpdatePendingStudent" asp-route-id="@PendingApplicationsDto.ApplicationId" class="btn btn-primary">
+                                Details
                             </a>
 
                         </td>
-                        <td>
-                            <a asp-action="UpdatePendingApplication" asp-route-id="@PendingApplicationsDto.ApplicationFormId" class="btn btn-success">
-                                View\Recommend
-                            </a>
-                        </td>
+                       
                         <td>
                             <a asp-action="StudentPaymentHistory" asp-route-id="@PendingApplicationsDto.StudentId" class="btn btn-success">
-                                PaymentHIst
+                                HIstory
                             </a>
                         </td>
                         <td>
-                            <a asp-action="UpdateApprovalStatus" asp-route-id="@PendingApplicationsDto.ApplicationFormId" class="btn btn-danger">
-                                Approval
+                            <a asp-action="ActionRoom" asp-route-id="@PendingApplicationsDto.ApplicationId" class="btn btn-danger">
+                                Action
                             </a>
                         </td>
-                        <td>
-                            <a asp-action="Comment" asp-route-id="@PendingApplicationsDto.ApplicationFormId" class="btn btn- btn-primary">
+                       @* <td>
+                            <a asp-action="Comment" asp-route-id="@PendingApplicationsDto.ApplicationId" class="btn btn- btn-primary">
                                 Remarks
                             </a>
                         </td>
                         <td>
-                            <a asp-action="DeclineApprovalStatus" asp-route-id="@PendingApplicationsDto.ApplicationFormId" class="btn btn- btn-danger">
+                            <a asp-action="DeclineApprovalStatus" asp-route-id="@PendingApplicationsDto.ApplicationId" class="btn btn- btn-danger">
                                 Decline
                             </a>
-                        </td>
+                        </td>*@
 
 
 

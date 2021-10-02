@@ -16,7 +16,7 @@ namespace ScholarshipManagement.Data.Entities
 
         public int CircuitId { get; set; } = 1;          //reference property  
 
-        public Circuit Circuit { get; set; } ///navigation prop
+        public Circuit Circuit { get; set; } //navigation prop
 
     }
 }

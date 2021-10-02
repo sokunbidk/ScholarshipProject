@@ -15,14 +15,14 @@
                 <a class="text-danger  text-lg-right font-weight-bold" asp-controller="Jamaat" asp-action="Index">---Dashboard</a>
                 @if (!string.IsNullOrEmpty(ViewBag.Message))
                 {
-                    <p class="alert alert-warning alert-dismissible" id="successUser" role="alert">@ViewBag.Message</p>
+                    <p class="alert alert-warning alert-dismissible bg-danger text-white text-center" id="successUser" role="alert">@ViewBag.Message</p>
                 }
                 <form method="Post">
                     <div class="form-row">
                         <div class="form-group col-lg-6">
-                            <label class="formlabel" asp-for="Name">Jamaat Name</label>
-                            <input type="text" id="fullname" asp-for="Name" class="form-control" />
-                            <span asp-validation-for="Name"></span>
+                            <label class="formlabel" asp-for="JamaatName">Jamaat Name</label>
+                            <input type="text" id="fullname" asp-for="JamaatName" class="form-control" />
+                            <span asp-validation-for="JamaatName"></span>
                         </div>
                         <div class="form-group col-lg-6">
                             <label class="formlabel" asp-for="Email">Jamaat Email</label>
@@ -30,12 +30,17 @@
                             <span asp-validation-for="Email"></span>
                         </div>
                         <div class="form-group col-lg-6">
-                            <label class="formlabel" asp-for="Circuitid">Circuit Name</label>
-                            <input type="text" id="fullname" asp-for="Circuitid" class="form-control" />
-                            <span asp-validation-for="Circuitid"></span>
+                            <label class="formlabel" asp-for="PhoneNumber">Jamaat Phone Number</label>
+                            <input type="text" id="fullname" asp-for="PhoneNumber" class="form-control" />
+                            <span asp-validation-for="PhoneNumber"></span>
+                        </div>
+                        <div class="form-group col-lg-6">
+                            <label class="formlabel" asp-for="CircuitName">Circuit Name</label>
+                            <input type="text" id="fullname" asp-for="CircuitName" readonly class="form-control" />
+                            <span asp-validation-for="CircuitName"></span>
                         </div>
                         <div class="form-group">
-                            <label class="formlabel" for="Crt">Assign Circuit</label>
+                            <label class="formlabel" for="Crt">Assign New Circuit</label>
                             <select asp-for="Circuitid" class="form-control" id="Crt" asp-items="ViewBag.Circuits">
                                 <option selected>-- Select Circuit --</option>
                             </select>

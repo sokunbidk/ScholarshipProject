@@ -4,7 +4,7 @@ namespace ScholarshipManagement.Data.Services
 {
     public interface IStudentService
     {
-        public Task<BaseResponse> CreateStudentAsync(CreateStudentRequestModel model,string currentUser);
+        public Task<BaseResponse> CreateStudentAsync(CreateStudentRequestModel model,string currentUserEmail);
 
         public Task<BaseResponse> UpdateStudentAsync(int id, UpdateStudentRequestModel model);
 

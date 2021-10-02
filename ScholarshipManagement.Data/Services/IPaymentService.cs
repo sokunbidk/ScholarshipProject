@@ -13,9 +13,10 @@ namespace ScholarshipManagement.Data.Services
         public Task<BaseResponse> CreatePaymentAsync(CreatePaymentRequestModel model);
         public Task<BaseResponse> UpdatePaymentAsync(int id, UpdatePaymentRequestModel model);
 
-        Task<PaymentsResponseModel> GetPayments();
+        Task<PaymentsResponseModel> GetPaymentss();
         Task<PaymentResponseModel> GetPayment(int id);
-        //public Task<BaseResponse> CreatePaymentByApprovedApplicationAsync(List<ApprovalStatus> statuses,  int Id);
-        public Task<BaseResponse> CreatePaymentByApprovedApplicationAsync(PendingApplicationsDto model, int id);
+        public Task<BaseResponse> CreatePaymentByApprovedApplicationAsync(ApplicationDto model, int id, int currentUserId);
+        public  Task<ApplicationResponseModel> GetApplication(int id);
+        public Task<List<PaymentDto>> GetPayments();
     }
 }

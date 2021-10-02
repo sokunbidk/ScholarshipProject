@@ -7,6 +7,8 @@ namespace ScholarshipManagement.Data.DTOs
 {
     public class StudentDto
     {
+        public int Id { get; set; }
+        public int ApplicationId { get; set; }
         public int UserId { get; set; }
 
         public string MemberCode { get; set; }
@@ -46,6 +48,6 @@ namespace ScholarshipManagement.Data.DTOs
 
         public string Photograph { get; set; }
 
-        public IList<ApplicationFormDto> ApplicationForms { get; set; } = new List<ApplicationFormDto>();
+        public IList<ApplicationDto> Application { get; set; } = new List<ApplicationDto>();
     }
 }

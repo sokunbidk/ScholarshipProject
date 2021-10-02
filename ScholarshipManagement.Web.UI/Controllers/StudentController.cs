@@ -52,48 +52,54 @@ namespace ScholarshipManagement.Web.UI.Controllers
             return View();
         }
         
-        //Blank Registration Form New Candidate with dropdown for circuit/jamaat
+        //Blank Registration Form New Candidate
         [HttpGet]
         public IActionResult NewCandidate()
         {
             return View();
         }
-        //Register New Student Method
+        //Register New Student 
         [HttpPost]
         public async Task<IActionResult> NewCandidate(CreateStudentRequestModel model)
         {
             try
             {
-                Random random = new Random();
-                var currentUser = User.FindFirst("Email").Value;
-                var currentUserId = User.FindFirst(ClaimTypes.NameIdentifier).Value;
-                var files = HttpContext.Request.Form.Files;
-
-
-                string upload = _env.WebRootPath + @"\UploadedFiles\Photograph\";
-                //string fileName = Guid.NewGuid().ToString();
-                string extension = Path.GetExtension(files[0].FileName);
-
-                string fileName = currentUserId + "-Photograph-" + random.Next(100000).ToString();
-
-                using (var fileStream = new FileStream(Path.Combine(upload, fileName + extension), FileMode.Create))
-                    
+                try
                 {
-                    files[0].CopyTo(fileStream);
-                }
-                //ViewBag.Message = "Photo Uploaded Successfully";
-                model.Photograph = fileName + extension;
+                    Random random = new Random();
+                    var currentUserEmail = User.FindFirst("Email").Value;
+                    var currentUserId = User.FindFirst(ClaimTypes.NameIdentifier).Value;
+                    var files = HttpContext.Request.Form.Files;
 
-                await _studentService.CreateStudentAsync(model, currentUser);
-                
+
+                    string upload = _env.WebRootPath + @"\UploadedFiles\Photograph\";
+                    //string fileName = Guid.NewGuid().ToString();
+                    string extension = Path.GetExtension(files[0].FileName);
+
+                    string fileName = currentUserId + "-Photograph-" + random.Next(100000).ToString();
+
+                    using (var fileStream = new FileStream(Path.Combine(upload, fileName + extension), FileMode.Create))
+
+                    {
+                        files[0].CopyTo(fileStream);
+                    }
+                    //ViewBag.Message = "Photo Uploaded Successfully";
+                    model.Photograph = fileName + extension;
+
+                    BaseResponse newStudent = await _studentService.CreateStudentAsync(model, currentUserEmail);
+                    ViewBag.Message = newStudent.Message;
+                }
+                catch (Exception e) { ViewBag.Message = e.Message; return View(); } 
             }
             catch (Exception e)
             {
                 ViewBag.Message = e.Message;
+                return View();
 
             }
-            return RedirectToAction("CreateApplicationNewStudent", "ApplicationForm");
-            
+            return View();
+            //return RedirectToAction("NewCandidate");
+  
         }
 
         //View Profile-Returning Candidate
@@ -104,19 +110,16 @@ namespace ScholarshipManagement.Web.UI.Controllers
             {
                 var currentUser = User.FindFirst("Email").Value;
 
-                var student = await _studentService.GetStudentReturningCandidate(currentUser);
+                var ReturningCandidate = await _studentService.GetStudentReturningCandidate(currentUser);
 
-                return View(student);
+                return View(ReturningCandidate);
             }
             catch (Exception e)
             {
 
-                ViewBag.Message = "Student does not exist";
+                ViewBag.Message = ViewBag.Message = e.Message;
+                return View();
             }
-            ViewBag.Message = "View Student Profile";
-            return View();
-
-
         }
         public async Task<IActionResult> StudentApplicationStatus()
         {
@@ -127,18 +130,15 @@ namespace ScholarshipManagement.Web.UI.Controllers
                 var userResponseModel = await _userService.GetUser(currentUserId);
 
                 var userDto = userResponseModel.Data;
-
-                //List<PendingApplicationsDto> applicationStatus = await _applicationService.StudentApplicationStatus();
+               
                 var applicationStatus = await _applicationService.StudentApplicationStatus(currentUserId);
                 return View(applicationStatus);
             }
             catch (Exception e)
             {
-
                 ViewBag.Message = e.Message;
-            }
-            //ViewBag.Message = "Your Application is in Progress";
-            return View(ViewBag.Message);
+                return View();
+            }   
         }
         public async Task<IActionResult> StudentApplicationHistory()
         {

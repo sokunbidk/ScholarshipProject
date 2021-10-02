@@ -17,7 +17,7 @@ namespace ScholarshipManagement.Data
         public int Circuitid { get; set; }
         public string CircuitName { get; set; }
         public Circuit Circuit { get; set; } //navigation properties
-        public string Name { get; set; }
+        public string JamaatName { get; set; }
         public string Email { get; set; }
         public string PhoneNumber { get; set; }
         
@@ -28,8 +28,7 @@ namespace ScholarshipManagement.Data
     {
         public int CircuitId { get; set; }
 
-        public Circuit Circuit { get; set; }
-        public string Name { get; set; }
+        public string JamaatName { get; set; }
 
         public string Email { get; set; }
 
@@ -38,7 +37,7 @@ namespace ScholarshipManagement.Data
     public class UpdateJamaatRequestModel
     {
         public int Circuitid { get; set; }
-        public string Name { get; set; }
+        public string JamaatName { get; set; }
 
         public string Email { get; set; }
 

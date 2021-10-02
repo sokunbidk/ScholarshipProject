@@ -57,7 +57,7 @@ namespace ScholarshipManagement.Data.ApplicationContext
         }
 
         public DbSet<Student> Students { get; set; }
-        public DbSet<ApplicationForm> Applications { get; set; }
+        public DbSet<application> Applications { get; set; }
         public DbSet<Payment> Payments { get; set; }
         public DbSet<User> Users { get; set; }
         public DbSet<Role> Roles { get; set; }

@@ -14,7 +14,7 @@
             <div class="card card-body formcard">
                 @if (!string.IsNullOrEmpty(ViewBag.Message))
                 {
-                    <p class="alert alert-warning alert-dismissible text-dark" id="successUser" role="alert">@ViewBag.Message</p>
+                    <p class="alert alert-warning alert-dismissible text-dark bg-danger text-white text-center" id="successUser" role="alert">@ViewBag.Message</p>
                 }
                 <form method="POST">
                     
@@ -39,24 +39,18 @@
                             </select>
                             <span asp-validation-for="CircuitId"></span>
                         </div>
-
-
-                    </div>
-                    
-
+                    </div>                    
                     <div class="form-row">
                        
                         <div class="form-group col-lg-4">
                             <label class="formlabel" asp-for="Email"></label>
-                             <input  id="email" asp-for="Email"  class="form-control" required />
+                             <input  asp-for="Email"  class="form-control" required placeholder="Email Address"/>
                              <span asp-validation-for="Email"></span>
-                             <div class="text-danger" id="emailerr"></div>
+                             @*<div class="text-danger" id="emailerr"></div>*@
                         </div>
-                        
-
                         <div class="form-group col-lg-4">
                             <label class="formlabel" asp-for="PhoneNumber"></label>
-                            <input type="text" id="phoneNo" asp-for="PhoneNumber" maxlength="11" class="form-control" required />
+                            <input type="text" id="phoneNo" asp-for="PhoneNumber" maxlength="11" class="form-control" required placeholder="Phone Number"/>
                             <span asp-validation-for="PhoneNumber"></span>
                         </div>
 
@@ -70,10 +64,9 @@
                     <div class="form-row">
                         <div class="form-group  col-lg-6">
                             <label class="formlabel"asp-for="Password"></label>
-                            <input id="password" class="form-control" type="password" asp-for="Password" required/>
+                            <input id="password" class="form-control" type="password" asp-for="Password" required placeholder="Password"/>
                             <span asp-validation-for="Password"></span>
                         </div>
-
                         <div class="form-group col-lg-6">
                             <label class="formlabel" asp-for="ConfirmPassword"></label>
                             <input id="confirmpassword" class="form-control" onkeyup="confirmPassword()" type="password" asp-for="ConfirmPassword" required/>

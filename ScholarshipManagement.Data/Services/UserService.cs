@@ -28,13 +28,13 @@ namespace ScholarshipManagement.Data.Services
 
        
 
-        public async Task<BaseResponse> CreateUserAsync(CreateUserRequestModel model)
+        public async Task<UserEntityResponseModel> CreateUserAsync(CreateUserRequestModel model)
         {
-            var userExists = await _userRepository.ExistsAsync(u => u.PhoneNumber.Equals(model.PhoneNumber)) || await _userRepository.ExistsAsync(u => u.Email.Equals(model.Email)) || await _userRepository.ExistsAsync(u=>u.MemberCode.Equals(model.MemberCode)); 
+            var userExists = await _userRepository.ExistsAsync(u => u.PhoneNumber.Equals(model.PhoneNumber) || u.Email.Equals(model.Email) || u.MemberCode.Equals(model.MemberCode)); 
 
-            if (userExists)
+            if (userExists == true)
             {
-                throw new BadRequestException($"User With {model.PhoneNumber} OR {model.Email} OR {model.MemberCode} already exist!");
+                throw new BadRequestException($"User With These Credentials Already Exists!");
             }
 
             if(model.Password != model.ConfirmPassword)
@@ -46,7 +46,7 @@ namespace ScholarshipManagement.Data.Services
 
             string hashedPassword = HashPassword(model.Password, salt);
 
-            var user = new User
+            User user = new User
             {
                 UserFullName = model.FullName,
                 Email = model.Email,
@@ -58,40 +58,47 @@ namespace ScholarshipManagement.Data.Services
                 CreatedBy = model.FullName,
                 JamaatId = model.JamaatId,
                 CircuitId = model.CircuitId
-
             };
-
             await _userRepository.AddAsync(user);
             await _userRepository.SaveChangesAsync();
 
-            return new BaseResponse
+            return new UserEntityResponseModel
             {
+                Data = user,
                 Status = true,
-                Message = "Submitted Successfully"
-                
+                Message = "Created Successfully"          
             };
         }
 
-        public async Task<UserDto> LoginUserAsync(LoginUserRequestModel model)
+        public async Task<UserResponseModel> LoginUserAsync(LoginUserRequestModel model)
         {
            
             var user = await _userRepository.GetUserAsync(model.Email);
-            string hashedPassword = HashPassword(model.Password, user.HashSalt);
-            if (user == null || user.PasswordHash != hashedPassword)
+            if (user == null)
             {
-                return null;
+                throw new NotFoundException("Invalid Username/Password");
             }
-            
-            return new UserDto
+            string hashedPassword = HashPassword(model.Password, user.HashSalt);
+            if (user.PasswordHash != hashedPassword)
+            {
+                throw new NotFoundException("Invalid Username/Password");
+            }
+
+            //return new UserDto
+            UserDto log = new UserDto
             {
                 Id = user.Id,
                 UserFullName =user.UserFullName,
                 MemberCode = user.MemberCode,
                 Email = user.Email,
                 PhoneNumber = user.PhoneNumber,
-                UserType = user.UserType
-                
-                
+                UserType = user.UserType   
+            };
+            return new UserResponseModel
+            {
+                Data = log,
+                Status = true,
+                Message = "Successful"
             };
         }
         public async Task<UserDto> GetUserAsync(string email)
@@ -235,34 +242,6 @@ namespace ScholarshipManagement.Data.Services
                     _dbContext.Users.Remove(user);
             await _userRepository.SaveChangesAsync();
         }
-       
 
-        /*public IEnumerable<SelectListItem> GetPresidentList()
-        {
-            return _userRepository.GetUsers().Select(u => new SelectListItem()
-            {
-                Text = u.UserFullName,
-                Value = u.Id.ToString()
-            });
-        }*/
-
-        /* public IEnumerable<System.Web.Mvc.SelectListItem> IUserService.GetPresidentList()
-         {
-             var list = _userRepository.GetUsers().Select(u => new SelectListItem()
-             {
-                 Text = u.UserFullName,
-                 Value = u.Id.ToString()
-             });
-             return View(list); 
-         }*/
-        /* public IEnumerable<SelectListItem> IUserService.GetPresidentList()
-         {
-             var list = _userRepository.GetUsers().Select(u => new SelectListItem()
-             {
-                 Text = u.UserFullName,
-                 Value = u.Id.ToString()
-             });
-             return (list);
-         }*/
     }
 }

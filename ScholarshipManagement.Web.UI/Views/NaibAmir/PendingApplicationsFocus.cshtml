@@ -1,9 +1,9 @@
 ﻿@model IList<ScholarshipManagement.Data.DTOs.PendingApplicationsDto>
 @{
-    ViewData["Title"] = "Pending List";
+    ViewData["Title"] = "Awaiting Approval(NA)";
     int count = 0;
 }
-<h1>Pending List</h1>
+<h2>Awaiting Approval(NA)</h2>
 <div>
     <a class="text-danger  text-lg-right font-weight-bold" asp-controller="NaibAmir" asp-action="Dashboard_NaibAmir">---Dashboard</a>
 
@@ -30,17 +30,16 @@
                         <th>Academic Level</th>
                         <th>Amount Requested</th>
                         <th>Recomm endation</th>
-                        <th>View Student</th>
-                        <th>View Request</th>
+                        <th>Details</th>
+                        <th>History</th>
                         <th>Action</th>
-                        <th>Remarks</th>
-                        <th>Decline</th>
+                       
                     </tr>
                 </thead>
                 <tbody>
                     @foreach (var PendingApplicationsDto in Model)
                      {
-                       <tr>
+                    <tr>
                         <td> @(++count) </td>
                         <td>@PendingApplicationsDto.Names </td>
                         <td>@PendingApplicationsDto.Jamaat </td>
@@ -54,31 +53,22 @@
                         <td>@PendingApplicationsDto.AmountRecommended </td>
 
                         <td>
-                            <a asp-action="PendingStudentsDetail" asp-route-id="@PendingApplicationsDto.StudentId" class="btn btn-primary">
-                                ViewApplicant
+                            <a asp-action="PendingStudentsDetail" asp-route-id="@PendingApplicationsDto.ApplicationId" class="btn btn-primary">
+                                Details
+                            </a>
+                        </td>
+
+                        <td>
+                            <a asp-action="StudentPaymentHistory" asp-route-id="@PendingApplicationsDto.StudentId" class="btn btn-success">
+                                HIstory
                             </a>
                         </td>
                         <td>
-                            <a asp-action="UpdatePendingApplication" asp-route-id="@PendingApplicationsDto.ApplicationFormId" class="btn btn-success">
-                                View\Recommend
+                            <a asp-action="ActionRoom" asp-route-id="@PendingApplicationsDto.ApplicationId" class="btn btn-danger">
+                                Action
                             </a>
                         </td>
-                        <td>
-                            <a asp-action="UpdateApprovalStatus" asp-route-id="@PendingApplicationsDto.ApplicationFormId" class="btn btn-danger">
-                                Approval
-                            </a>
-                        </td>
-                        <td>
-                            <a asp-action="Comment" asp-route-id="@PendingApplicationsDto.ApplicationFormId" class="btn btn- btn-primary">
-                                Remarks
-                            </a>
-                        </td>
-                        <td>
-                            <a asp-action="DeclineApprovalStatus" asp-route-id="@PendingApplicationsDto.ApplicationFormId" class="btn btn- btn-danger">
-                                Decline
-                            </a>
-                        </td>
-                       </tr>
+                    </tr>
                      }
                 </tbody>
             </table>

@@ -14,20 +14,19 @@ namespace ScholarshipManagement.Data.Services
     public class StudentService : IStudentService
     {
         private readonly IStudentRepository _studentRepository;
+        private readonly IApplicationRepository _applicationRepository;
         private readonly IUserRepository _userRepository;
-        public StudentService(IStudentRepository studentRepository, IUserRepository userRepository)
+        public StudentService(IStudentRepository studentRepository, IUserRepository userRepository, IApplicationRepository applicationRepository)
         {
             _studentRepository = studentRepository;
+            _applicationRepository = applicationRepository;
             _userRepository = userRepository;
         }
         //Create New Student-Bio Data
-        public async Task<BaseResponse> CreateStudentAsync(CreateStudentRequestModel model, string currentUser)
+        public async Task<BaseResponse> CreateStudentAsync(CreateStudentRequestModel model, string currentUserEmail)
         {
-            User user = await _userRepository.GetUserAsync(currentUser);
-            //var StudentExist = await _studentRepository.ExistsAsync(u => u.UserId.Equals user.Id);
-            var StudentExist = await _studentRepository.ExistsAsync(user.Id);
-
-
+            User user = await _userRepository.GetUserAsync(currentUserEmail);
+            var StudentExist = await _studentRepository.ExistsAsync(u => (u.UserId == user.Id) || u.EmailAddress == currentUserEmail );
 
             if (StudentExist == true)                                        
             {
@@ -68,7 +67,7 @@ namespace ScholarshipManagement.Data.Services
             return new BaseResponse
             {
                 Status = true,
-               Message = "Submitted.Click Next To Apply for Scholarship"
+               Message = "Submitted. Click Next To Apply for Scholarship"
 
             };
 
@@ -89,7 +88,8 @@ namespace ScholarshipManagement.Data.Services
             {
                 throw new NotFoundException("Student does not exist");
             }
-            return new StudentViewModel
+            //return new StudentViewModel
+            StudentViewModel ReturningCandidate = new StudentViewModel
             {
                 StudentId = student.Id,
                 UserId = student.UserId,
@@ -110,38 +110,14 @@ namespace ScholarshipManagement.Data.Services
                 Photograph = student.Photograph,
                 GuardianMemberCode = student.GuardianMemberCode
             };
+            return ReturningCandidate;
 
         }
-
-
-        /*public async Task<BaseResponse> UpdateStudentAsync(int id, UpdateStudentRequestModel model)
-        {
-            var student = await _studentRepository.GetAsync(id);
-
-            Student Editedstudent = new Student()
-            {
-                Address = model.Address,
-                AuxiliaryBody = model.AuxiliaryBody,
-                //DateOfBirth = model.DateOfBirth,
-                FirstName = model.FirstName,
-                GuardianFullName = model.GuardianFullName,
-                GuardianPhoneNumber = model.GuardianPhoneNumber,
-                OtherName = model.OtherName
-            };
-
-            await _studentRepository.UpdateAsync(Editedstudent);
-            await _studentRepository.SaveChangesAsync();
-
-            return new BaseResponse
-            {
-                Status = true,
-                Message = "Profile successfully updated"
-            };
-        }       */
         //This gets all Students-Not Used Yet
         public async Task<StudentsResponseModel> GetStudents(StudentsResponseModel model)
         {
             var student = await _studentRepository.Query().Select(r => new StudentDto
+
             {
                 Address = r.Address,
                 AuxiliaryBody = r.AuxiliaryBody,
@@ -163,60 +139,83 @@ namespace ScholarshipManagement.Data.Services
                 Message = "Successful"
             };
         }
+        //Get
 
         public async Task<StudentResponseModel> GetApplicantById(int id)
         {
-            var student = await _studentRepository.GetStudentWithJamatByIdAsync(id);
 
-            StudentDto applicant = new StudentDto
+            var applicantQuery = _applicationRepository.Query()
+                .Include(m => m.Student)
+                .ThenInclude(u => u.User)
+                .ThenInclude(j => j.Jamaat)
+                .ThenInclude(c => c.Circuit)
+                .Where(r => r.Id == id);
+
+            var applicant = await applicantQuery.SingleAsync();
+
+
+            StudentDto applicationQ = new StudentDto
             {
-                UserId = student.Id,
-                SurName = student.SurName,
-                FirstName = student.FirstName,
-                OtherName = student.OtherName,
-                Address = student.Address,
-                CircuitName = student.Jamaat.Circuit.CircuitName,
-                JamaatName = student.Jamaat.JamaatName,
-                JamaatId = student.JamaatId,
-                CircuitId = student.CircuitId,
-                AuxiliaryBody = student.AuxiliaryBody,
-                PhoneNumber = student.PhoneNumber,
-                EmailAddress = student.EmailAddress,
-                MemberCode = student.MemberCode,
-                Gender = student.Gender,
-                DateOfBirth = student.DateOfBirth,
-                GuardianFullName = student.GuardianFullName,
-                GuardianPhoneNumber = student.GuardianPhoneNumber,
-                GuardianMemberCode = student.GuardianMemberCode,
-                Photograph = student.Photograph
+                Id = applicant.Student.Id,
+                ApplicationId = applicant.Id,               
+                SurName = applicant.Student.SurName,
+                FirstName = applicant.Student.FirstName,
+                OtherName = applicant.Student.OtherName,
+                Address = applicant.Student.Address,
+                CircuitId = applicant.Student.User.CircuitId,              
+                JamaatId = applicant.Student.User.JamaatId,
+                AuxiliaryBody = applicant.Student.AuxiliaryBody,
+                PhoneNumber = applicant.Student.User.PhoneNumber,
+                EmailAddress = applicant.Student.User.Email,
+                MemberCode = applicant.Student.User.MemberCode,
+                Gender = applicant.Student.Gender,
+                DateOfBirth = applicant.Student.DateOfBirth,
+                GuardianFullName = applicant.Student.GuardianFullName,
+                GuardianPhoneNumber = applicant.Student.GuardianPhoneNumber,
+                GuardianMemberCode = applicant.Student.GuardianMemberCode,
+                Photograph = applicant.Student.Photograph
+
             };
 
             return new StudentResponseModel
+
             {
-                Data = applicant,
+                Data = applicationQ,
                 Status = true,
                 Message = "Successful"
             };
         }
+        //Post
         public async Task<BaseResponse> UpdateStudentAsync(int id, UpdateStudentRequestModel model)
         {
+            var applicantQuery = _applicationRepository.Query()
+               .Include(m => m.Student)
+               .ThenInclude(u => u.User)
+               .ThenInclude(j => j.Jamaat)
+               .ThenInclude(c => c.Circuit)
+               .Where(r => r.Id == id);
 
-            Student student = await _studentRepository.GetAsync(id);
+            var applicant = await applicantQuery.SingleAsync();
             {
-                student.SurName = model.SurName;
-                student.FirstName = model.FirstName;
-                student.OtherName = model.OtherName;
-                student.Address = model.Address;
-                //student.CircuitId = model.CircuitId;
-                //student.Jamaat = model.Jamaat;
-                student.AuxiliaryBody = model.AuxiliaryBody;
-                student.GuardianFullName = model.GuardianFullName;
-                student.GuardianPhoneNumber = model.GuardianPhoneNumber;
-                student.GuardianMemberCode = model.GuardianMemberCode;
+                
+                applicant.Student.SurName = model.SurName;
+                applicant.Student.FirstName = model.FirstName;
+                applicant.Student.OtherName = model.OtherName;
+                applicant.Student.Address = model.Address;
+                applicant.Student.User.CircuitId = model.CircuitId;          
+                applicant.Student.User.JamaatId = model.JamaatId;           
+                applicant.Student.AuxiliaryBody = model.AuxiliaryBody;
+                applicant.Student.User.PhoneNumber = model.PhoneNumber;
+                applicant.Student.User.Email = model.EmailAddress;
+                applicant.Student.User.MemberCode = model.MemberCode;
+                applicant.Student.Gender = model.Gender;
+                applicant.Student.DateOfBirth = model.DateOfBirth;
+                applicant.Student.GuardianFullName = model.GuardianFullName;
+                applicant.Student.GuardianPhoneNumber = model.GuardianPhoneNumber;
+                applicant.Student.GuardianMemberCode = model.GuardianMemberCode;
+            };
 
-            }
-
-            await _studentRepository.UpdateAsync(student);
+            await _studentRepository.UpdateAsync(applicant);
             await _studentRepository.SaveChangesAsync();
 
             return new BaseResponse

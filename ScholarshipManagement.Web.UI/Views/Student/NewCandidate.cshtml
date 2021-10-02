@@ -1,6 +1,6 @@
 ﻿@model ScholarshipManagement.Data.CreateStudentRequestModel
 @{
-    ViewData["Title"] = "Student Registration";
+    ViewData["Title"] = "Student's Registration";
 }
 
 <div class="row justify-content-center mt-5">
@@ -9,31 +9,25 @@
         <div class="card">
             <div class="card-header">
                 <h4 class="text-center">@ViewData["Title"]</h4>
-            </div>
-           
+            </div>     
             <div class="card card-body">
                 @if (!string.IsNullOrEmpty(ViewBag.Message))
                 {
-                <p class="alert alert-warning alert-dismissible text-white btn btn-danger" id="successUser" role="alert">@ViewBag.Message</p>
+                <p class="alert alert-warning alert-dismissible text-white btn btn-danger bg-danger text-white text-center" id="successUser" role="alert">@ViewBag.Message</p>
                 }
-                <a class="text-primary  text-lg-right font-weight-bold" asp-controller="Student" asp-action="Dashboard">---Dashboard</a>
-                
+                <a class="text-primary  text-lg-right font-weight-bold" asp-controller="Student" asp-action="Dashboard">---Dashboard</a>               
                 <form method="POST" enctype="multipart/form-data">
-
-                   
                     <div class="form-row">
                         <div class="form-group col-lg-4">
                             <label class="formlabel" asp-for="SurName"></label>
                             <input type="text" required asp-for="SurName" class="form-control" />
                             <span asp-validation-for="SurName"></span>
                         </div>
-
                         <div class="form-group col-lg-4">
                             <label class="formlabel" asp-for="FirstName"></label>
                             <input type="text" required asp-for="FirstName" class="form-control" />
                             <span asp-validation-for="FirstName"></span>
                         </div>
-
                         <div class="form-group col-lg-4">
                             <label class="formlabel" asp-for="OtherName"></label>
                             <input class="form-control" type="text" asp-for="OtherName" />
@@ -98,16 +92,14 @@
                         </div>
 
                     </div>
-                    
-
                         <div class="form-group col-lg-6">
                             <label class="formlabel" for="userphoto">Choose Photo</label>
                             <input class="form-control" required type="file" id="userphoto" name="files" />
                         </div>
                        
 
-                    <input type="submit" class="btn btn-success" value="Submit and Continue" />
-                   @*<a class="btn btn-success option" asp-controller="ApplicationForm" asp-action="CreateApplicationNewStudent">Next->></a>*@
+                    <input type="submit" class="btn btn-success" value="Submit" />
+                   <a class="btn btn-success option" asp-controller="Application" asp-action="CreateApplicationNewStudent">--Next->></a>
                 </form>
             </div>
         </div>

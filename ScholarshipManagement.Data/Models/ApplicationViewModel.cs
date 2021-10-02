@@ -8,9 +8,10 @@ using System.ComponentModel.DataAnnotations.Schema;
 
 namespace ScholarshipManagement.Data
 {
-    public class ApplicationFormViewModel
+    public class ApplicationViewModel
     {
-        public int ApplicationFormNumber { get; set; }
+        public int Id { get; set; }
+        public int StudentId { get; set; }
 
         public string SchoolSession { get; set; }
 
@@ -48,7 +49,7 @@ namespace ScholarshipManagement.Data
     }
 
 
-    public class CreateApplicationFormRequestModel
+    public class CreateApplicationRequestModel
     {
 
         [Display(Name = "Member Code")]
@@ -88,7 +89,7 @@ namespace ScholarshipManagement.Data
         [Required(ErrorMessage = "YearToGraduate is required")]
         [Display(Name = "YearToGraduate")]
         public DateTime YearToGraduate { get; set; }
-        
+        [Required(ErrorMessage = "Admission Letter is required")]
         [Display(Name = "Letter Of Admission")]
         public string LetterOfAdmission { get; set; }
 
@@ -98,11 +99,11 @@ namespace ScholarshipManagement.Data
 
         [Required(ErrorMessage = "You Must State Amount")]
         [Display(Name = "Amount Requested")]
-        public int AmountRequested { get; set; }
+        public decimal AmountRequested { get; set; }
 
         [Required(ErrorMessage = "You Must State Amount")]
         [Display(Name = "Amount Recommended")]
-        public int AmountRecommended { get; set; }
+        public decimal AmountRecommended { get; set; }
 
         [Required(ErrorMessage = "Name Of Bank is required")]
         [Display(Name = "Name of Bank")]
@@ -115,8 +116,9 @@ namespace ScholarshipManagement.Data
         [Required(ErrorMessage = "Bank Account Name is required")]
         [Display(Name = "Bank Account Name")]
         public string BankAccountName { get; set; }
-        
-        [Required, Display(Name = "Last School Result")]
+
+        [Required (ErrorMessage = "Last School Result is required")]
+        [Display(Name = "Last School Result")]
         public string LastSchoolResult { get; set; }
     }
     public class UpdateApplicationRequestModel
@@ -171,9 +173,9 @@ namespace ScholarshipManagement.Data
         [Column(TypeName = "decimal(18, 2)"), Display(Name = "Amount Requested")]
         public decimal AmountRequested { get; set; }
 
-        [Required(ErrorMessage = "You Must State Amount")]
+        [Required(ErrorMessage = "You Must State Amount Rcommended")]
         [Display(Name = "Amount Recommended")]
-        public int AmountRecommended { get; set; }
+        public decimal AmountRecommended { get; set; }
 
         [Display(Name = "Last School Result")]
         public string LastSchoolResult { get; set; }
@@ -190,10 +192,10 @@ namespace ScholarshipManagement.Data
     }
     public class ApplicationsResponseModel : BaseResponse
     {
-        public IEnumerable<ApplicationFormDto> Data { get; set; } = new List<ApplicationFormDto>();
+        public IEnumerable<ApplicationDto> Data { get; set; } = new List<ApplicationDto>();
     }
     public class ApplicationResponseModel : BaseResponse
     {
-        public ApplicationFormDto Data { get; set; }
+        public ApplicationDto Data { get; set; }
     }
 }

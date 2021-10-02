@@ -11,12 +11,13 @@ namespace ScholarshipManagement.Data.Services
 {
     public interface IUserService
     {
-        public Task<BaseResponse> CreateUserAsync(CreateUserRequestModel model);
+        public Task<UserEntityResponseModel> CreateUserAsync(CreateUserRequestModel model);
+        
 
         public Task<BaseResponse> UpdateUserAsync(int id, UpdateUserRequestModel model);
 
-        public Task<UserDto> LoginUserAsync(LoginUserRequestModel model);
-        //Task<UsersResponseModel> GetUser();
+        //public Task<UserDto> LoginUserAsync(LoginUserRequestModel model);
+        public Task<UserResponseModel> LoginUserAsync(LoginUserRequestModel model);
         public Task<List<UserDto>> GetUser();
         Task<Entities.Circuit> GetUserCircuit(int id);
         Task<UserResponseModel> GetUser(int id);

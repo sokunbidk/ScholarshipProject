@@ -17,122 +17,6 @@ namespace ScholarshipManagement.Data.Migrations
                 .HasAnnotation("Relational:MaxIdentifierLength", 64)
                 .HasAnnotation("ProductVersion", "5.0.7");
 
-            modelBuilder.Entity("ScholarshipManagement.Data.Entities.ApplicationForm", b =>
-                {
-                    b.Property<int>("Id")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("int");
-
-                    b.Property<string>("AcademicLevel")
-                        .IsRequired()
-                        .HasMaxLength(50)
-                        .HasColumnType("varchar(50)");
-
-                    b.Property<decimal>("AmountRecommended")
-                        .HasColumnType("decimal(18, 2)");
-
-                    b.Property<decimal>("AmountRequested")
-                        .HasColumnType("decimal(18, 2)");
-
-                    b.Property<string>("BankAccountName")
-                        .IsRequired()
-                        .HasMaxLength(90)
-                        .HasColumnType("varchar(90)");
-
-                    b.Property<string>("BankAccountNumber")
-                        .IsRequired()
-                        .HasMaxLength(10)
-                        .HasColumnType("varchar(10)");
-
-                    b.Property<string>("BankName")
-                        .IsRequired()
-                        .HasMaxLength(50)
-                        .HasColumnType("varchar(50)");
-
-                    b.Property<string>("CreatedBy")
-                        .HasColumnType("text");
-
-                    b.Property<DateTime>("DateAdmitted")
-                        .HasMaxLength(50)
-                        .HasColumnType("datetime");
-
-                    b.Property<DateTime>("DateCreated")
-                        .HasColumnType("datetime");
-
-                    b.Property<DateTime>("DateModified")
-                        .HasColumnType("datetime");
-
-                    b.Property<string>("DegreeInView")
-                        .IsRequired()
-                        .HasColumnType("text");
-
-                    b.Property<string>("Discipline")
-                        .IsRequired()
-                        .HasMaxLength(50)
-                        .HasColumnType("varchar(50)");
-
-                    b.Property<int>("Duration")
-                        .HasMaxLength(50)
-                        .HasColumnType("int");
-
-                    b.Property<int>("InstitutionType")
-                        .HasMaxLength(50)
-                        .HasColumnType("int");
-
-                    b.Property<bool>("IsDeleted")
-                        .HasColumnType("tinyint(1)");
-
-                    b.Property<string>("LastSchoolResult")
-                        .HasMaxLength(200)
-                        .HasColumnType("varchar(200)");
-
-                    b.Property<string>("LetterOfAdmission")
-                        .HasMaxLength(200)
-                        .HasColumnType("varchar(200)");
-
-                    b.Property<string>("ModifiedBy")
-                        .HasColumnType("text");
-
-                    b.Property<string>("NameOfSchool")
-                        .IsRequired()
-                        .HasMaxLength(50)
-                        .HasColumnType("varchar(50)");
-
-                    b.Property<string>("Remarks")
-                        .HasColumnType("text");
-
-                    b.Property<byte[]>("RowVersion")
-                        .HasColumnType("varbinary(4000)");
-
-                    b.Property<string>("SchoolBill")
-                        .IsRequired()
-                        .HasMaxLength(50)
-                        .HasColumnType("varchar(50)");
-
-                    b.Property<string>("SchoolSession")
-                        .IsRequired()
-                        .HasMaxLength(50)
-                        .HasColumnType("varchar(50)");
-
-                    b.Property<int>("Status")
-                        .HasColumnType("int");
-
-                    b.Property<int>("StudentId")
-                        .HasColumnType("int");
-
-                    b.Property<int>("UserId")
-                        .HasColumnType("int");
-
-                    b.Property<DateTime>("YearToGraduate")
-                        .HasColumnType("datetime");
-
-                    b.HasKey("Id");
-
-                    b.HasIndex("StudentId");
-
-                    b.ToTable("Applications");
-                });
-
             modelBuilder.Entity("ScholarshipManagement.Data.Entities.Circuit", b =>
                 {
                     b.Property<int>("Id")
@@ -220,11 +104,19 @@ namespace ScholarshipManagement.Data.Migrations
                     b.Property<decimal>("AmountApproved")
                         .HasColumnType("decimal(18, 2)");
 
-                    b.Property<int?>("ApplicationFormId")
-                        .HasColumnType("int");
-
                     b.Property<int>("ApplicationId")
                         .HasColumnType("int");
+
+                    b.Property<string>("BankAccountName")
+                        .HasColumnType("text");
+
+                    b.Property<string>("BankAccountNumber")
+                        .IsRequired()
+                        .HasMaxLength(10)
+                        .HasColumnType("varchar(10)");
+
+                    b.Property<string>("BankName")
+                        .HasColumnType("text");
 
                     b.Property<string>("CreatedBy")
                         .HasColumnType("text");
@@ -258,9 +150,7 @@ namespace ScholarshipManagement.Data.Migrations
 
                     b.HasKey("Id");
 
-                    b.HasIndex("ApplicationFormId");
-
-                    b.HasIndex("StudentId");
+                    b.HasIndex("ApplicationId");
 
                     b.ToTable("Payments");
                 });
@@ -497,15 +387,120 @@ namespace ScholarshipManagement.Data.Migrations
                     b.ToTable("UserRoles");
                 });
 
-            modelBuilder.Entity("ScholarshipManagement.Data.Entities.ApplicationForm", b =>
+            modelBuilder.Entity("ScholarshipManagement.Data.Entities.application", b =>
                 {
-                    b.HasOne("ScholarshipManagement.Data.Entities.Student", "Student")
-                        .WithMany("ApplicationForms")
-                        .HasForeignKey("StudentId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int");
 
-                    b.Navigation("Student");
+                    b.Property<string>("AcademicLevel")
+                        .IsRequired()
+                        .HasMaxLength(50)
+                        .HasColumnType("varchar(50)");
+
+                    b.Property<decimal>("AmountRecommended")
+                        .HasColumnType("decimal(18, 2)");
+
+                    b.Property<decimal>("AmountRequested")
+                        .HasColumnType("decimal(18, 2)");
+
+                    b.Property<string>("BankAccountName")
+                        .IsRequired()
+                        .HasMaxLength(90)
+                        .HasColumnType("varchar(90)");
+
+                    b.Property<string>("BankAccountNumber")
+                        .IsRequired()
+                        .HasMaxLength(10)
+                        .HasColumnType("varchar(10)");
+
+                    b.Property<string>("BankName")
+                        .IsRequired()
+                        .HasMaxLength(50)
+                        .HasColumnType("varchar(50)");
+
+                    b.Property<string>("CreatedBy")
+                        .HasColumnType("text");
+
+                    b.Property<DateTime>("DateAdmitted")
+                        .HasMaxLength(50)
+                        .HasColumnType("datetime");
+
+                    b.Property<DateTime>("DateCreated")
+                        .HasColumnType("datetime");
+
+                    b.Property<DateTime>("DateModified")
+                        .HasColumnType("datetime");
+
+                    b.Property<string>("DegreeInView")
+                        .IsRequired()
+                        .HasColumnType("text");
+
+                    b.Property<string>("Discipline")
+                        .IsRequired()
+                        .HasMaxLength(50)
+                        .HasColumnType("varchar(50)");
+
+                    b.Property<int>("Duration")
+                        .HasMaxLength(50)
+                        .HasColumnType("int");
+
+                    b.Property<int>("InstitutionType")
+                        .HasMaxLength(50)
+                        .HasColumnType("int");
+
+                    b.Property<bool>("IsDeleted")
+                        .HasColumnType("tinyint(1)");
+
+                    b.Property<string>("LastSchoolResult")
+                        .HasMaxLength(200)
+                        .HasColumnType("varchar(200)");
+
+                    b.Property<string>("LetterOfAdmission")
+                        .HasMaxLength(200)
+                        .HasColumnType("varchar(200)");
+
+                    b.Property<string>("ModifiedBy")
+                        .HasColumnType("text");
+
+                    b.Property<string>("NameOfSchool")
+                        .IsRequired()
+                        .HasMaxLength(50)
+                        .HasColumnType("varchar(50)");
+
+                    b.Property<string>("Remarks")
+                        .HasColumnType("text");
+
+                    b.Property<byte[]>("RowVersion")
+                        .HasColumnType("varbinary(4000)");
+
+                    b.Property<string>("SchoolBill")
+                        .IsRequired()
+                        .HasMaxLength(50)
+                        .HasColumnType("varchar(50)");
+
+                    b.Property<string>("SchoolSession")
+                        .IsRequired()
+                        .HasMaxLength(50)
+                        .HasColumnType("varchar(50)");
+
+                    b.Property<int>("Status")
+                        .HasColumnType("int");
+
+                    b.Property<int>("StudentId")
+                        .HasColumnType("int");
+
+                    b.Property<int>("UserId")
+                        .HasColumnType("int");
+
+                    b.Property<DateTime>("YearToGraduate")
+                        .HasColumnType("datetime");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("StudentId");
+
+                    b.ToTable("Applications");
                 });
 
             modelBuilder.Entity("ScholarshipManagement.Data.Entities.Jamaat", b =>
@@ -521,19 +516,13 @@ namespace ScholarshipManagement.Data.Migrations
 
             modelBuilder.Entity("ScholarshipManagement.Data.Entities.Payment", b =>
                 {
-                    b.HasOne("ScholarshipManagement.Data.Entities.ApplicationForm", "ApplicationForm")
+                    b.HasOne("ScholarshipManagement.Data.Entities.application", "Application")
                         .WithMany()
-                        .HasForeignKey("ApplicationFormId");
-
-                    b.HasOne("ScholarshipManagement.Data.Entities.Student", "Student")
-                        .WithMany()
-                        .HasForeignKey("StudentId")
+                        .HasForeignKey("ApplicationId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
-                    b.Navigation("ApplicationForm");
-
-                    b.Navigation("Student");
+                    b.Navigation("Application");
                 });
 
             modelBuilder.Entity("ScholarshipManagement.Data.Entities.Student", b =>
@@ -585,6 +574,17 @@ namespace ScholarshipManagement.Data.Migrations
                     b.Navigation("User");
                 });
 
+            modelBuilder.Entity("ScholarshipManagement.Data.Entities.application", b =>
+                {
+                    b.HasOne("ScholarshipManagement.Data.Entities.Student", "Student")
+                        .WithMany("Applications")
+                        .HasForeignKey("StudentId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.Navigation("Student");
+                });
+
             modelBuilder.Entity("ScholarshipManagement.Data.Entities.Circuit", b =>
                 {
                     b.Navigation("Jamaats");
@@ -597,7 +597,7 @@ namespace ScholarshipManagement.Data.Migrations
 
             modelBuilder.Entity("ScholarshipManagement.Data.Entities.Student", b =>
                 {
-                    b.Navigation("ApplicationForms");
+                    b.Navigation("Applications");
                 });
 
             modelBuilder.Entity("ScholarshipManagement.Data.Entities.User", b =>

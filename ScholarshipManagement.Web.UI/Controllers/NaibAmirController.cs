@@ -1,4 +1,5 @@
 ﻿using Microsoft.AspNetCore.Mvc;
+using Microsoft.AspNetCore.Mvc.Rendering;
 using ScholarshipManagement.Data;
 using ScholarshipManagement.Data.Entities;
 using ScholarshipManagement.Data.Enums;
@@ -17,17 +18,21 @@ namespace ScholarshipManagement.Web.UI.Controllers
         private readonly IUserService _userService;
         private readonly IUserRepository _userRepository;
         private readonly IApplicationService _applicationService;
-        private readonly IApplicationFormRepository _applicationFormRepository;
+        private readonly IApplicationRepository _applicationFormRepository;
         private readonly IStudentService _studentService;
-        
+        private readonly ICircuitService _circuitService;
+        private readonly IJamaatService _jamaatService;
 
-        public NaibAmirController(IUserService userService, IUserRepository userRepository, IApplicationService applicationService, IApplicationFormRepository applicationFormRepository, IStudentService studentService)
+
+        public NaibAmirController(IUserService userService, IUserRepository userRepository, IApplicationService applicationService, IApplicationRepository applicationFormRepository, IStudentService studentService, ICircuitService circuitService, IJamaatService jamaatService)
         {
             _userRepository = userRepository;
             _userService = userService;
             _applicationService = applicationService;
             _applicationFormRepository = applicationFormRepository;
             _studentService = studentService;
+            _circuitService = circuitService;
+            _jamaatService = jamaatService;
         }
         public IActionResult Dashboard_NaibAmir()
         {
@@ -58,7 +63,8 @@ namespace ScholarshipManagement.Web.UI.Controllers
                 status = new List<ApprovalStatus>() 
                 { 
                     ApprovalStatus.NaibAmir, 
-                    ApprovalStatus.Amir 
+                    ApprovalStatus.Amir, 
+                    ApprovalStatus.Declined
                 };
 
             }
@@ -68,36 +74,26 @@ namespace ScholarshipManagement.Web.UI.Controllers
             return View(pendingApplications);
 
         }
-        //View Application To Edit
-        [HttpGet]
-        public async Task<IActionResult> UpdatePendingApplication(int id)
-        {
-
-            ApplicationResponseModel response = await _applicationService.GetApplication(id);
-
-            var pendingApplication = response.Data;
-
-            return View(pendingApplication);
-        }
-        //Edit Applicaation
-        [HttpPost]
-        public IActionResult UpdatePendingApplication(int id, UpdateApplicationRequestModel model)
-        {
-            try
-            {
-                _applicationService.UpdateApplicationAsync(id, model);
-                return RedirectToAction("UpdatePendingApplication");
-            }
-            catch (Exception e)
-            {
-                ViewBag.Message = e.Message;
-                return View();
-            }
-
-
-        }
+        
         public async Task<IActionResult> PendingStudentsDetail(int id)
         {
+            List<Circuit> circuits = _circuitService.GetCircuitList();
+            List<SelectListItem> listItems = new List<SelectListItem>();
+            foreach (Circuit circuit in circuits)
+            {
+                SelectListItem item = new SelectListItem(circuit.CircuitName, circuit.Id.ToString());
+                listItems.Add(item);
+            }
+            ViewBag.Circuits = listItems;
+
+            List<Jamaat> jamaats = _jamaatService.GetJamaatList();
+            List<SelectListItem> jamaatList = new List<SelectListItem>();
+            foreach (Jamaat jamaat in jamaats)
+            {
+                SelectListItem item = new SelectListItem(jamaat.JamaatName, jamaat.Id.ToString());
+                jamaatList.Add(item);
+            }
+            ViewBag.Jamaats = jamaatList;
 
             var response = await _studentService.GetApplicantById(id);
 
@@ -105,25 +101,110 @@ namespace ScholarshipManagement.Web.UI.Controllers
 
             return View(pendingStudent);
         }
+        public async Task<IActionResult> PendingApplicationsDetail(int id)
+        {
+            try
+            {
+                try
+                {
+                    ApplicationResponseModel response = await _applicationService.GetApplication(id);
+                    var ApplicationDetails = response.Data;
+
+                    return View(ApplicationDetails);
+                    // return View(response);
+                }
+                catch (Exception e) { ViewBag.Message = e.Message; return View(); }
+
+            }
+            catch (Exception e)
+            {
+                ViewBag.Message = e.Message;
+                return View();
+            }
+
+
+        }
+        //updates Application Status
+        [HttpGet]
         public IActionResult UpdateApprovalStatus(int id)
         {
             try
             {
                 var currentUserId = int.Parse(User.FindFirst(ClaimTypes.NameIdentifier).Value);
 
-                _applicationService.UpdateApprovalStatus(id, currentUserId);
+                var status = _applicationService.UpdateApprovalStatus(id, currentUserId);
+                ViewBag.Message = status.Exception;
                 return RedirectToAction("PendingApplicationsFocus");
+
             }
 
             catch (Exception e)
             {
                 ViewBag.Message = e.Message;
 
+                //return View();
+                return RedirectToAction("PendingApplicationsFocus");
+            }
+
+        }
+        //updates Application Status-Decline
+        [HttpGet]
+        public IActionResult DeclineApprovalStatus(int id)
+        {
+            try
+            {
+
+                _applicationService.DeclineApprovalStatus(id);
+                return RedirectToAction("PendingApplicationsFocus");
+
+            }
+            catch (Exception e)
+            {
+                ViewBag.Message = e.Message;
                 return View();
             }
-            ViewBag.Message = "Delivered To the Next Level";
+            //return ViewBag.Message = "Application Declined!";
 
 
+
+        }
+        public IActionResult ResetAction(int id)
+        {
+            var currentUserId = int.Parse(User.FindFirst(ClaimTypes.NameIdentifier).Value);
+
+            _applicationService.ResetAction(id, currentUserId);
+
+            return RedirectToAction("PendingApplicationsFocus");
+        }
+        [HttpGet]
+        public async Task<IActionResult> ActionRoom(int id)
+        {
+
+            ApplicationResponseModel response = await _applicationService.Recommendation(id);
+            var ApplicationForAction = response.Data;
+
+            return View(ApplicationForAction);
+        }
+
+        [HttpPost]
+        public async Task<IActionResult> ActionRoom(int id, UpdateApplicationRequestModel model)
+        {
+            try
+            {
+                BaseResponse Remarks = await _applicationService.Recommendation(id, model);
+
+                var currentUserId = int.Parse(User.FindFirst(ClaimTypes.NameIdentifier).Value);
+                await _applicationService.UpdateApprovalStatus(id, currentUserId);
+
+                return RedirectToAction("PendingApplicationsFocus");
+                /*ViewBag.Message = Remarks.Message;
+                return View();*/
+            }
+            catch (Exception e)
+            {
+                ViewBag.Message = e.Message;
+                return View();
+            }
         }
     }
     

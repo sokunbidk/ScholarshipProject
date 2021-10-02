@@ -36,7 +36,7 @@
                     {
                     <tr>
                         <td> @(++count) </td>
-                        <td>@PendingApplicationsDto.ApplicationFormId </td>
+                        <td>@PendingApplicationsDto.ApplicationId </td>
                         <td>@PendingApplicationsDto.Names </td>
                         <td> @PendingApplicationsDto.NameOfSchool </td>
                         <td>@PendingApplicationsDto.AcademicLevel </td>
@@ -46,12 +46,8 @@
                         </td>
                         <td>@PendingApplicationsDto.AmountRecommended </td>
                         <td>@PendingApplicationsDto.BankAccountName</td>
-                        @*<td>@PendingApplicationsDto.DateApproved </td>*@           @*ddate approved by Amir*@
                         <td>
-                            <a asp-action="CreatePayment" asp-route-id="@PendingApplicationsDto.ApplicationFormId" class="btn btn-primary">
-                                Make Payment
-                            </a>
-
+                            <a asp-action="MakePayment" asp-route-id="@PendingApplicationsDto.ApplicationId" class="btn btn-primary">PAY</a>
                         </td>
 
 

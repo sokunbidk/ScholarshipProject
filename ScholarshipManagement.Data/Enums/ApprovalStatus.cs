@@ -16,6 +16,7 @@ namespace ScholarshipManagement.Data.Enums
         Accounts = 6,
         Disbursed = 7,
         Declined = 8,
-        Closed = 9
+        Closed = 9,
+        In_Progress = 10
     }
 }

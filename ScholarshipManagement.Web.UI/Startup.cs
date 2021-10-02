@@ -29,7 +29,7 @@ namespace ScholarshipManagement.Web.UI
                 options.UseMySQL(Configuration.GetConnectionString("SchoolDbContext"))
                 );
 
-            services.AddScoped<IApplicationFormRepository, ApplicationFormRepository>();
+            services.AddScoped<IApplicationRepository, ApplicationRepository>();
             services.AddScoped<IJamaatRepository, JamaatRepository>();
             services.AddScoped<IPaymentRepository, PaymentRepository>();
             services.AddScoped<IRoleRepository, RoleRepository>();

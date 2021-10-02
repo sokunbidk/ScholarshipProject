@@ -27,26 +27,27 @@ namespace ScholarshipManagement.Data
 
     public class CreatePaymentRequestModel
     {
-        public int ApplicationFormId { get; set; }
+        public int ApplicationId { get; set; }
 
         [Display(Name = "StudentId")]
-        public StudentViewModel StudentId { get; set; }
+        public int StudentId { get; set; }
+
+        [Display(Name = "Student Names")]
+        public string StudentNames { get; set; }
+        public int Status { get; set; }
 
         [Required(ErrorMessage = "AmountRequested")]
         [Display(Name = "AmountRequested")]
-        public double AmountRequested { get; set; }
+        public decimal AmountRequested { get; set; }
 
         [Display(Name = "AmountRecommended")]
-        public double AmountRecommended { get; set; }
+        public decimal AmountRecommended { get; set; }
 
         [Display(Name = "AmountApprovedAndGranted")]
-        public double AmountApprovedAndGranted { get; set; }
+        public decimal AmountApproved { get; set; }
 
         [Display(Name = "DateApproved")]
         public decimal DateApproved { get; set; }
-
-        [Display(Name = "SKU Code")]
-        public bool ConfirmPayment { get; set; }
 
         [Display(Name = "DatePaid")]
         public DateTime DatePaid { get; set; }
@@ -59,33 +60,32 @@ namespace ScholarshipManagement.Data
 
         [Display(Name = "ApprovedBy")]
         public string ApprovedBy { get; set; }
-
-        [Required, Display(Name = "ProofOfChandaPmt")]
-        public string ProofOfChandaPmt { get; set; }
 
         [Display(Name = "Academic Level")]
         public int AcademicLevel { get; set; }
     }
     public class UpdatePaymentRequestModel
     {
-        public int ApplicationFormId { get; set; }
+        public int ApplicationId { get; set; }
+
+        [Display(Name = "StudentId")]
+        public int StudentId { get; set; }
 
         [Required(ErrorMessage = "AmountRequested")]
         [Display(Name = "AmountRequested")]
-        public double AmountRequested { get; set; }
+        public decimal AmountRequested { get; set; }
 
         [Display(Name = "AmountRecommended")]
-        public double AmountRecommended { get; set; }
+        public decimal AmountRecommended { get; set; }
 
-        [Display(Name = "AmountApprovedAndGranted")]
-        public double AmountApprovedAndGranted { get; set; }
+        [Display(Name = "AmountApproved")]
+        public decimal AmountApproved { get; set; }
+        public ApprovalStatus Status { get; set; }
 
         [Display(Name = "DateApproved")]
         public DateTime DateApproved { get; set; }
 
-        [Display(Name = "SKU Code")]
-        public bool ConfirmPayment { get; set; }
-
+        
         [Display(Name = "DatePaid")]
         public DateTime DatePaid { get; set; }
 
@@ -95,17 +95,9 @@ namespace ScholarshipManagement.Data
         [Required, Display(Name = "BankName")]
         public string BankName { get; set; }
 
-        [Display(Name = "ApprovedBy")]
-        public string ApprovedBy { get; set; }
-
-        [Required, Display(Name = "ProofOfChandaPmt")]
-        public string ProofOfChandaPmt { get; set; }
-
         [Display(Name = "Academic Leve")]
         public int AcademicLeve { get; set; }
-
-        [Display(Name = "StudentId")]
-        public StudentViewModel StudentId { get; set; }
+   
     }
     public class PaymentsResponseModel : BaseResponse
     {

@@ -18,9 +18,9 @@ namespace ScholarshipManagement.Web.UI.Controllers
         private readonly IUserService _userService;
         private readonly IUserRepository _userRepository;
         private readonly IApplicationService _applicationService;
-        private readonly IApplicationFormRepository _applicationFormRepository;
+        private readonly IApplicationRepository _applicationFormRepository;
         private readonly IStudentService _studentService;
-        public AdminController(IUserService userService, IUserRepository userRepository, IApplicationService applicationService, IApplicationFormRepository applicationFormRepository,IStudentService studentService)
+        public AdminController(IUserService userService, IUserRepository userRepository, IApplicationService applicationService, IApplicationRepository applicationFormRepository,IStudentService studentService)
         {
             _userRepository = userRepository;
             _userService = userService;
@@ -29,15 +29,13 @@ namespace ScholarshipManagement.Web.UI.Controllers
             _studentService = studentService;
         }
         [HttpGet]
-        public IActionResult Index()
+        /*public IActionResult Index()
         {
             var fullList = _userService.GetUser();
-
             return View(fullList);
-        }
+        }*/
         public IActionResult AdminDashboard()
         {
-
             return View();
         }
         //Return List of Users
@@ -50,19 +48,32 @@ namespace ScholarshipManagement.Web.UI.Controllers
         [HttpGet]
         public async Task<IActionResult> UpdateUser(int id)
         {
-            UserResponseModel user = await _userService.GetUser(id);
+            try
+            {   
+                try
+                {
+                    UserResponseModel user = await _userService.GetUser(id);
+                    UserDto userDto = user.Data;
+                   return View(userDto);
+                }
+                catch (Exception e){ViewBag.Message = e.Message; return View(); }
 
-            UserDto userDto = user.Data;
-
-            return View(userDto);
+            }
+            catch (Exception e)
+            {
+                ViewBag.Message = e.Message;
+                return View();
+            }
+            
         }
         //Update
         [HttpPost]
-        public IActionResult UpdateUser(int id, UpdateUserRequestModel model)
+        public async Task<IActionResult> UpdateUser(int id, UpdateUserRequestModel model)
         {
             try
             {
-                _userService.UpdateUserAsync(id, model);
+               BaseResponse userUpdate = await _userService.UpdateUserAsync(id, model);
+                ViewBag.Message = userUpdate.Message;
                 return RedirectToAction("FetchUsers");
             }
             catch (Exception e)
@@ -70,16 +81,13 @@ namespace ScholarshipManagement.Web.UI.Controllers
                 ViewBag.Message = e.Message;
                 return View();
             }
-            ViewBag.Message = "Updated Successfully";
-
             //System.Windows.Forms.MessageBox.Show("I am Testing this mbox");
-
         }
-        public IActionResult DeleteUser(int id)
+        public  IActionResult DeleteUser(int id)
         {
             try
             {
-                _userService.DeleteUser(id);
+                 _userService.DeleteUser(id);
 
                 return RedirectToAction("FetchUsers");
             }
@@ -88,8 +96,6 @@ namespace ScholarshipManagement.Web.UI.Controllers
                 ViewBag.Message = e.Message;
                 return View();
             }
-            ViewBag.Message = "Delete";
-
         }
         public async Task<IActionResult> PendingApplicationsEdit()
         {
@@ -150,11 +156,11 @@ namespace ScholarshipManagement.Web.UI.Controllers
         public async Task<IActionResult> UpdatePendingApplication(int id)
         {
 
-            ApplicationResponseModel response = await _applicationService.GetApplication(id);
+            var response = await _applicationService.GetApplication(id);
+            //var pendingApplication = response.Data;
 
-            var pendingApplication = response.Data;
-
-            return View(pendingApplication);
+            // return View(pendingApplication);
+            return View(response);
         }
         //Edit Applicaation
         [HttpPost]

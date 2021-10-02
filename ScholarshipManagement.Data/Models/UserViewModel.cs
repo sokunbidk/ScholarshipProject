@@ -3,6 +3,7 @@ using ScholarshipManagement.Data.DTOs;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 using ScholarshipManagement.Data.Enums;
+using ScholarshipManagement.Data.Entities;
 
 namespace ScholarshipManagement.Data
 {
@@ -102,6 +103,10 @@ namespace ScholarshipManagement.Data
     public class UserResponseModel : BaseResponse
     {
         public UserDto Data { get; set; }
+    }
+    public class UserEntityResponseModel : BaseResponse
+    {
+        public User Data { get; set; }
     }
 }
 

@@ -1,11 +1,11 @@
 ﻿@model IList<ScholarshipManagement.Data.DTOs.PendingApplicationsDto>
 @{
-    ViewData["Title"] = "Pending List";
+    ViewData["Title"] = "Pending List-Admin";
     int count = 0;
 }
 
 
-<h1>Pending List</h1>
+<h2>Pending List-Admin</h2>
 <div>
     <a class="text-danger  text-lg-right font-weight-bold" asp-controller="Admin" asp-action="AdminDashboard">---Dashboard</a>
     <div class="card-body">
@@ -55,13 +55,13 @@
 
                         </td>
                         <td>
-                            <a asp-action="UpdatePendingApplication" asp-route-id="@PendingApplicationsDto.ApplicationFormId" class="btn btn-success">
+                            <a asp-action="UpdatePendingApplication" asp-route-id="@PendingApplicationsDto.ApplicationId" class="btn btn-success">
                                 Edit Appliation
                             </a>
 
                         </td>
                         <td>
-                            <a asp-action="DeleteApplication" asp-route-id="@PendingApplicationsDto.ApplicationFormId" class="btn btn-danger">
+                            <a asp-action="DeleteApplication" asp-route-id="@PendingApplicationsDto.ApplicationId" class="btn btn-danger">
                                 Delete
                             </a>
                         </td>

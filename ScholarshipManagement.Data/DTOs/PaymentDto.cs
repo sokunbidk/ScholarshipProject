@@ -20,8 +20,12 @@ namespace ScholarshipManagement.Data.DTOs
         public string BankName { get; set; }
         public string BankAccountNumber { get; set; }
         public string BankAccountName { get; set; }
-        public int AcademicLevel { get; set; }
+        public string AcademicLevel { get; set; }
+        public string Discipline { get; set; }
         public string SchoolSession { get; set; }
+        public string Jamaat { get; set; }
+        public string Circuit { get; set; }
+
 
     }
 }

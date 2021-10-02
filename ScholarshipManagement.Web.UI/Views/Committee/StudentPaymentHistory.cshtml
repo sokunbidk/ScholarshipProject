@@ -3,9 +3,9 @@
     ViewData["Title"] = "Payment History";
     int count = 0;
 }
-<h1>Payment History</h1>
+<h2>Payment History</h2>
 <div>
-    <a class="text-danger  text-lg-right font-weight-bold" asp-controller="Committee" asp-action="PendingApplicationsFocus">---Dashboard</a>
+    <a class="text-danger  text-lg-right font-weight-bold" asp-controller="Committee" asp-action="CommitteeDashboard">---Dashboard</a>
 
     <div class="card-body">
         @if (Model.Count() == 0)
@@ -25,9 +25,10 @@
                         <th>Academic Level</th>
                         <th>Session</th>
                         <th>Status</th>
-                        <th>Grants</th>
+                        <th>Discipline</th>
+                        <th>Amount Granted</th>
                         <th>Bank</th>
-                        <th>DateDisbursed</th>
+                        <th>Date Paid</th>
                     </tr>
                 </thead>
                 <tbody>
@@ -40,9 +41,10 @@
                         <td>@PendingApplicationsDto.AcademicLevel </td>
                         <td> @PendingApplicationsDto.SchoolSession </td>
                         <td>
-                            <input type="text" asp-for="@PendingApplicationsDto.Status" class="form-control btn btn-primary " />
+                            <div class="form-control bg-success text-white">@PendingApplicationsDto.Status</div>
                         </td>
-                        <td>@PendingApplicationsDto.AmountRecommended </td>
+                        <td>@PendingApplicationsDto.Discipline </td>
+                        <td>@PendingApplicationsDto.AmountGranted </td>
                         <td>@PendingApplicationsDto.BankAccountName </td>
                         <td>@PendingApplicationsDto.DateDisbursed </td>
 

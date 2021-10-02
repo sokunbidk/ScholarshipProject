@@ -12,94 +12,118 @@
             </div>
             <div class="card card-body">
                 <a class="text-primary  text-lg-right font-weight-bold" asp-controller="Committee" asp-action="PendingApplicationsFocus">---Dashboard</a>
+                <a asp-action="UpdatePendingApplication" asp-route-id="@Model.ApplicationId" class="btn btn-success">
+                    View Application
+                </a>
+                <label class="text-danger  text-lg-center font-weight-bold">You Can only Change These Data if You MUST !!</label>
+                
                 <form method="POST">
                     <div class="form-row">
-
                         <div class="form-group col-lg-3">
                             <label class="formlabel" asp-for="MemberCode"></label>
-                            <input type="text" asp-for="MemberCode" class="form-control" />
+                            <input type="text" asp-for="MemberCode"  class="form-control" />
                             <span asp-validation-for="MemberCode"></span>
                         </div>
                         <div style="width: 100px; height: 100px; overflow:hidden; margin-left:320px;">
                             <img src="/UploadedFiles/Photograph/@Model.Photograph" width="100%" />
                         </div>
-
                     </div>
                     <div class="form-row">
                         <div class="form-group col-lg-4">
-                            <label class="formlabel" asp-for="SurName"></label>
+                            <label class="formlabel" asp-for="SurName">Sur Name</label>
                             <input type="text" asp-for="SurName" class="form-control" />
                             <span asp-validation-for="SurName"></span>
                         </div>
 
                         <div class="form-group col-lg-4">
-                            <label class="formlabel" asp-for="FirstName"></label>
+                            <label class="formlabel" asp-for="FirstName">First Name</label>
                             <input type="text" asp-for="FirstName" class="form-control" />
                             <span asp-validation-for="FirstName"></span>
                         </div>
 
                         <div class="form-group col-lg-4">
-                            <label class="formlabel" asp-for="OtherName"></label>
+                            <label class="formlabel" asp-for="OtherName">Other Name</label>
                             <input class="form-control" type="text" asp-for="OtherName" />
                             <span asp-validation-for="OtherName"></span>
                         </div>
                     </div>
-
                     <div class="form-row">
 
-                        <div class="form-group col-lg-4">
-                            <label class="formlabel" asp-for="Address"></label>
+                        <div class="form-group col-lg-6">
+                            <label class="formlabel" asp-for="Address">Address</label>
                             <input class="form-control" type="text" asp-for="Address" />
                             <span asp-validation-for="Address"></span>
                         </div>
-
-                        <div class="form-group col-lg-4">
-                            <label class="formlabel" asp-for="JamaatName"></label>
-                            <input class="form-control" readonly type="text" asp-for="JamaatName" />
-                            <span asp-validation-for="JamaatName"></span>
+                        <div class="form-group col-lg-3">
+                            <label class="formlabel" asp-for="CircuitId">Circuit</label>
+                            <select asp-for="CircuitId"  class="form-control" asp-items="ViewBag.Circuits">
+                                @*<option selected>-- Select Jamaat --</option>*@
+                            </select>
+                            <span asp-validation-for="CircuitId"></span>
                         </div>
-
-                        <div class="form-group col-lg-4">
-                            <label class="formlabel" asp-for="CircuitName"></label>
-                            <input class="form-control" readonly type="text" asp-for="CircuitName" />
-                            <span asp-validation-for="CircuitName"></span>
+                        <div class="form-group col-lg-3">
+                            <label class="formlabel" asp-for="JamaatId">Jamaat</label>
+                            <select asp-for="JamaatId"  class="form-control" asp-items="ViewBag.Jamaats">
+                                @*<option selected>-- Select Jamaat --</option>*@
+                            </select>
+                            <span asp-validation-for="JamaatId"></span>
                         </div>
-
                     </div>
                     <div class="form-row">
 
                         <div class="form-group col-lg-4">
                             <label class="formlabel" asp-for="AuxiliaryBody"></label>
-                            <input class="form-control" readonly type="text" asp-for="AuxiliaryBody" />
+                            <select asp-for="AuxiliaryBody" class="form-control">
+                                <option value="1">MajlisKhuddam</option>
+                                <option value="2">Lajnah</option>
+                                <option value="3">MajlisAnsarullah</option>
+                                <option value="4">MajlisAtfal</option>
+                                <option value="5">Nasrat</option>
+                                <option value="6">NonMember</option>
+                            </select>
                             <span asp-validation-for="AuxiliaryBody"></span>
                         </div>
                         <div class="form-group col-lg-2">
                             <label class="formlabel" asp-for="Gender"></label>
-                            <input class="form-control" readonly type="text" asp-for="Gender" />
+                            <select asp-for="Gender" class="form-control">
+                                <option value="1">Male</option>
+                                <option value="2">Female</option>
+                            </select>
                             <span asp-validation-for="Gender"></span>
                         </div>
 
-                        <div class="form-group col-lg-6">
-                            <label class="formlabel" asp-for="DateOfBirth"></label>
-                            <input class="form-control" readonly type="date" asp-for="DateOfBirth" />
+                        <div class="form-group col-lg-3">
+                            <label class="formlabel" asp-for="DateOfBirth">Date Of Birth</label>
+                            <input class="form-control" type="text" asp-for="DateOfBirth" />
                             <span asp-validation-for="DateOfBirth"></span>
                         </div>
+                        <div class="form-group col-lg-3">
+                            <label class="formlabel" asp-for="PhoneNumber">Phone No</label>
+                            <input class="form-control" type="text" asp-for="PhoneNumber"  />
+                            <span asp-validation-for="PhoneNumber"></span>
+                        </div>
+
                     </div>
 
                     <div class="form-row">
-                        <div class="form-group col-lg-4">
-                            <label class="formlabel" asp-for="GuardianFullName"></label>
+                        <div class="form-group col-lg-3">
+                            <label class="formlabel" asp-for="EmailAddress">Email Address</label>
+                            <input class="form-control" type="text" asp-for="EmailAddress"  />
+                            <span asp-validation-for="EmailAddress"></span>
+                        </div>
+                        <div class="form-group col-lg-3">
+                            <label class="formlabel" asp-for="GuardianFullName">Guardian Name</label>
                             <input class="form-control" type="text" asp-for="GuardianFullName" />
                             <span asp-validation-for="GuardianFullName"></span>
                         </div>
-                        <div class="form-group col-lg-4">
-                            <label class="formlabel" asp-for="GuardianPhoneNumber"></label>
+                        <div class="form-group col-lg-3">
+                            <label class="formlabel" asp-for="GuardianPhoneNumber">Guardian Phone</label>
                             <input class="form-control" type="text" asp-for="GuardianPhoneNumber" />
                             <span asp-validation-for="GuardianPhoneNumber"></span>
                         </div>
 
-                        <div class="form-group col-lg-4">
-                            <label class="formlabel" asp-for="GuardianMemberCode"></label>
+                        <div class="form-group col-lg-3">
+                            <label class="formlabel" asp-for="GuardianMemberCode">Guardian Code</label>
                             <input class="form-control" type="text" asp-for="GuardianMemberCode" />
                             <span asp-validation-for="GuardianMemberCode"></span>
                         </div>

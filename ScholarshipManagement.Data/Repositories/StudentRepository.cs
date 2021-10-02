@@ -38,24 +38,17 @@ namespace ScholarshipManagement.Data.Repositories
             return await Query().SingleOrDefaultAsync(u => u.EmailAddress == email);
         }
         //Use latter
-        public async Task<IList<UpdateApplicationRequestModel>> GetStudentApplicationFormsAsync()
+        public async Task<IList<UpdateApplicationRequestModel>> GetStudentApplicationAsync()
         {
             return await DbContext.Applications
                 
                 .Include(uc => uc.Student)
-                //.Where(u => u.Student.CircuitId == u.UserId
                 .Select(uc => new UpdateApplicationRequestModel
                 {
                     
                 }).ToListAsync();
         }
-
-
-       
-
-       
-
-        public async Task<IList<PaymentDto>> GetStudentPaymentsAsync(string memberCode)
+        public Task<IList<PaymentDto>> GetStudentPaymentsAsync(string memberCode)
         {
 
             throw new NotFoundException();
@@ -70,6 +63,7 @@ namespace ScholarshipManagement.Data.Repositories
         {
             return await Query().Include(s => s.Jamaat)
                 .ThenInclude(s => s.Circuit)
+                
                 .SingleOrDefaultAsync(s => s.Id == id);
         }
     }

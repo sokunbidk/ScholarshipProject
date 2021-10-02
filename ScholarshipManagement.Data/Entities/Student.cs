@@ -8,7 +8,6 @@ namespace ScholarshipManagement.Data.Entities
     public class Student : BaseEntity
     {
         public int UserId { get; set; }
-
         public User User { get; set; }
 
         [Required(ErrorMessage = "Surname is required")]
@@ -61,6 +60,6 @@ namespace ScholarshipManagement.Data.Entities
 
         public string Photograph { get; set; }
 
-        public ICollection<ApplicationForm> ApplicationForms { get; set; } = new HashSet<ApplicationForm>();
+        public ICollection<application> Applications { get; set; } = new HashSet<application>();
     }
 }
