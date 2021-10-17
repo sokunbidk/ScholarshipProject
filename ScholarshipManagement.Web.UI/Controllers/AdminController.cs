@@ -157,12 +157,11 @@ namespace ScholarshipManagement.Web.UI.Controllers
         {
 
             var response = await _applicationService.GetApplication(id);
-            //var pendingApplication = response.Data;
-
-            // return View(pendingApplication);
-            return View(response);
+            var application = response.Data;
+            
+            return View(application);
         }
-        //Edit Applicaation
+        //Edit Application
         [HttpPost]
         public IActionResult UpdatePendingApplication(int id, UpdateApplicationRequestModel model)
         {

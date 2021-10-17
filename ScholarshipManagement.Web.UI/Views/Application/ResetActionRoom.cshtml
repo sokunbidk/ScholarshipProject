@@ -1,0 +1,27 @@
+﻿@model ScholarshipManagement.Data.DTOs.ApplicationDto
+@using Microsoft.AspNetCore.Routing
+@{
+    ViewData["Title"] = "Reset Application Status Room";
+
+    var id = Context.GetRouteValue("id");
+}
+
+<div class="row justify-content-center mt-5">
+
+    <div class="col-md-7">
+        <div class="card">
+            <div class="card-header">
+                <h4 class="text-center">@ViewData["Title"]</h4>
+            </div>
+            <div class="card card-body">
+
+                <a class="text-primary  text-lg-right font-weight-bold" asp-action="List"><= Back</a>
+
+                    <div class="form-row justify-content-center">
+                        <a class="text-primary  text-lg-right font-weight-bold" href="@Url.Action("ResetAction", "Application", new { id = id })">Reset</a>
+                    </div>
+            </div>
+        </div>
+    </div>
+
+</div>

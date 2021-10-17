@@ -1,0 +1,144 @@
+﻿@model IList<ScholarshipManagement.Data.DTOs.PendingApplicationsDto>
+@using ScholarshipManagement.Data.Enums
+@using ScholarshipManagement.Web.UI.Utils
+@{
+    ViewData["Title"] = "Pending List";
+    int count = 0;
+}
+
+
+<h2>Pending List</h2>
+<div>
+    <div class="card-body">
+        <a class="text-primary  text-lg-right font-weight-bold" asp-controller="User" asp-action="Logout">---LogOut</a>
+        <form action="List" method="get">
+            <div class="form-row">
+                <div class="form-group col-lg-4">
+                    <label class="formlabel">Filter By</label>
+              
+                    <select name="status"
+                            class="form-control">
+                        @foreach (var item in (List<ApprovalStatus>)@ViewData["statuses"])
+                        {
+                            <option value="@item">@Enumerations.GetEnumDescription( @item)</option>
+                        }
+                    </select>
+                    <button type="submit">Reload</button>
+                </div>
+            </div>
+        </form>
+
+        @if (Model.Count() == 0)
+        {
+            <div>
+                <h5 class="text-center text-danger">No Pending Applications!</h5>
+            </div>
+        }
+        else
+        {
+            <table class="table  table-responsive-sm table-bordered">
+                <thead class="table-title">
+                    <tr class="text-white">
+                        <th>S/N</th>
+                        <th>Name</th>
+                        <th>Jamaat</th>
+                        <th>Auxiliary Body</th>
+                        <th>Guardian FullName</th>
+                        <th>Name Of School</th>
+                        <th>Status</th>
+                        <th>Discipline</th>
+                        <th>Academic Level</th>
+                        <th>Amount Requested</th>
+                        <th>Details</th>
+                        <th>Action</th>
+                        @*<th>Decline</th>*@
+                    </tr>
+                </thead>
+                <tbody>
+                    @foreach (var PendingApplicationsDto in Model)
+                    {
+                    <tr>
+                        <td> @(++count) </td>
+                        <td>@PendingApplicationsDto.Names </td>
+                        <td>@PendingApplicationsDto.Jamaat </td>
+                        <td> @PendingApplicationsDto.AuxiliaryBody </td>
+                        <td> @PendingApplicationsDto.GuardianFullName </td>
+                        <td> @PendingApplicationsDto.NameOfSchool </td>
+                        <td> @PendingApplicationsDto.Status </td>
+                        <td>@PendingApplicationsDto.Discipline </td>
+                        <td> @PendingApplicationsDto.AcademicLevel </td>
+                        <td>@PendingApplicationsDto.AmountRequested </td>
+                        <td>
+                            <a asp-action="PendingStudentsDetail" asp-route-id="@PendingApplicationsDto.ApplicationId" class="btn btn-primary">
+                                Details
+                            </a>
+                        </td>
+                        <td>
+                            <a asp-action="StudentPaymentHistory" asp-route-id="@PendingApplicationsDto.StudentId" class="btn btn-success">
+                                HIstory
+                            </a>
+                        </td>
+
+
+                        @if (User != null && !User.IsInRole("Accounts") && !User.IsInRole("Amir") && !User.IsInRole("NaibAmir") && !User.IsInRole("Committee") && !User.IsInRole("Circuit")&& !User.IsInRole("Admin"))
+                        {
+                            <td>
+                                <a asp-action="ActionRoom" asp-route-id="@PendingApplicationsDto.ApplicationId" class="btn btn-warning">
+                                    Action
+                                </a>
+                            </td>
+                        }
+                        @if (User != null && User.IsInRole("Accounts"))
+                        {
+                            <td>
+                                <a asp-controller="Account" asp-action="MakePayment" asp-route-id="@PendingApplicationsDto.ApplicationId" class="btn btn-primary">PAY</a>
+                            </td>
+                        }
+                        @if (User != null && User.IsInRole("Circuit"))
+                        {
+                            <td>
+                                <a asp-action="CircuitActionRoom" asp-route-id="@PendingApplicationsDto.ApplicationId" class="btn btn-primary">Action</a>
+                            </td>
+                        }
+                        @if (User != null && (User.IsInRole("Amir") || User.IsInRole("NaibAmir") || User.IsInRole("Committee")|| User.IsInRole("Admin")))
+
+                        {
+                            
+                            if (PendingApplicationsDto.Status == ApprovalStatus.Approved)
+                            {
+                 
+                                <td>
+                                    <a asp-action="ResetActionRoom" asp-route-id="@PendingApplicationsDto.ApplicationId" class="btn btn-danger">
+                                        Reset
+                                    </a>
+                                </td>
+                            }
+                            else
+                            {
+                                <td>
+                                    <a asp-action="GeneralActionRoom" asp-route-id="@PendingApplicationsDto.ApplicationId" class="btn btn-danger">
+                                        Action
+                                    </a>
+                                </td>
+                            }
+
+
+                        }
+
+                        @*<td>
+            <a asp-action="DeclineApprovalStatus" asp-route-id="@PendingApplicationsDto.ApplicationId" class="btn btn- btn-danger">
+                Decline
+            </a>
+        </td>*@
+
+
+
+                    </tr>
+                    }
+                </tbody>
+            </table>
+        }
+
+    </div>
+</div>
+

@@ -27,7 +27,6 @@ namespace ScholarshipManagement.Data.Services
         public async Task<ApplicationResponseModel> GetApplication(int id)
         {
             var filterBeneficiary = await _applicationRepository.Query()
-                 //var dddd = _applicationRepository.Query().SingleOrDefaultAsync(u => u.Id == id)
                  .Include(d => d.Student)
                  .SingleOrDefaultAsync(s => s.Id == id);
 
@@ -55,7 +54,7 @@ namespace ScholarshipManagement.Data.Services
             };
 
         }
-        //Populate Table-Payment
+        //Update Application Status from Approved to Disbursed and Add it to Table-Payment.The record exist in both tables as Disbursed.But will soon be moved to "closed" in Application Table.
         public async Task<BaseResponse> CreatePaymentByApprovedApplicationAsync(ApplicationDto model, int id,int currentUserId)
         {
             var application = await _applicationRepository.GetAsync(id);
@@ -69,7 +68,7 @@ namespace ScholarshipManagement.Data.Services
                 throw new ConflictException ("This Approval has already been Paid");
             }
 
-            if (application.Status == ApprovalStatus.Accounts && user.UserType == UserType.Accounts)
+            if (application.Status == ApprovalStatus.Approved && user.UserType == UserType.Accounts)
             {
                 application.Status = ApprovalStatus.Disbursed;
                 await _applicationRepository.UpdateAsync(application);
@@ -97,92 +96,6 @@ namespace ScholarshipManagement.Data.Services
                  Message = "Role successfully created"
              };
         }
-        public async Task<BaseResponse> CreatePaymentAsync(CreatePaymentRequestModel model)
-        {
-
-            //var paymentExists = await _paymentRepository.ExistsAsync(u => u.AcademicLeve == model.AcademicLevel || u.ApplicationFormId == model.ApplicationFormId);
-            //if (paymentExists)
-            {
-                throw new BadRequestException($"Candidate with this Id {model.ApplicationId}No has already been paid at his {model.AcademicLevel} Level");
-
-            }
-            var payment = new Payment
-            {
-               /* AmountApprovedAndGranted = model.AmountApprovedAndGranted,
-                BankName = model.BankName,
-                BankAccountNumber = model.BankAccount,
-                ApprovedBy = model.ApprovedBy,
-                ConfirmPayment = model.ConfirmPayment,
-                DateApproved = DateTime.Today,
-                DatePaid = model.DatePaid,
-                ProofOfChandaPmt = model.ProofOfChandaPmt,*/
-            };
-
-            await _paymentRepository.AddAsync(payment);
-            await _paymentRepository.SaveChangesAsync();
-
-            return new BaseResponse
-            {
-                Status = true,
-                Message = "Role successfully created"
-            };
-
-        }
-
-        public async Task<BaseResponse> UpdatePaymentAsync(int id, UpdatePaymentRequestModel model)
-        {
-            //var paymentExists = await _paymentRepository.ExistsAsync(u => u.AcademicLeve == model.AcademicLeve && u.ApplicationFormId == model.ApplicationFormId);
-            //if (paymentExists)
-            {
-                throw new BadRequestException($"Payment with MemberCode '{model.ApplicationId}' already exists.");
-            }
-            var payment = await _paymentRepository.GetAsync(id);
-            if (payment == null)
-            {
-                throw new NotFoundException("Role does not exist");
-            }
-
-           /* payment.AmountApprovedAndGranted = model.AmountApprovedAndGranted;
-            payment.BankName = model.BankName;
-            payment.BankAccountNumber = model.BankAccount;
-            payment.ApprovedBy = model.ApprovedBy;
-            payment.ConfirmPayment = model.ConfirmPayment;
-            payment.DateApproved = DateTime.Today;
-            payment.DatePaid = model.DatePaid;
-            payment.ProofOfChandaPmt = model.ProofOfChandaPmt;*/
-
-            await _paymentRepository.UpdateAsync(payment);
-            await _paymentRepository.SaveChangesAsync();
-
-            return new BaseResponse
-            {
-                Status = true,
-                Message = "Role successfully updated"
-            };
-        }
-        public async Task<PaymentsResponseModel> GetPaymentss()
-        {   
-                var payment = await _paymentRepository.Query().Select(r => new PaymentDto
-                {
-/*
-                    AmountApprovedAndGranted = r.AmountApprovedAndGranted,
-                    BankName = r.BankName,
-                    BankAccountNumber = r.BankAccountNumber,
-                    ApprovedBy = r.ApprovedBy,
-                    ConfirmPayment = r.ConfirmPayment,
-                    DateApproved = DateTime.Today,
-                    DatePaid = r.DatePaid,
-                    ProofOfChandaPmt = r.ProofOfChandaPmt,*/
-
-                }).ToListAsync();
-                return new PaymentsResponseModel
-
-                {
-                    Data = payment,
-                    Status = true,
-                    Message = "Successful"
-                };
-        }
             
         public async Task<PaymentResponseModel> GetPayment(int id)
         {
@@ -191,48 +104,32 @@ namespace ScholarshipManagement.Data.Services
                 {
                     throw new NotFoundException("Applicant does not exist");
                 }
-                return new PaymentResponseModel
+                
+                
+                //Data = new PaymentDto
+                PaymentDto pay = new PaymentDto
                 {
-                    Data = new PaymentDto
-                    {
 
-                      /*  AmountApprovedAndGranted = payment.AmountApprovedAndGranted,
-                        BankName = payment.BankName,
-                        BankAccountNumber = payment.BankAccountNumber,
-                        ApprovedBy = payment.ApprovedBy,
-                        ConfirmPayment = payment.ConfirmPayment,
-                        DateApproved = DateTime.Today,
-                        DatePaid = payment.DatePaid,
-                        ProofOfChandaPmt = payment.ProofOfChandaPmt,*/
-                    },
-
-
-                    Status = true,
-                    Message = "Successful"
+                    /*  AmountApprovedAndGranted = payment.AmountApprovedAndGranted,
+                      BankName = payment.BankName,
+                      BankAccountNumber = payment.BankAccountNumber,
+                      ApprovedBy = payment.ApprovedBy,
+                      ConfirmPayment = payment.ConfirmPayment,
+                      DateApproved = DateTime.Today,
+                      DatePaid = payment.DatePaid,
+                      ProofOfChandaPmt = payment.ProofOfChandaPmt,*/
                 };
+                       
+            return new PaymentResponseModel
+            {
+                Data = pay,
+                Status = true,
+                Message = "Successful"
+            };
+
+
         }
-        /*public async Task<IList<PaymentDto>> GetStudentPaymentsAsync(int studentId)
-        {
-            
-            return await DbContext
-                 .Include(uc => uc.ApplicationForm)
-                 .ThenInclude(s => s.Student)
-                 .Where(s => s.ApplicationForm.StudentId == studentId)
-                 .Select(uc => new PaymentDto
-                 {
-                     *//*AmountRecommended = uc.AmountRecommended,
-                     ApplicationFormId = uc.ApplicationFormId,
-                     ApplicationFormNumber = uc.ApplicationForm.Id,
-                     AmountApprovedAndGranted = uc.AmountApprovedAndGranted,
-                     memberCode = uc.ApplicationForm.Student.User.MemberCode,
-                     ApprovedBy = uc.ApprovedBy,
-                     DateApproved = uc.DateApproved,
-                     DatePaid = uc.DatePaid,
-                     FirstName = uc.ApplicationForm.Student.FirstName*//*
-
-
-                 }).ToListAsync();
-        }*/
+       
         public async Task<List<PaymentDto>> GetPayments()
         {
             var paymentQuery = _paymentRepository.Query()
@@ -251,7 +148,7 @@ namespace ScholarshipManagement.Data.Services
                     ApplicationId = List.Id,
                     NameOfSchool = List.Application.NameOfSchool,
                     Discipline = List.Application.Discipline,
-                    AcademicLevel = List.Application.AcademicLevel,
+                    AcademicLevel = List.Application.AcademicLevel,                   
                     SchoolSession = List.Application.SchoolSession,
                     Jamaat = List.Application.Student.Jamaat.JamaatName,
                     Circuit = List.Application.Student.Jamaat.Circuit.CircuitName,

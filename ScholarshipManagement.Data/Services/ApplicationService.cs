@@ -19,12 +19,14 @@ namespace ScholarshipManagement.Data.Services
         private readonly IApplicationRepository _applicationRepository;
         private readonly IUserRepository _userRepository;
         private readonly IStudentRepository _studentRepository;
-        public ApplicationService(SchoolDbContext context, IApplicationRepository applicationRepository, IUserRepository userRepository, IStudentRepository studentRepository)
+        private readonly IPaymentRepository _paymentRepository;
+        public ApplicationService(SchoolDbContext context, IApplicationRepository applicationRepository, IUserRepository userRepository, IStudentRepository studentRepository,IPaymentRepository paymentRepository)
         {
             DbContext = context;
             _applicationRepository = applicationRepository;
             _userRepository = userRepository;
             _studentRepository = studentRepository;
+            _paymentRepository = paymentRepository;
         }
         //Apply for Scholarship-Returning Student
         public async Task<BaseResponse> CreateApplicationAsync(CreateApplicationRequestModel model, string email)
@@ -164,7 +166,8 @@ namespace ScholarshipManagement.Data.Services
             {
                 List<PendingApplicationsDto> pendingApplicationsList = new List<PendingApplicationsDto>();
                 foreach (var application in applications)
-                {
+                    //for (int i = 0; i < applications.Length; i++)
+                    {
                     var pendingApplication = new PendingApplicationsDto
                     {
                         Id = application.UserId,
@@ -185,6 +188,7 @@ namespace ScholarshipManagement.Data.Services
                         BankAccountName = application.BankAccountName,
                         Remarks = application.Remarks,
                         Status = application.Status,
+                       
                     };
                     pendingApplicationsList.Add(pendingApplication);
                 }
@@ -323,51 +327,55 @@ namespace ScholarshipManagement.Data.Services
         }
         public async Task<List<PendingApplicationsDto>> StudentPaymentHistory(int id)
         {
-            var StatusQuary = _applicationRepository.Query()
-                .Include(s => s.Student)
+            var StatusQuary = _paymentRepository.Query()
+                .Include(a => a.Application)
+                .ThenInclude(s => s.Student)
                 .ThenInclude(j => j.Jamaat)
                 .ThenInclude(c => c.Circuit)
                 .Where(p => p.StudentId == id)
                 .Where(r => r.Status == ApprovalStatus.Disbursed);
 
 
-            var applicationStatus = await StatusQuary.ToListAsync();
-            List<PendingApplicationsDto> studentStatusList = new List<PendingApplicationsDto>();
-            foreach (var application in applicationStatus)
+            var studentDisbursed = await StatusQuary.ToListAsync();
+            List<PendingApplicationsDto> studentDisbursedList = new List<PendingApplicationsDto>();
+            foreach (var studentBenefactor in studentDisbursed)
             {
-                if (applicationStatus == null)
+                if (studentDisbursed == null)
                 {
                     throw new NotFoundException("No Payment History");
                 }
                 else
                 {
-                    var studentStatus = new PendingApplicationsDto
+                    var studentBeneficiary = new PendingApplicationsDto
                     {
-                        Id = application.UserId,
-                        ApplicationId = application.Id,
-                        StudentId = application.StudentId,
-                        Names = $"{application.Student.SurName}, {application.Student.FirstName }  {application.Student.OtherName}",
-                        AuxiliaryBody = application.Student.AuxiliaryBody,
-                        CircuitName = application.Student.Jamaat.Circuit.CircuitName,
-                        Jamaat = application.Student.Jamaat.JamaatName,
-                        NameOfSchool = application.NameOfSchool,
-                        Discipline = application.Discipline,
-                        AcademicLevel = application.AcademicLevel,
-                        SchoolSession = application.SchoolSession,
-                        AmountRequested = application.AmountRequested,
-                        AmountGranted = application.AmountRecommended,
-                        GuardianFullName = application.Student.GuardianFullName,
-                        GuardianPhoneNumber = application.Student.GuardianPhoneNumber,
-                        Remarks = application.Remarks,
-                        Status = application.Status,
-                        BankAccountName = application.BankAccountName
+                        Id = studentBenefactor.Application.UserId,
+                        ApplicationId = studentBenefactor.Id,
+                        StudentId = studentBenefactor.StudentId,
+                        //Names = $"{studentBenefactor.Application.Student.SurName}, {studentBenefactor.Application.Student.FirstName }  {studentBenefactor.Application.Student.OtherName}",
+                        AuxiliaryBody = studentBenefactor.Application.Student.AuxiliaryBody,
+                        CircuitName = studentBenefactor.Application.Student.Jamaat.Circuit.CircuitName,
+                        Jamaat = studentBenefactor.Application.Student.Jamaat.JamaatName,
+                        NameOfSchool = studentBenefactor.Application.NameOfSchool,
+                        Discipline = studentBenefactor.Application.Discipline,
+                        AcademicLevel = studentBenefactor.Application.AcademicLevel,
+                        SchoolSession = studentBenefactor.Application.SchoolSession,
+                        AmountRequested = studentBenefactor.Application.AmountRequested,
+                        //AmountGranted = studentBenefactor.Application.AmountRecommended,
+                        GuardianFullName = studentBenefactor.Application.Student.GuardianFullName,
+                        GuardianPhoneNumber = studentBenefactor.Application.Student.GuardianPhoneNumber,
+                        Remarks = studentBenefactor.Application.Remarks,
+                        Status = studentBenefactor.Status,
+                        BankAccountName = studentBenefactor.BankAccountName,
+                        Names = studentBenefactor.StudentNames,                        
+                        AmountGranted = studentBenefactor.AmountApproved,
+                        DateDisbursed = studentBenefactor.DatePaid
                     };
-                    studentStatusList.Add(studentStatus);
+                    studentDisbursedList.Add(studentBeneficiary);
                     
 
                 }
             }
-            return (studentStatusList);
+            return (studentDisbursedList);
         }
 
         //View Pending Application To Edit
@@ -623,13 +631,14 @@ namespace ScholarshipManagement.Data.Services
                 await _applicationRepository.SaveChangesAsync();
 
             }
+            else
             if (!(application.Status == ApprovalStatus.Committee) && user.UserType == UserType.Committee)
             {
                 application.Status = ApprovalStatus.Committee;
                 await _applicationRepository.UpdateAsync(application);
                 await _applicationRepository.SaveChangesAsync();
-
             }
+            else
             if (application.Status == ApprovalStatus.Amir || application.Status == ApprovalStatus.Declined && user.UserType == UserType.NaibAmir)
             {
                 application.Status = ApprovalStatus.NaibAmir;
@@ -637,6 +646,7 @@ namespace ScholarshipManagement.Data.Services
                 await _applicationRepository.SaveChangesAsync();
 
             }
+            else
             if (application.Status == ApprovalStatus.Approved || application.Status == ApprovalStatus.Declined && user.UserType == UserType.Amir)
             {
                 application.Status = ApprovalStatus.Amir;

@@ -227,21 +227,20 @@ namespace ScholarshipManagement.Data.Services
        
         public async void DeleteUser(int id)
         {
-            //Task<User> user = _userRepository.GetAsync(id);
+           
             var user = await _userRepository.GetAsync(id);
-           /* UserDto r = new UserDto
-            {
-                UserFullName = user.UserFullName,
-                Email = user.Email,
-                PhoneNumber = user.PhoneNumber,
-                MemberCode = user.MemberCode,
-                UserType = user.UserType,
+            //User userD = new User
+             /*{
+                  user.UserFullName;
+                  user.Email;
+                 user.PhoneNumber = user.PhoneNumber;
+                 user.MemberCode = user.MemberCode;
+                 user.UserType = user.UserType;
+             };*/
+                  _dbContext.Remove(user);
 
-            };*/
-                //await _userRepository.DeleteAsync(id);
-                    _dbContext.Users.Remove(user);
-            await _userRepository.SaveChangesAsync();
+                //await _userRepository.DeleteAsync(user);   
+                await _userRepository.SaveChangesAsync();          
         }
-
     }
 }

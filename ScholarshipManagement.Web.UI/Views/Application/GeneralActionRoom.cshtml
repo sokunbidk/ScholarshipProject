@@ -1,0 +1,68 @@
+﻿@model ScholarshipManagement.Data.DTOs.ApplicationDto
+@using Microsoft.AspNetCore.Routing
+@{
+    ViewData["Title"] = "Action Room";
+    var id = Context.GetRouteValue("id");
+}
+
+<div class="row justify-content-center mt-5">
+
+    <div class="col-md-7">
+        <div class="card">
+            <div class="card-header">
+                <h4 class="text-center">@ViewData["Title"]</h4>
+            </div>
+            <div class="card card-body">
+
+                <a class="text-primary  text-lg-right font-weight-bold" asp-action="List"><= Back</a>
+
+                <div class="form-group col-lg-1">
+                    <input type="text" id="NoS" asp-for="ApplicationId" hidden class="form-control" />  @*Caution! Do Not Remove*@
+                </div>
+
+                <div class="form-row">
+                    <div class="form-group col-lg-4 ">
+                        <a asp-action="UpdateApprovalStatus" asp-route-id="@id" hidden class="btn btn-success">
+                            Approve
+                        </a>
+                    </div>
+                    <div class="form-group col-lg-4 ">
+                        <a asp-action="DeclineApprovalStatus" asp-route-id="@id" class="btn btn-danger">
+                            Reject
+                        </a>
+                    </div>
+                    <div class="form-group col-lg-4 ">
+                        <a asp-action="ResetAction" asp-route-id="@id" class="btn btn-warning">
+                            Reset
+                        </a>
+                    </div>
+                </div>
+
+
+                <form method="POST" asp-action="GeneralActionRoom" asp-route-id="@id">
+                    <div class=" form-row">
+                        <div class="form-group col-lg-6">
+                            <label class="formlabel" asp-for="AmountRecommended">Amount Recommended</label>
+                            <input type="text" asp-for="AmountRecommended" placeholder="Recommendation" class="form-control  border-danger" />
+                            <span asp-validation-for="AmountRecommended"></span>
+                        </div>
+                    </div>
+                    <div class="form-row ">
+                        <div class="form-group">
+                            <label class="formlabel" for="TextArea1">Comment</label>
+                            <textarea id="TextArea1" rows="3" asp-for="Remarks" cols="80"></textarea>
+                            <span asp-validation-for="Remarks"></span>
+                        </div>
+                    </div>
+
+                    <div class="form-row justify-content-center">
+                        <input type="submit" id="submitbtn" class="btn btn-success text-white formlabel" value="Approve and Save" />
+                    </div>
+
+                </form>
+            </div>
+        </div>
+    </div>
+
+</div>
+

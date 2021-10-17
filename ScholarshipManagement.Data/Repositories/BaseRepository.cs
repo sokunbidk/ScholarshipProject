@@ -69,6 +69,7 @@ namespace ScholarshipManagement.Data.Repositories
             DbContext.Entry(entity).State = EntityState.Deleted;
             return Task.CompletedTask;
         }
+     
         public Task DeleteAsync(T entity)
         {
             DbContext.Entry(entity).State = EntityState.Deleted;

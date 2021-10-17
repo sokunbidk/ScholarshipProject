@@ -48,6 +48,7 @@ namespace ScholarshipManagement.Data.DTOs
 
         public string LastSchoolResult { get; set; }
         public string Remarks { get; set; }
-        public DateTime DateApproved { get; set; }   //Date Approved by Amir
+        public DateTime DateApproved { get; set; } 
+       
     }
 }

@@ -81,6 +81,7 @@ namespace ScholarshipManagement.Data.Services
                 .ThenInclude(c => c.Circuit)
                 .Include(u => u.User)
                 .SingleOrDefaultAsync(s => s.EmailAddress == email);
+            
 
 
             if (student == null)

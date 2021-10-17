@@ -29,7 +29,7 @@ namespace ScholarshipManagement.Data.Repositories
 
         public List<Jamaat> GetAllJamaats()
         {
-            return DbContext.Jamaats.OrderBy(c => c.JamaatName).ToList();
+            return DbContext.Jamaats.Include(p => p.Circuit).OrderBy(c => c.JamaatName).ToList();
 
         }
 

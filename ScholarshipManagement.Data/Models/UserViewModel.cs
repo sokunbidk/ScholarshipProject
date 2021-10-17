@@ -54,8 +54,7 @@ namespace ScholarshipManagement.Data
 
     public class LoginUserRequestModel
     {
-        [Display(Name = "User Full Name")]
-        public string UserFullName { get; set; }
+       
 
         [Display(Name = "Email Address")]
         public string Email { get; set; }
@@ -63,16 +62,7 @@ namespace ScholarshipManagement.Data
         [Display(Name = "Password")]
         public string Password { get; set; }
 
-
-        [Display(Name = "Phone Number")]
-        public string PhoneNumber { get; set; }
-
-        [Display(Name = "Member Code")]
-        public string MemberCode { get; set; }
-
-        [Display(Name = "User Type")]
-        public UserType UserType { get; set; }
-
+       
     }
 
     public class UpdateUserRequestModel

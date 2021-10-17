@@ -1,4 +1,5 @@
-﻿using Microsoft.AspNetCore.Hosting;
+﻿using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Rendering;
 using ScholarshipManagement.Data;
@@ -16,7 +17,7 @@ using System.Threading.Tasks;
 
 namespace ScholarshipManagement.Web.UI.Controllers
 {
-    
+    [Authorize]
     public class ApplicationController : Controller
     {
         private readonly IApplicationService _applicationService;
@@ -177,58 +178,75 @@ namespace ScholarshipManagement.Web.UI.Controllers
             return View();
         }
         //Pending Applications
-        public async Task<IActionResult> PendingApplications()
+        public async Task<IActionResult> List([FromQuery] string status="")
         {
             try
             {
-                var currentUserId = int.Parse(User.FindFirst(ClaimTypes.NameIdentifier).Value);
+                var userRole = User.IsInRole("Admin");
 
-                var userResponseModel = await _userService.GetUser(currentUserId);
+                ApprovalStatus selectStatus = status!=""? (ApprovalStatus)Enum.Parse(typeof(ApprovalStatus), status): ApprovalStatus.Submitted;
+                    
+                //var currentUserId = int.Parse(User.FindFirst(ClaimTypes.NameIdentifier).Value);
 
-                var userDto = userResponseModel.Data;
+                //var userResponseModel = await _userService.GetUser(currentUserId);
+
+                //var userDto = userResponseModel.Data;
 
 
-                List<ApprovalStatus> status = new List<ApprovalStatus>() { ApprovalStatus.Submitted };
-                var isGlobal = true;
-                List<int> circuitIds = null;
-                //int circuitId = 0;
-                switch (userDto.UserType)
+                //List<ApprovalStatus> status = new List<ApprovalStatus>() { ApprovalStatus.Submitted };
+                //var isGlobal = true;
+                //List<int> circuitIds = null;
+                ////int circuitId = 0;
+                //switch (userDto.UserType)
+                //{
+                //    case UserType.Circuit:
+
+                //        status = new List<ApprovalStatus>() { ApprovalStatus.Submitted, ApprovalStatus.Committee,ApprovalStatus.Declined };
+                //        isGlobal = false;
+                //        circuitIds = new List<int>();
+                //        /*var circuit = await _userService.GetUserCircuit(userDto.Id);
+                //        if (circuit != null)
+                //        {
+                //            circuitIds.Add(circuit.Id);
+
+                //        }*/
+                //        circuitIds.Add(userDto.CircuitId);
+                //        //circuitId = userDto.CircuitId;
+
+                //        break;
+                //    case UserType.Admin:
+                //        status = new List<ApprovalStatus>() { ApprovalStatus.NaibAmir, ApprovalStatus.Amir, ApprovalStatus.Accounts, ApprovalStatus.Committee, ApprovalStatus.Submitted, ApprovalStatus.Disbursed };
+                //        break;
+                //    case UserType.Committee:
+                //        status = new List<ApprovalStatus>() { ApprovalStatus.NaibAmir, ApprovalStatus.Amir, ApprovalStatus.Accounts, ApprovalStatus.Disbursed };
+                //        break;
+                //    case UserType.NaibAmir:
+                //        status = new List<ApprovalStatus>()
+                //    {
+                //       ApprovalStatus.NaibAmir ,ApprovalStatus.Amir
+                //    };
+                //        break;
+                //    case UserType.Amir:
+                //        status = new List<ApprovalStatus>() { ApprovalStatus.Amir, ApprovalStatus.Accounts, ApprovalStatus.Approved };
+                //        break;
+                //    case UserType.Accounts:
+                //        status = new List<ApprovalStatus>() { ApprovalStatus.Accounts, ApprovalStatus.Disbursed };
+                //        break;
+                //}
+
+                var authorizedStatuses = await getAuthorizedStatuses();
+                ViewData["statuses"] = authorizedStatuses.Item1;
+                var pendingApplications = new List<PendingApplicationsDto>();
+                if (status != "")
                 {
-                    case UserType.Circuit:
+                    pendingApplications = await _applicationService.PendingApplicationsByStatus(new List<ApprovalStatus> { selectStatus}, authorizedStatuses.Item3, authorizedStatuses.Item2, authorizedStatuses.Item4);
 
-                        status = new List<ApprovalStatus>() { ApprovalStatus.Submitted, ApprovalStatus.Committee,ApprovalStatus.Declined };
-                        isGlobal = false;
-                        circuitIds = new List<int>();
-                        /*var circuit = await _userService.GetUserCircuit(userDto.Id);
-                        if (circuit != null)
-                        {
-                            circuitIds.Add(circuit.Id);
-
-                        }*/
-                        circuitIds.Add(userDto.CircuitId);
-                        //circuitId = userDto.CircuitId;
-
-                        break;
-                    case UserType.Admin:
-                        status = new List<ApprovalStatus>() { ApprovalStatus.NaibAmir, ApprovalStatus.Amir, ApprovalStatus.Accounts, ApprovalStatus.Committee, ApprovalStatus.Submitted, ApprovalStatus.Disbursed };
-                        break;
-                    case UserType.Committee:
-                        status = new List<ApprovalStatus>() { ApprovalStatus.NaibAmir, ApprovalStatus.Amir, ApprovalStatus.Accounts, ApprovalStatus.Disbursed };
-                        break;
-                    case UserType.NaibAmir:
-                        status = new List<ApprovalStatus>()
-                    {
-                       ApprovalStatus.NaibAmir ,ApprovalStatus.Amir
-                    };
-                        break;
-                    case UserType.Amir:
-                        status = new List<ApprovalStatus>() { ApprovalStatus.Amir, ApprovalStatus.Accounts, ApprovalStatus.Approved };
-                        break;
-                    case UserType.Accounts:
-                        status = new List<ApprovalStatus>() { ApprovalStatus.Accounts, ApprovalStatus.Disbursed };
-                        break;
                 }
-                var pendingApplications = await _applicationService.PendingApplicationsByStatus(status, isGlobal, circuitIds, userDto.Id);
+                else
+                {
+                    pendingApplications = await _applicationService.PendingApplicationsByStatus(authorizedStatuses.Item1, authorizedStatuses.Item3, authorizedStatuses.Item2, authorizedStatuses.Item4);
+
+                }
 
                 return View(pendingApplications);
             }
@@ -249,7 +267,7 @@ namespace ScholarshipManagement.Web.UI.Controllers
 
                 var status  =  _applicationService.UpdateApprovalStatus(id, currentUserId);
                 ViewBag.Message = status.Exception;
-                return RedirectToAction("PendingApplications");
+                return RedirectToAction("List");
                 
             }
             
@@ -258,7 +276,8 @@ namespace ScholarshipManagement.Web.UI.Controllers
                 ViewBag.Message = e.Message;
 
                 //return View();
-                return RedirectToAction("PendingApplications");
+                return RedirectToAction("List");
+               
             }
   
         }
@@ -270,7 +289,7 @@ namespace ScholarshipManagement.Web.UI.Controllers
             {
                
                 _applicationService.DeclineApprovalStatus(id);
-                 return RedirectToAction("PendingApplications");
+                 return RedirectToAction("List");
                
             }
             catch(Exception e)
@@ -283,13 +302,14 @@ namespace ScholarshipManagement.Web.UI.Controllers
 
 
         }
-        public  IActionResult ResetAction(int id)
+       
+        public  IActionResult ResetAction([FromRoute] int id)
         {
             var currentUserId = int.Parse(User.FindFirst(ClaimTypes.NameIdentifier).Value);
 
             _applicationService.ResetAction(id , currentUserId);
 
-            return RedirectToAction("PendingApplications");
+            return RedirectToAction("List");
         }
         [HttpGet]
         public async Task<IActionResult> PendingApplicationsDetail(int id)
@@ -353,7 +373,7 @@ namespace ScholarshipManagement.Web.UI.Controllers
             
         }
         [HttpGet]
-        public async Task<IActionResult> ActionRoom(int id)
+        public async Task<IActionResult> CircuitActionRoom(int id)
         {
 
             ApplicationResponseModel response = await _applicationService.Recommendation(id);
@@ -363,7 +383,7 @@ namespace ScholarshipManagement.Web.UI.Controllers
         }
         
         [HttpPost]
-        public async Task<IActionResult> ActionRoom(int id, UpdateApplicationRequestModel model)
+        public async Task<IActionResult> CircuitActionRoom(int id, UpdateApplicationRequestModel model)
         {
             try
             {
@@ -372,7 +392,7 @@ namespace ScholarshipManagement.Web.UI.Controllers
                 var currentUserId = int.Parse(User.FindFirst(ClaimTypes.NameIdentifier).Value);
                 await _applicationService.UpdateApprovalStatus(id, currentUserId);
 
-                return RedirectToAction("PendingApplications");
+                return RedirectToAction("List");
                 /*ViewBag.Message = Remarks.Message;
                 return View();*/
             }
@@ -383,5 +403,139 @@ namespace ScholarshipManagement.Web.UI.Controllers
             }
         }
 
+        private async Task<Tuple<List<ApprovalStatus>,List<int>,bool,int>> getAuthorizedStatuses()
+        {
+            var currentUserId = int.Parse(User.FindFirst(ClaimTypes.NameIdentifier).Value);
+
+            var userResponseModel = await _userService.GetUser(currentUserId);
+
+            var userDto = userResponseModel.Data;
+            List<ApprovalStatus> status = new List<ApprovalStatus>() { ApprovalStatus.Submitted };
+            var isGlobal = true;
+            List<int> circuitIds = null;
+            switch (userDto.UserType)
+            {
+                case UserType.Circuit:
+
+                    status = new List<ApprovalStatus>() { ApprovalStatus.Submitted};
+                    isGlobal = false;
+                    circuitIds = new List<int>();
+                    /*var circuit = await _userService.GetUserCircuit(userDto.Id);
+                    if (circuit != null)
+                    {
+                        circuitIds.Add(circuit.Id);
+
+                    }*/
+                    circuitIds.Add(userDto.CircuitId);
+                    //circuitId = userDto.CircuitId;
+
+                    break;
+                case UserType.Admin:
+                    status = new List<ApprovalStatus>() { ApprovalStatus.NaibAmir, ApprovalStatus.Amir, ApprovalStatus.Accounts, ApprovalStatus.Committee, ApprovalStatus.Submitted, ApprovalStatus.Disbursed, ApprovalStatus.Approved};
+                    break;
+                case UserType.Committee:
+                    status = new List<ApprovalStatus>() {  ApprovalStatus.Committee};
+                    break;
+                case UserType.NaibAmir:
+                    status = new List<ApprovalStatus>()
+                    {
+                       ApprovalStatus.NaibAmir
+                    };
+                    break;
+                case UserType.Amir:
+                    status = new List<ApprovalStatus>() { ApprovalStatus.Amir};
+                    break;
+                case UserType.Accounts:
+                    status = new List<ApprovalStatus>() { ApprovalStatus.Accounts, ApprovalStatus.Disbursed, ApprovalStatus.Approved};
+                    break;
+            }
+            return new Tuple<List<ApprovalStatus>, List<int>, bool,int>(status, circuitIds, isGlobal,userDto.Id);
+
+        }
+
+
+        [HttpGet]
+        public async Task<IActionResult> StudentPaymentHistory(int id)
+        {
+            try
+            {
+
+                var applicationStatus = await _applicationService.StudentPaymentHistory(id);
+                return View(applicationStatus);
+            }
+            catch (Exception e)
+            {
+
+                ViewBag.Message = e.Message;
+            }
+            return View(ViewBag.Message);
+        }
+
+
+        [HttpGet]
+        public IActionResult GeneralUpdateApprovalStatus(int id)
+        {
+            try
+            {
+                var currentUserId = int.Parse(User.FindFirst(ClaimTypes.NameIdentifier).Value);
+
+                var status = _applicationService.UpdateApprovalStatus(id, currentUserId);
+                ViewBag.Message = status.Exception;
+                return RedirectToAction("PendingApplicationsFocus");
+
+            }
+
+            catch (Exception e)
+            {
+                ViewBag.Message = e.Message;
+
+                //return View();
+                return RedirectToAction("PendingApplicationsFocus");
+            }
+
+        }
+
+        [HttpGet]
+        public async Task<IActionResult> GeneralActionRoom(int id)
+        {
+
+            ApplicationResponseModel response = await _applicationService.Recommendation(id);
+            var ApplicationForAction = response.Data;
+
+            return View(ApplicationForAction);
+        }
+
+        [HttpGet]
+        public async Task<IActionResult> ResetActionRoom(int id)
+        {
+
+            ApplicationResponseModel response = await _applicationService.Recommendation(id);
+            var ApplicationForAction = response.Data;
+
+            return View(ApplicationForAction);
+        }
+
+        [HttpPost]
+        public async Task<IActionResult> GeneralActionRoom(int id, UpdateApplicationRequestModel model)
+        {
+            try
+            {
+                BaseResponse Remarks = await _applicationService.Recommendation(id, model);
+
+                var currentUserId = int.Parse(User.FindFirst(ClaimTypes.NameIdentifier).Value);
+                await _applicationService.UpdateApprovalStatus(id, currentUserId);
+
+
+                return RedirectToAction("List");
+                /*ViewBag.Message = Remarks.Message;
+                return View();*/
+            }
+            catch (Exception e)
+            {
+                ViewBag.Message = e.Message;
+                return View();
+            }
+        }
     }
+    
 }

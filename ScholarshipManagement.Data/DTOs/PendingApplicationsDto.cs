@@ -27,6 +27,7 @@ namespace ScholarshipManagement.Data.DTOs
         public string BankAccountName { get; set; }
         public DateTime DateDisbursed { get; set; }
         public string GuardianPhoneNumber { get; set; }
+        public bool Active { get; set; }
 
     }
 }

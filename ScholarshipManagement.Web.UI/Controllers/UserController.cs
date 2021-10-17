@@ -1,5 +1,6 @@
 ﻿using Microsoft.AspNetCore.Authentication;
 using Microsoft.AspNetCore.Authentication.Cookies;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Rendering;
@@ -8,6 +9,7 @@ using ScholarshipManagement.Data.ApplicationContext;
 using ScholarshipManagement.Data.Entities;
 using ScholarshipManagement.Data.Enums;
 using ScholarshipManagement.Data.Services;
+using ScholarshipManagement.Web.UI.Utils;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -43,13 +45,16 @@ namespace ScholarshipManagement.Web.UI.Controllers
             return View();
         }
         //Blank User input-Create User
+        [AllowAnonymous]
+        [HttpGet]
         public IActionResult Create()
         {
             List<Circuit> circuits = _circuitService.GetCircuitList();
             List<SelectListItem> listItems = new List<SelectListItem>();
             foreach (Circuit circuit in circuits)
             {
-                SelectListItem item = new SelectListItem(circuit.CircuitName, circuit.Id.ToString());
+                SelectListItem item = new SelectListItem
+                (circuit.CircuitName, circuit.Id.ToString());
                 listItems.Add(item);
             }
             ViewBag.Circuits = listItems;
@@ -58,19 +63,15 @@ namespace ScholarshipManagement.Web.UI.Controllers
             List<SelectListItem> jamaatList = new List<SelectListItem>();
             foreach (Jamaat jamaat in jamaats)
             {
-                SelectListItem item = new SelectListItem(jamaat.JamaatName, jamaat.Id.ToString());
+                SelectListItem item = new SelectListItem
+                    (jamaat.JamaatName, 
+                    (jamaat.Id).ToString());
+
                 jamaatList.Add(item);
             }
             ViewBag.Jamaats = jamaatList;
             return View();
-            /*public IEnumerable<SelectListItem> GetPresidentList()
-            {
-                return _userRepository.GetUsers().Select(u => new SelectListItem()
-                {
-                    Text = u.UserFullName,
-                    Value = u.Id.ToString()
-                });
-            }*/
+            
 
 
         }
@@ -122,9 +123,9 @@ namespace ScholarshipManagement.Web.UI.Controllers
                     //new Claim(ClaimTypes.GivenName, $"{customer.FirstName} {customer.LastName}"),
                     new Claim(ClaimTypes.NameIdentifier, user.Id.ToString()),
                     //new Claim(ClaimTypes.Email, user.Email),
+                    
                     new Claim("Email", user.Email),
-                    new Claim(ClaimTypes.Role, "Student"),
-                    new Claim(ClaimTypes.Role, "Admin"),
+                    new Claim(ClaimTypes.Role,Enumerations.GetEnumDescription(user.UserType)),
                 };
                     var claimsIdentity = new ClaimsIdentity(claims, CookieAuthenticationDefaults.AuthenticationScheme);
                     var authenticationProperties = new AuthenticationProperties();
@@ -132,38 +133,37 @@ namespace ScholarshipManagement.Web.UI.Controllers
                     await HttpContext.SignInAsync(CookieAuthenticationDefaults.AuthenticationScheme, principal, authenticationProperties);
 
                     //var currentUserType = User.FindFirst(ClaimTypes.UserData).Value;
-                    //var currentUser = User.Identity.Name;
-                    //var currentUser = User.FindFirst("Email").Value;
+                    //var currentUserName = User.Identity.Name;
+                    //var currentUserEmail = User.FindFirst("Email").Value;
                     //var currentUserId = int.Parse(User.FindFirst(ClaimTypes.NameIdentifier).Value);
                     var currentUser = principal.FindFirst("Email");
 
+                    //if (user.UserType == UserType.Admin)
+                    //{
+                    //    return RedirectToAction("AdminDashboard", "Admin");
+                    //}
+                    //if (user.UserType == UserType.NaibAmir)
+                    //{
+                    //    return RedirectToAction("Dashboard_NaibAmir", "NaibAmir");
+                    //}
+                    //if (user.UserType == UserType.Amir)
+                    //{
+                    //    return RedirectToAction("Dashboard_Amir", "Amir");
+                    //}
+                    //if (user.UserType == UserType.Accounts)
+                    //{
+                    //    return RedirectToAction("AccountDashboard", "Account");
+                    //}
 
-                    if (user.UserType == UserType.Admin)
-                    {
-                        return RedirectToAction("AdminDashboard", "Admin");
-                    }
-                    if (user.UserType == UserType.NaibAmir)
-                    {
-                        return RedirectToAction("Dashboard_NaibAmir", "NaibAmir");
-                    }
-                    if (user.UserType == UserType.Amir)
-                    {
-                        return RedirectToAction("Dashboard_Amir", "Amir");
-                    }
-                    if (user.UserType == UserType.Accounts)
-                    {
-                        return RedirectToAction("PaymentDashboard", "Payment");
-                    }
-
-                    else if (user.UserType == UserType.Committee)
-                    {
-                        return RedirectToAction("CommitteeDashboard", "Committee");
-                    }
+                    //else if (user.UserType == UserType.Committee)
+                    //{
+                    //    return RedirectToAction("CommitteeDashboard", "Committee");
+                    //}
 
 
                     if (user.UserType != UserType.Student)
                     {
-                        return RedirectToAction("SecretariatDashboard", "Secretariat");
+                        return RedirectToAction("List", "Application");
                     }
                     else
                     {

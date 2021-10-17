@@ -30,11 +30,14 @@
                                 <option selected>-- Select Jamaat --</option>
                             </select>
                             <span asp-validation-for="JamaatId"></span>
+                            @*<a asp-action="JamaatId" asp-route-id="@Model.CircuitId" asp-items="ViewBag.Jamaats">
+                                
+                            </a>*@
                         </div>
 
                         <div class="form-group col-lg-4">
-                            <label class="formlabel" asp-for="CircuitId"></label>
-                            <select asp-for="CircuitId" required class="form-control" asp-items="ViewBag.Circuits">
+                            <label class="formlabel" for="Crt">Select Circuit</label>
+                            <select id="Crt" asp-for="CircuitId" required class="form-control" asp-items="ViewBag.Circuits">
                                 <option selected>-- Select Circuit --</option>
                             </select>
                             <span asp-validation-for="CircuitId"></span>
